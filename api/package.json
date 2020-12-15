@@ -1,0 +1,29 @@
+{
+  "name": "pace-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./dist/bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run tsc",
+    "tsc": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-routemagic": "^2.0.2",
+    "sequelize": "^6.3.5",
+    "you-are-not": "^0.7.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.9",
+    "@types/express": "^4.17.9",
+    "@types/node": "^14.14.14",
+    "@types/sequelize": "^4.28.9",
+    "typescript": "^4.1.3"
+  }
+}
