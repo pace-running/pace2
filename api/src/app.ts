@@ -16,6 +16,7 @@ app.use(cors({
 app.set('views', join(__dirname, 'views'));
 
 app.use(express.json())
+app.use(cors())
 
 magic.use(app);
 

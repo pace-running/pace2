@@ -2,6 +2,7 @@
 
 const { Sequelize, Model, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
+const ParticipantModel = require("./participant")(sequelize,Sequelize.DataTypes);
 const db = {};
 
 try {
@@ -13,21 +14,11 @@ try {
     console.error('Unable to connect to the database:', error);
 }
 
-const User = sequelize.define('User', {
-    // Model attributes are defined here
-    firstName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    lastName: {
-        type: DataTypes.STRING
-        // allowNull defaults to true
-    }
-});
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-db.User = User;
+db.Participant = ParticipantModel;
 
 
 module.exports = db;
