@@ -15,7 +15,7 @@ router.get('/', function(req: express.Request, res: express.Response, next: expr
     }
 )
 
-router.post('/register', function (req: express.Request, res: express.Response, next: express.NextFunction){
+router.put('/register', function (req: express.Request, res: express.Response, next: express.NextFunction){
     return startNumber().then( (number) =>
     {
         DB.Participant.create({
