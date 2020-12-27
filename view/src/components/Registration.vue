@@ -93,7 +93,27 @@
         :rules="[v => !!v || 'Muss leider gelesen werden']"
         label="Datenschutz gelesen"
         required
-    ></v-checkbox>
+    >
+      <template v-slot:label>
+        <div>
+          Ich habe die
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <a
+                  target="_blank"
+                  href="/#/datenschutz"
+                  @click.stop
+                  v-on="on"
+              >
+                Datenschutzbestimmungen
+              </a>
+            </template>
+            Datenschutzbestimmungen in neuem Fenster geoeffnet
+          </v-tooltip>
+          gelesen
+        </div>
+      </template>
+    </v-checkbox>
 
     <v-btn
         :disabled="!valid"
