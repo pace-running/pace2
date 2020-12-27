@@ -90,15 +90,15 @@
 
     <v-checkbox
         v-model="checkbox"
-        :rules="[v => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
+        :rules="[v => !!v || 'Muss leider gelesen werden']"
+        label="Datenschutz gelesen"
         required
     ></v-checkbox>
 
     <v-btn
         :disabled="!valid"
         color="brown"
-        class="mr-4"
+        class="white--text mr-4"
         @click="register"
     >
       Registrieren
@@ -109,7 +109,22 @@
         v-model="registrationSuccessful">
       <v-card>
         <v-card-title>Registrierung erfolgreich</v-card-title>
-        <v-card-text>Deine Startnummer: {{ registrationResult.startNumber }}</v-card-text>
+        <v-card-text>Deine Startnummer: {{ registrationResult.startNumber }}
+          {{ registrationResult.shirtModel }}
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>
+          Verwendungszweck: {{ registrationResult.paymentToken }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card-text>
+        <v-card-actions>
+        <v-btn
+          class="white--text"
+          color="brown"
+          @click="clearFields">OK</v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-container>
@@ -153,14 +168,11 @@
         return rules;
       }
     },
-    watch: {
-     shirtWanted: 'validateField'
-    },
     methods: {
       register() {
         const url = `${API_URL}/participant/register`;
         this.$refs.form.validate();
-        if (this.valid) {
+        if (this.checkbox) {
           const data = {};
           data.firstName = this.firstName;
           data.lastName = this.lastName;
@@ -182,6 +194,10 @@
       },
       validateField() {
         this.$refs.form.validate()
+      },
+      clearFields() {
+        this.$refs.form.reset();
+        this.registrationSuccessful = false;
       }
     }
   }
