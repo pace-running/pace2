@@ -28,6 +28,7 @@ router.put('/register', function (req: express.Request, res: express.Response, n
             team:         req.body.team,
             hasPayed:     false,
             startNumber:  number,
+            paymentToken: paymentToken(),
             secretToken:  crypto.randomBytes(32).toString('hex')
         }).then((result: Array<any | boolean>) => {
             console.log(result);
@@ -48,6 +49,15 @@ async function startNumber() {
             return escape(result + 1);
         }
     })
+}
+
+function paymentToken() {
+    let text = "";
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for (let i = 0; i < 5; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return 'LGR-' + text;
 }
 
 function escape(nr: number) :number {

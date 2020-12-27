@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        paymentToken: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         shirtModel: {
             type: DataTypes.STRING,
         },
