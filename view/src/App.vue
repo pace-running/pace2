@@ -13,16 +13,19 @@
     </v-main>
     <v-footer>
       <v-col>
-        <router-link
-          to="/">Lauf gegen Rechts 2021</router-link>
+        <v-btn
+            depressed
+            to="/"><span>Registrieren</span></v-btn>
       </v-col>
       <v-col>
-        <router-link
-          to="/impressum">Impressum</router-link>
+        <v-btn
+            depressed
+          to="/impressum">Impressum</v-btn>
       </v-col>
       <v-col>
-        <router-link
-          to="datenschutz">Datenschutz</router-link>
+        <v-btn
+            depressed
+          to="datenschutz">Datenschutz</v-btn>
       </v-col>
     </v-footer>
   </v-app>

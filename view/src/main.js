@@ -8,11 +8,13 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 
 import Impressum from '@/pages/impressum'
+import Datenschutz from '@/pages/datenschutz'
 import RegistrationPage from "@/pages/registration";
 
 const routes = [
   { path: '/', component: RegistrationPage},
-  { path: '/impressum', component: Impressum}
+  { path: '/datenschutz', component: Datenschutz},
+  { path: '/impressum', component: Impressum},
 ];
 const router = new VueRouter({routes})
 
