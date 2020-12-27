@@ -9,32 +9,31 @@
     </v-app-bar>
 
     <v-main>
-      <Registration/>
+      <router-view></router-view>
     </v-main>
     <v-footer>
       <v-col>
-        Lauf gegen Rechts 2021
+        <router-link
+          to="/">Lauf gegen Rechts 2021</router-link>
       </v-col>
       <v-col>
-        Impressum
+        <router-link
+          to="/impressum">Impressum</router-link>
       </v-col>
       <v-col>
-        Datenschutz
+        <router-link
+          to="datenschutz">Datenschutz</router-link>
       </v-col>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import Registration from '@/components/Registration';
-import Impressum  from "@/components/Impressum";
 
 export default {
   name: 'App',
 
   components: {
-    Registration,
-    Impressum,
   },
 
   data: () => ({
