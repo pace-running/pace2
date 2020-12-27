@@ -1,4 +1,5 @@
 .idea
 api/node_modules
 view/node_modules
+worker/node_modules
 api/dist

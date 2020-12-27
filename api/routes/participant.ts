@@ -1,7 +1,10 @@
+// @ts-ignore
 import express from 'express';
 const router = express.Router();
+// @ts-ignore
 const crypto = require('crypto');
 const _ = require('lodash');
+const taskman = require('node-taskman');
 
 const DB = require('../models/index');
 
@@ -21,6 +24,7 @@ router.put('/register', function (req: express.Request, res: express.Response, n
         DB.Participant.create({
             firstName:    req.body.firstName,
             lastName:     req.body.lastName,
+            email:        req.body.email,
             street:       req.body.street,
             streetNumber: req.body.streetnumber,
             city:         req.body.city,
@@ -31,7 +35,10 @@ router.put('/register', function (req: express.Request, res: express.Response, n
             paymentToken: paymentToken(),
             secretToken:  crypto.randomBytes(32).toString('hex')
         }).then((result: Array<any | boolean>) => {
-            console.log(result);
+            if (req.body.email.length > 0) {
+                var queue = taskman.createQueue('confirmationEmail');
+                queue.push(result);
+            }
             res.status(201);
             res.send(result);
         }).catch((err: Error) => {
