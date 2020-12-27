@@ -176,6 +176,7 @@
           const data = {};
           data.firstName = this.firstName;
           data.lastName = this.lastName;
+          data.email = this.email;
           if(this.shirtWanted) {
             data.shirtModel = this.shirtModel;
             data.shirtSize = this.shirtSize;
