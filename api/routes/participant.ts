@@ -5,16 +5,26 @@ const router = express.Router();
 const crypto = require('crypto');
 const _ = require('lodash');
 const taskman = require('node-taskman');
+const jwt = require('jsonwebtoken');
 
 const DB = require('../models/index');
 
+const secretToken = process.env.PACE_JWT_TOKEN || 'please set a token via environment'
+
 router.get('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-        DB.Participant.findAll().then((result: any) => {
-            console.log(result);
-            res.send(result)
-        }).catch((err: Error) => {
-            next(err);
-        })
+    jwt.verify(req.headers.bearer,secretToken,(err:express.Errback,user:Array<any>)=> {
+        if(user)
+            res.sendStatus(403)
+        else{
+            DB.Participant.findAll().then((result: any) => {
+                console.log(result);
+                res.send(result)
+            }).catch((err: Error) => {
+                next(err);
+            })
+        }
+    })
+
     }
 )
 
