@@ -1,7 +1,5 @@
-// @ts-ignore
-import express from 'express';
+const express = require('express');
 const router = express.Router();
-// @ts-ignore
 const crypto = require('crypto');
 const _ = require('lodash');
 const taskman = require('node-taskman');
@@ -11,15 +9,15 @@ const DB = require('../models/index');
 
 const secretToken = process.env.PACE_JWT_TOKEN || 'please set a token via environment'
 
-router.get('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-    jwt.verify(req.headers.bearer,secretToken,(err:express.Errback,user:Array<any>)=> {
+router.get('/', function(req, res, next) {
+    jwt.verify(req.headers.bearer,secretToken,(err,user)=> {
         if(user)
             res.sendStatus(403)
         else{
-            DB.Participant.findAll().then((result: any) => {
+            DB.Participant.findAll().then((result) => {
                 console.log(result);
                 res.send(result)
-            }).catch((err: Error) => {
+            }).catch((err) => {
                 next(err);
             })
         }
@@ -28,7 +26,7 @@ router.get('/', function(req: express.Request, res: express.Response, next: expr
     }
 )
 
-router.put('/register', function (req: express.Request, res: express.Response, next: express.NextFunction){
+router.put('/register', function (req, res, next){
     return startNumber().then( (number) =>
     {
         DB.Participant.create({
@@ -44,14 +42,14 @@ router.put('/register', function (req: express.Request, res: express.Response, n
             startNumber:  number,
             paymentToken: paymentToken(),
             secretToken:  crypto.randomBytes(32).toString('hex')
-        }).then((result: Array<any | boolean>) => {
+        }).then((result) => {
             if (req.body.email.length > 0) {
                 var queue = taskman.createQueue('confirmationEmail');
                 queue.push(result);
             }
             res.status(201);
             res.send(result);
-        }).catch((err: Error) => {
+        }).catch((err) => {
             next(err)
         })
     })
@@ -59,7 +57,7 @@ router.put('/register', function (req: express.Request, res: express.Response, n
 
 
 async function startNumber() {
-    return DB.Participant.max('startNumber').then( (result: number) => {
+    return DB.Participant.max('startNumber').then( (result) => {
         if (isNaN(result)) {
             return 4;
         } else {
@@ -77,7 +75,7 @@ function paymentToken() {
     return 'LGR-' + text;
 }
 
-function escape(nr: number) :number {
+function escape(nr)  {
     if(_.includes([1, 2, 3, 18, 28, 33, 45, 74, 84, 88, 444, 191, 192, 198, 420, 1312, 1717, 1887, 1910, 1919, 1933, 1488, 1681],nr)) {
         return escape(nr + 1)
     }

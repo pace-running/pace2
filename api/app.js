@@ -1,9 +1,9 @@
-import express = require('express');
+'use strict';
+const express = require('express');
 
-import {join} from 'path';
-import cors from 'cors';
+const cors = require('cors');
 const magic = require('express-routemagic');
-const app: express.Application = express();
+const app = express();
 
 
 app.use(cors({
@@ -12,8 +12,6 @@ app.use(cors({
     methods: ['Get, HEAD, PUT, PATCH, POST, DELETE'],
     preflightContinue: true
 }))
-
-app.set('views', join(__dirname, 'views'));
 
 app.use(express.json())
 app.use(cors())
