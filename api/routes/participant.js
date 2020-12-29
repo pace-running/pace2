@@ -4,44 +4,36 @@ const crypto = require('crypto');
 const _ = require('lodash');
 const taskman = require('node-taskman');
 const jwt = require('jsonwebtoken');
+const jwtAuth = require('../middleware/auth')
 
 const DB = require('../models/index');
 
-const secretToken = process.env.PACE_JWT_TOKEN || 'please set a token via environment'
 
-router.get('/', function(req, res, next) {
-    jwt.verify(req.headers.bearer,secretToken,(err,user)=> {
-        if(user)
-            res.sendStatus(403)
-        else{
-            DB.Participant.findAll().then((result) => {
+router.get('/', jwtAuth, (req, res, next) => {
+           DB.Participant.findAll().then((result) => {
                 console.log(result);
                 res.send(result)
             }).catch((err) => {
                 next(err);
             })
-        }
-    })
+        })
 
-    }
-)
 
-router.put('/register', function (req, res, next){
-    return startNumber().then( (number) =>
-    {
+router.put('/register', function (req, res, next) {
+    return startNumber().then((number) => {
         DB.Participant.create({
-            firstName:    req.body.firstName,
-            lastName:     req.body.lastName,
-            email:        req.body.email,
-            street:       req.body.street,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            street: req.body.street,
             streetNumber: req.body.streetnumber,
-            city:         req.body.city,
-            plz:          req.body.plz,
-            team:         req.body.team,
-            hasPayed:     false,
-            startNumber:  number,
+            city: req.body.city,
+            plz: req.body.plz,
+            team: req.body.team,
+            hasPayed: false,
+            startNumber: number,
             paymentToken: paymentToken(),
-            secretToken:  crypto.randomBytes(32).toString('hex')
+            secretToken: crypto.randomBytes(32).toString('hex')
         }).then((result) => {
             if (req.body.email.length > 0) {
                 var queue = taskman.createQueue('confirmationEmail');
@@ -57,7 +49,7 @@ router.put('/register', function (req, res, next){
 
 
 async function startNumber() {
-    return DB.Participant.max('startNumber').then( (result) => {
+    return DB.Participant.max('startNumber').then((result) => {
         if (isNaN(result)) {
             return 4;
         } else {
@@ -75,12 +67,12 @@ function paymentToken() {
     return 'LGR-' + text;
 }
 
-function escape(nr)  {
-    if(_.includes([1, 2, 3, 18, 28, 33, 45, 74, 84, 88, 444, 191, 192, 198, 420, 1312, 1717, 1887, 1910, 1919, 1933, 1488, 1681],nr)) {
+function escape(nr) {
+    if (_.includes([1, 2, 3, 18, 28, 33, 45, 74, 84, 88, 444, 191, 192, 198, 420, 1312, 1717, 1887, 1910, 1919, 1933, 1488, 1681], nr)) {
         return escape(nr + 1)
-    }
-    else {
+    } else {
         return nr;
     }
 }
+
 module.exports = router;

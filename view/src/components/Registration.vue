@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2>Registrierung</h2>
+    <h2>Zum Lauf anmelden</h2>
     <v-form
         ref="form"
         v-model="valid"

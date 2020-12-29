@@ -10,11 +10,13 @@ Vue.use(VueRouter)
 import Impressum from '@/pages/impressum'
 import Datenschutz from '@/pages/datenschutz'
 import RegistrationPage from "@/pages/registration";
+import Admin from "@/pages/admin";
 
 const routes = [
   { path: '/', component: RegistrationPage},
   { path: '/datenschutz', component: Datenschutz},
   { path: '/impressum', component: Impressum},
+  { path: '/admin', component: Admin},
 ];
 const router = new VueRouter({routes})
 
