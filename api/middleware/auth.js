@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-const accessTokenSecret = process.env.PACE_JWT_TOKEN || 'secret_JWT_string:w' +
-    ''
+const accessTokenSecret = process.env.PACE_JWT_TOKEN || 'secret_JWT_string';
 
 module.exports = function jwtAuth(req, res, next)  {
     const authHeader = req.headers.authorization;

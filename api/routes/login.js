@@ -8,7 +8,7 @@ const password = process.env.PACE_ADMIN_PASSWORD || 'secret'
 
 router.post('/', (req, res,next) => {
     if (req.body.password == password && req.body.username == 'admin') {
-        const user = {"username": "admin", "date": Date.now()};
+        const user = {"username": req.body.username, "role": "admin"};
         jwt.sign({user}, secretToken, (err, token) => {
             res.status('200');
             res.json({token, result: 'success'})
