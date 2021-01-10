@@ -22,8 +22,8 @@ export default {
   }),
   methods: {
     loggedIn(status) {
-      console.log(status);
-      this.validToken=true;
+      console.log("loggedin:", status);
+      this.validToken=status;
     }
   }
 };
