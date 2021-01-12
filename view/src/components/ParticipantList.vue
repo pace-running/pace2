@@ -1,29 +1,44 @@
 <template>
-  <v-container>
-    <h2>Participants</h2>
-    <v-btn @click="getParticipants">List</v-btn>
-    <v-list>
-      <v-list-item-group>
-        <v-list-item v-for="participant in participants" :key="participant.id">
-          <ParticipantListItem v-bind:participant="participant"></ParticipantListItem>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </v-container>
+  <div>
+    <v-container>
+      <h2>Participants</h2>
+      <v-btn @click="getParticipants">List</v-btn>
+          <div v-for="p in participants" :key="p.id">
+            <ParticipantListItem @openEditor=openEditor v-bind:participant="p"></ParticipantListItem>
+          </div>
+    </v-container>
+
+    <v-dialog
+        v-model="participantEditor"
+        width="500"
+    >
+      <ParticipantEditor @closeEditor=closeEditor :participant=participant></ParticipantEditor>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 import ParticipantListItem from "./ParticipantListItem";
+import ParticipantEditor from "./ParticipantEditor";
 
 const API_URL = 'http://localhost:3000';
 export default {
   name: "ParticipantList",
-  components: {ParticipantListItem},
+  components: {ParticipantEditor, ParticipantListItem},
   data: () => ({
-    participants: []
+    participants: [],
+    participant: {},
+    participantEditor: false,
   }),
   methods: {
+    closeEditor: function() {
+      this.participantEditor = false
+    },
+    openEditor: function (p) {
+      this.participant = p;
+      this.participantEditor = true
+    },
     getParticipants() {
       const url = `${API_URL}/participant/`
       const token = localStorage.pace_token

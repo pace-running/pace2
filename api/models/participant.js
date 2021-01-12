@@ -22,11 +22,14 @@ module.exports = (sequelize, DataTypes) => {
         plz: {
             type: DataTypes.STRING,
         },
+        country: {
+            type: DataTypes.STRING,
+        },
         startNumber: {
             type: DataTypes.INTEGER,
         },
         hasPayed: {
-            type: DataTypes.STRING,
+            type: DataTypes.BOOLEAN,
         },
         secretToken: {
             type: DataTypes.STRING,

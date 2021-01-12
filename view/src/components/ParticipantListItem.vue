@@ -1,25 +1,81 @@
 <template>
-  <div>
-    <v-list-item-content>
-      <v-list-item-title>
-        <v-list-item-icon>
-          <v-avatar color="indigo" size="36">
-            <span class="white--text headline">{{ participant.startNumber }}</span>
-          </v-avatar>
-        </v-list-item-icon>
-        {{ participant.firstName }}
-        {{ participant.lastName }}
-      </v-list-item-title>
-      <v-list-item-content>
-      </v-list-item-content>
-    </v-list-item-content>
-  </div>
+
+  <v-row>
+    <v-col cols="1"
+           v-on:click=openEditor
+    >
+      <v-chip color="brown"
+              class="ma-2"
+              outlined
+      >
+        {{ participant.startNumber }}
+      </v-chip>
+    </v-col>
+    <v-col cols="4"
+           v-on:click=openEditor
+    >
+      {{ participant.firstName }}
+      {{ participant.lastName }}
+    </v-col>
+    <v-col cols="3"
+           v-on:click=openEditor
+    >{{ participant.paymentToken }}
+    </v-col>
+    <v-col cols="1"
+           v-on:click=openEditor
+    >
+      <v-icon v-if="participant.shirtModel"
+              color="green"
+      >mdi-tshirt-crew-outline
+      </v-icon>
+    </v-col>
+    <v-col cols="1">
+      <v-icon
+          @click="markPayed"
+          :color=paymentColor>mdi-check-circle
+      </v-icon>
+    </v-col>
+
+  </v-row>
+
 </template>
 
 <script>
+import axios from 'axios'
+
+const API_URL = 'http://localhost:3000';
 export default {
   name: "ParticipantListItem",
-  props: {participant: Object}
+  props: {participant: Object},
+  computed: {
+    paymentColor() {
+      if (this.participant.hasPayed == true) {
+        return "green"
+      }
+      else {
+        return "red"
+      }
+    }
+  },
+  methods: {
+    openEditor() {
+      console.log('openEditor for ', this.participant.id)
+      this.$emit('openEditor', this.participant)
+    },
+    markPayed() {
+      const token = localStorage.pace_token
+      const url = `${API_URL}/participant/markPayed/${this.participant.id}`
+      const requestConfig = {
+        headers: {Authorization: `Bearer ${token}`}
+      }
+      const requestData = {"hasPayed": !this.participant.hasPayed}
+      axios.post(url, requestData,requestConfig)
+          .then(() => {
+            this.participant.hasPayed = !this.participant.hasPayed
+            console.log("payed for", this.participant.id)
+          })
+    }
+  }
 }
 </script>
 

@@ -10,14 +10,47 @@ const DB = require('../models/index');
 
 
 router.get('/', jwtAuth, (req, res, next) => {
-           DB.Participant.findAll().then((result) => {
-                console.log(result);
-                res.send(result)
-            }).catch((err) => {
-                next(err);
-            })
-        })
+    DB.Participant.findAll().then((result) => {
+        console.log(result);
+        res.send(result)
+    }).catch((err) => {
+        next(err);
+    })
+})
 
+router.put('/update/:id', jwtAuth, (req, res, next) => {
+    DB.Participant.findByPk(req.params.id)
+        .then((result) => {
+            console.log("result name:", result.firstName)
+            result.firstName = req.body.firstName;
+            result.lastName = req.body.lastName;
+            result.team = req.body.team,
+            result.email = req.body.email,
+            result.street = req.body.street,
+            result.streetNumber = req.body.streetNumber,
+            result.city = req.body.city,
+            result.plz = req.body.plz,
+            result.country = req.body.country,
+            result.shirtSize = req.body.shirtSize,
+            result.shirtModel = req.body.shirtModel,
+            result.save()
+            res.status(200)
+            res.send({"updated": result.updatedAt})
+        }).catch((err) => {
+        next(err)
+    })
+})
+
+router.post('/markPayed/:id',jwtAuth,(req,res,next) => {
+    DB.Participant.findByPk(req.params.id)
+        .then((result) =>{
+            result.hasPayed = req.body.hasPayed;
+            result.save();
+            res.send({"hasPayed": result.hasPayed});
+        }).catch((err) => {
+            next(err)
+    })
+})
 
 router.put('/register', function (req, res, next) {
     return startNumber().then((number) => {
@@ -26,10 +59,13 @@ router.put('/register', function (req, res, next) {
             lastName: req.body.lastName,
             email: req.body.email,
             street: req.body.street,
-            streetNumber: req.body.streetnumber,
+            streetNumber: req.body.streetNumber,
             city: req.body.city,
             plz: req.body.plz,
             team: req.body.team,
+            shirtSize: req.body.shirtSize,
+            shirtModel: req.body.shirtModel,
+            country: req.body.country,
             hasPayed: false,
             startNumber: number,
             paymentToken: paymentToken(),
