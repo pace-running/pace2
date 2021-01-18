@@ -63,11 +63,9 @@ export default {
       }
       axios.get(url, requestConfig)
           .then(() => {
-            console.log("loggedIn")
             this.$emit('loggedIn', true)
           })
           .catch(() => {
-            console.log("not loggedIn")
             this.$emit('loggedIn', false)
           })
     }

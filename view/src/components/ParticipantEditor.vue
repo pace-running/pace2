@@ -102,7 +102,6 @@ export default {
   }),
   methods: {
     save() {
-      console.log("saving")
       const url = `${API_URL}/participant/update/${this.participant.id}`
       const token = localStorage.pace_token
       const requestConfig = {

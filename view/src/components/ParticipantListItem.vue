@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     openEditor() {
-      console.log('openEditor for ', this.participant.id)
       this.$emit('openEditor', this.participant)
     },
     markPayed() {
@@ -72,7 +71,6 @@ export default {
       axios.post(url, requestData,requestConfig)
           .then(() => {
             this.participant.hasPayed = !this.participant.hasPayed
-            console.log("payed for", this.participant.id)
           })
     }
   }
