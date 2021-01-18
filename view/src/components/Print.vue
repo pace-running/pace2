@@ -1,6 +1,8 @@
 <template>
 <div>
-  <h1>Drucken</h1>
+  <v-toolbar flat>
+    <v-toolbar-title>Drucken</v-toolbar-title>
+  </v-toolbar>
 </div>
 </template>
 

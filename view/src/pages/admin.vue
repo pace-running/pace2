@@ -9,19 +9,18 @@
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
-            <v-list-item-content class="text-button" @click="compontentToShow = 'TShirtComponent'">Tshirts
+            <v-list-item-content class="text-button" @click="compontentToShow = 'TShirtComponent'">T-Shirts
             </v-list-item-content>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-content class="text-button" @click="compontentToShow = 'RaceComponent'">Race Status
-            </v-list-item-content>
-
-          </v-list-item>
-          <v-list-item>
+         <v-list-item>
             <v-list-item-content class="text-button" @click="compontentToShow = 'FinanceComponent'">Finanzen</v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content class="text-button" @click="compontentToShow = 'PrintComponent'">Drucken</v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content class="text-button" @click="compontentToShow = 'RaceComponent'">Einstellungen
+            </v-list-item-content>
           </v-list-item>
         </v-navigation-drawer>
       </v-container>

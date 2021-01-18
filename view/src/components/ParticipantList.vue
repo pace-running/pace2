@@ -1,7 +1,17 @@
 <template>
   <div>
+    <v-toolbar flat>
+      <v-toolbar-title>Teilnehmer:innen</v-toolbar-title>
+    </v-toolbar>
     <v-container>
-      <h2>Participants</h2>
+      <v-row>
+        <v-col cols="1" class="text-button"></v-col>
+        <v-col cols="3" class="text-button">Name</v-col>
+        <v-col cols="2" class="text-button">Verwendungszweck</v-col>
+        <v-col cols="2" class="text-button">Team</v-col>
+        <v-col cols="1" class="text-button">Shirt</v-col>
+        <v-col cols="1" class="text-button">Bezahlt</v-col>
+      </v-row>
       <div v-for="p in participants" :key="p.id">
         <ParticipantListItem @openEditor=openEditor v-bind:participant="p"></ParticipantListItem>
       </div>
@@ -35,7 +45,7 @@ export default {
   data: () => ({
     participants: [],
     currentPage: 1,
-    totalPages: 10,
+    totalPages: 1,
     participant: {},
     participantEditor: false,
   }),

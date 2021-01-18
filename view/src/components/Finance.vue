@@ -1,6 +1,8 @@
 <template>
 <div>
-  <h1>Finanzen</h1>
+  <v-toolbar flat>
+    <v-toolbar-title>Finanzen</v-toolbar-title>
+  </v-toolbar>
 </div>
 </template>
 

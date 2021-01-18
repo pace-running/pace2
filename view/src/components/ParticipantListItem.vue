@@ -1,43 +1,48 @@
 <template>
+  <div>
 
-  <v-row>
-    <v-col cols="1"
-           v-on:click=openEditor
-    >
-      <v-chip color="brown"
-              class="ma-2"
-              outlined
+    <v-row>
+      <v-col cols="1"
+             v-on:click=openEditor
       >
-        {{ participant.startNumber }}
-      </v-chip>
-    </v-col>
-    <v-col cols="4"
-           v-on:click=openEditor
-    >
-      {{ participant.firstName }}
-      {{ participant.lastName }}
-    </v-col>
-    <v-col cols="3"
-           v-on:click=openEditor
-    >{{ participant.paymentToken }}
-    </v-col>
-    <v-col cols="1"
-           v-on:click=openEditor
-    >
-      <v-icon v-if="participant.shirtModel"
-              color="green"
-      >mdi-tshirt-crew-outline
-      </v-icon>
-    </v-col>
-    <v-col cols="1">
-      <v-icon
-          @click="markPayed"
-          :color=paymentColor>mdi-check-circle
-      </v-icon>
-    </v-col>
+        <v-chip color="brown"
+                class="ma-2"
+                outlined
+        >
+          {{ participant.startNumber }}
+        </v-chip>
+      </v-col>
+      <v-col cols="3"
+             v-on:click=openEditor
+      >
+        {{ participant.firstName }}
+        {{ participant.lastName }}
+      </v-col>
+      <v-col cols="2"
+             v-on:click=openEditor
+      >{{ participant.paymentToken }}
+      </v-col>
+      <v-col cols="2"
+             v-on:click=openEditor
+      >{{ participant.team }}
+      </v-col>
+      <v-col cols="1"
+             v-on:click=openEditor
+      >
+        <v-icon v-if="participant.shirtModel"
+                color="green"
+        >mdi-tshirt-crew-outline
+        </v-icon>
+      </v-col>
+      <v-col cols="1">
+        <v-icon
+            @click="markPayed"
+            :color=paymentColor>mdi-check-circle
+        </v-icon>
+      </v-col>
 
-  </v-row>
-
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -51,8 +56,7 @@ export default {
     paymentColor() {
       if (this.participant.hasPayed == true) {
         return "green"
-      }
-      else {
+      } else {
         return "red"
       }
     }
@@ -68,7 +72,7 @@ export default {
         headers: {Authorization: `Bearer ${token}`}
       }
       const requestData = {"hasPayed": !this.participant.hasPayed}
-      axios.post(url, requestData,requestConfig)
+      axios.post(url, requestData, requestConfig)
           .then(() => {
             this.participant.hasPayed = !this.participant.hasPayed
           })

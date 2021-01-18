@@ -1,6 +1,8 @@
 <template>
 <div>
-  <h1>Race</h1>
+  <v-toolbar flat>
+    <v-toolbar-title>Einstellungen</v-toolbar-title>
+  </v-toolbar>
 </div>
 </template>
 

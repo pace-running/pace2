@@ -1,12 +1,78 @@
 <template>
-<div>
-  <h1>TSHIRTS</h1>
-</div>
+  <div>
+    <v-toolbar flat>
+      <v-toolbar-title>T-Shirts</v-toolbar-title>
+    </v-toolbar>
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title class="green">Bezahlt</v-card-title>
+          <v-card-text>
+            <div v-for="shirt in this.shirts.payed"
+                 :key="shirt.size"
+            >
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ shirt.shirtModel }}
+                    {{ shirt.shirtSize }}:
+                    {{ shirt.count }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card>
+          <v-card-title class="red">Unbezahlt</v-card-title>
+          <v-card-text>
+            <div v-for="shirt in this.shirts.unpayed"
+                 :key="shirt.size"
+            >
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ shirt.shirtModel }}
+                    {{ shirt.shirtSize }}:
+                    {{ shirt.count }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
+
+const API_URL = 'http://localhost:3000';
 export default {
-  name: "TShirts"
+  name: "TShirts",
+  data: () => ({
+    shirts: []
+  }),
+  mounted: function () {
+    this.getShirts()
+  },
+  methods: {
+    getShirts: function () {
+      const url = `${API_URL}/participant/shirts`
+      const token = localStorage.pace_token
+      const requestConfig = {
+        headers: {Authorization: `Bearer ${token}`},
+      }
+      axios.get(url, requestConfig)
+          .then((response) => {
+            this.shirts = response.data
+          })
+    }
+  }
 }
 </script>
 

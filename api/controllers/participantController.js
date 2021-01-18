@@ -40,6 +40,24 @@ exports.update = (req, res, next) => {
     })
 }
 
+exports.shirts = (req, res, next) => {
+    let payed = Participant.findAll({
+        where: {hasPayed: true},
+        group: ['shirtSize','shirtModel'],
+        attributes: ['shirtSize','shirtModel', [DB.Sequelize.fn('COUNT', 'shirtSize'), 'count']],
+    });
+    let unpayed = Participant.findAll({
+        where: {hasPayed: false},
+        group: ['shirtSize','shirtModel'],
+        attributes: ['shirtSize','shirtModel', [DB.Sequelize.fn('COUNT', 'shirtSize'), 'count']],
+    });
+    Promise.all([unpayed,payed])
+        .then(values => {
+            res.send({'unpayed':values[0], 'payed': values[1]})
+        }).catch(err => {
+            next(err)
+    })
+}
 exports.markPayed = (req, res, next) => {
     Participant.findByPk(req.params.id)
         .then((result) => {
