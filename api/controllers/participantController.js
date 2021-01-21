@@ -14,16 +14,25 @@ exports.findAll = (req, res, next) => {
     if(search) {
         whereclause =       {
             [Op.or]: [
-                { firstName: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('firstName')), 'LIKE', '%' + search + '%')},
-                { lastName: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('lastName')), 'LIKE', '%' + search + '%')},
-                { email: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('email')), 'LIKE', '%' + search + '%')},
-                { team: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('team')), 'LIKE', '%' + search + '%')},
-                { startNumber: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('startNumber')), 'LIKE', '%' + search + '%')},
-                { paymentToken: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('paymentToken')), 'LIKE', '%' + search + '%')}
+                { firstName: { [Op.substring]: search}},
+                { lastName: { [Op.substring]: search}},
+                { email: { [Op.substring]: search}},
+                { team: { [Op.substring]: search}},
+                { paymentToken: { [Op.substring]: search}},
+                DB.sequelize.where(
+                    DB.sequelize.cast(DB.sequelize.col('startNumber'), 'varchar'),
+                    {[Op.substring]: search}
+                )
             ]
         }
     }
-    Participant.findAndCountAll({where: whereclause, limit: limit, offset: offset})
+    Participant.findAndCountAll({
+        where: whereclause,
+        limit: limit,
+        offset: offset,
+        order: [
+            ['startNumber', 'ASC']]
+    })
         .then(data => {
             res.send(data)
         })

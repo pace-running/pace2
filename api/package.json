@@ -17,11 +17,13 @@
     "express-routemagic": "^2.0.2",
     "jsonwebtoken": "^8.5.1",
     "node-taskman": "^2.1.1",
+    "pg": "^8.5.1",
     "sequelize": "^6.3.5",
     "you-are-not": "^0.7.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.6",
+    "sequelize-cli": "^6.2.0",
     "sqlite3": "^5.0.0",
     "ts-node": "^9.1.1"
   }

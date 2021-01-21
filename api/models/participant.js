@@ -1,54 +1,37 @@
-'use strict'
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    const Participant = sequelize.define('Participant', {
-        firstName: {
-            type: DataTypes.STRING,
-        },
-        lastName: {
-            type: DataTypes.STRING,
-        },
-        email: {
-            type: DataTypes.STRING,
-        },
-        street: {
-            type: DataTypes.STRING,
-        },
-        streetNumber: {
-            type: DataTypes.STRING,
-        },
-        city: {
-            type: DataTypes.STRING,
-        },
-        plz: {
-            type: DataTypes.STRING,
-        },
-        country: {
-            type: DataTypes.STRING,
-        },
-        startNumber: {
-            type: DataTypes.INTEGER,
-        },
-        hasPayed: {
-            type: DataTypes.BOOLEAN,
-        },
-        secretToken: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        paymentToken: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        shirtModel: {
-            type: DataTypes.STRING,
-        },
-        shirtSize: {
-            type: DataTypes.STRING,
-        },
-        team: {
-            type: DataTypes.STRING,
-        }
-    });
-
-    return Participant;
-}
+  class Participant extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  };
+  Participant.init({
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
+    email: DataTypes.STRING,
+    street: DataTypes.STRING,
+    streetNumber: DataTypes.STRING,
+    city: DataTypes.STRING,
+    plz: DataTypes.STRING,
+    country: DataTypes.STRING,
+    startNumber: DataTypes.STRING,
+    hasPayed: DataTypes.BOOLEAN,
+    secretToken: DataTypes.STRING,
+    paymentToken: DataTypes.STRING,
+    shirtModel: DataTypes.STRING,
+    shirtSize: DataTypes.STRING,
+    team: DataTypes.STRING,
+  }, {
+    sequelize,
+    modelName: 'Participant',
+  });
+  return Participant;
+};
