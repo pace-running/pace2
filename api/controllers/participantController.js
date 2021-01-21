@@ -1,6 +1,7 @@
 const DB = require('../models/index')
 const Participant = DB.Participant
-const Op = DB.Sequelize.Op;
+// const Op = DB.Sequelize.Op;
+const { Op } = require("sequelize");
 const crypto = require('crypto');
 const _ = require('lodash');
 const taskman = require('node-taskman');
@@ -9,7 +10,20 @@ const taskman = require('node-taskman');
 exports.findAll = (req, res, next) => {
     const {page, size, search} = req.query;
     const {limit, offset} = getPagination(page, size)
-    Participant.findAndCountAll({limit, offset})
+    let whereclause = null
+    if(search) {
+        whereclause =       {
+            [Op.or]: [
+                { firstName: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('firstName')), 'LIKE', '%' + search + '%')},
+                { lastName: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('lastName')), 'LIKE', '%' + search + '%')},
+                { email: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('email')), 'LIKE', '%' + search + '%')},
+                { team: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('team')), 'LIKE', '%' + search + '%')},
+                { startNumber: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('startNumber')), 'LIKE', '%' + search + '%')},
+                { paymentToken: DB.sequelize.where(DB.sequelize.fn('LOWER', DB.sequelize.col('paymentToken')), 'LIKE', '%' + search + '%')}
+            ]
+        }
+    }
+    Participant.findAndCountAll({where: whereclause, limit: limit, offset: offset})
         .then(data => {
             res.send(data)
         })

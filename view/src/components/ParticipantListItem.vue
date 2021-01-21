@@ -1,48 +1,50 @@
 <template>
-  <div>
+  <tr>
 
-    <v-row>
-      <v-col cols="1"
-             v-on:click=openEditor
+    <td cols="1"
+        v-on:click=openEditor
+    >
+      <v-chip color="brown"
+              class="ma-2"
+              outlined
       >
-        <v-chip color="brown"
-                class="ma-2"
-                outlined
-        >
-          {{ participant.startNumber }}
-        </v-chip>
-      </v-col>
-      <v-col cols="3"
-             v-on:click=openEditor
-      >
-        {{ participant.firstName }}
-        {{ participant.lastName }}
-      </v-col>
-      <v-col cols="2"
-             v-on:click=openEditor
-      >{{ participant.paymentToken }}
-      </v-col>
-      <v-col cols="2"
-             v-on:click=openEditor
-      >{{ participant.team }}
-      </v-col>
-      <v-col cols="1"
-             v-on:click=openEditor
-      >
-        <v-icon v-if="participant.shirtModel"
-                color="green"
-        >mdi-tshirt-crew-outline
-        </v-icon>
-      </v-col>
-      <v-col cols="1">
-        <v-icon
-            @click="markPayed"
-            :color=paymentColor>mdi-check-circle
-        </v-icon>
-      </v-col>
-
-    </v-row>
-  </div>
+        {{ participant.startNumber }}
+      </v-chip>
+    </td>
+    <td cols="3"
+        v-on:click=openEditor
+    >
+      <v-row>
+        <v-col>
+          {{ participant.firstName }}
+          {{ participant.lastName }}
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          {{ participant.team }}
+        </v-col>
+      </v-row>
+    </td>
+    <td cols="2"
+        v-on:click=openEditor
+    >{{ participant.paymentToken }}
+    </td>
+    <td cols="1"
+        v-on:click=openEditor
+    >
+      <v-icon v-if="participant.shirtModel"
+              color="green"
+      >mdi-tshirt-crew-outline
+      </v-icon>
+    </td>
+    <td cols="1">
+      <v-icon
+          @click="markPayed"
+          :color=paymentColor>mdi-check-circle
+      </v-icon>
+    </td>
+  </tr>
 </template>
 
 <script>

@@ -3,26 +3,31 @@
     <v-toolbar flat>
       <v-toolbar-title>Teilnehmer:innen</v-toolbar-title>
     </v-toolbar>
-    <v-container>
-      <v-row>
-        <v-col cols="1" class="text-button"></v-col>
-        <v-col cols="3" class="text-button">Name</v-col>
-        <v-col cols="2" class="text-button">Verwendungszweck</v-col>
-        <v-col cols="2" class="text-button">Team</v-col>
-        <v-col cols="1" class="text-button">Shirt</v-col>
-        <v-col cols="1" class="text-button">Bezahlt</v-col>
-      </v-row>
-      <div v-for="p in participants" :key="p.id">
-        <ParticipantListItem @openEditor=openEditor v-bind:participant="p"></ParticipantListItem>
-      </div>
-      <v-pagination
-          v-model="currentPage"
-          :length="totalPages"
-          @input="handlePageChange"
-      >
 
-      </v-pagination>
-    </v-container>
+    <v-form @submit="searchParticipants">
+      <v-text-field clearable @click:clear="searchCleared" v-model="search" label="Suche">Suche</v-text-field>
+    </v-form>
+    <v-simple-table>
+      <thead>
+      <tr>
+        <th>Startnummer</th>
+        <th>Name/Team</th>
+        <th>Token</th>
+        <th>T-Shirt</th>
+        <th>Bezahlt</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ParticipantListItem v-for="p in participants" :key="p.id" @openEditor=openEditor
+                           v-bind:participant="p"></ParticipantListItem>
+      </tbody>
+    </v-simple-table>
+    <v-pagination
+        v-model="currentPage"
+        :length="totalPages"
+        @input="handlePageChange"
+    >
+    </v-pagination>
 
     <v-dialog
         v-model="participantEditor"
@@ -46,6 +51,7 @@ export default {
     participants: [],
     currentPage: 1,
     totalPages: 1,
+    search: '',
     participant: {},
     participantEditor: false,
   }),
@@ -55,6 +61,14 @@ export default {
   methods: {
     closeEditor: function () {
       this.participantEditor = false
+    },
+    searchCleared: function () {
+      this.search = ''
+      this.getParticipants()
+    },
+    searchParticipants: function () {
+      this.currentPage = 1
+      this.getParticipants()
     },
     openEditor: function (p) {
       this.participant = p;
@@ -69,9 +83,12 @@ export default {
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`},
-        params: {page: this.currentPage -1 }
+        params: {
+          page: this.currentPage - 1,
+          search: this.search
+        }
       }
-      axios.get(url,requestConfig)
+      axios.get(url, requestConfig)
           .then((response) => {
             this.totalPages = Math.ceil(response.data.count / 10);
             this.participants = response.data.rows
