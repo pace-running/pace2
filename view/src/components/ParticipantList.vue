@@ -88,6 +88,9 @@ export default {
           search: this.search
         }
       }
+      if(this.search != '') {
+        requestConfig.params.search = this.search
+      }
       axios.get(url, requestConfig)
           .then((response) => {
             this.totalPages = Math.ceil(response.data.count / 10);
