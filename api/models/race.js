@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Race.init({
     name: DataTypes.STRING,
+    contactEmail: DataTypes.STRING,
     isOpen: DataTypes.BOOLEAN,
     shirtsEnabled: DataTypes.BOOLEAN
   }, {
