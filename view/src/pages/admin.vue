@@ -32,7 +32,7 @@
       ></Login>
       <ParticipantList v-if="validToken && compontentToShow == 'participantList' "></ParticipantList>
       <TShirts v-if="validToken && compontentToShow == 'TShirtComponent'"></TShirts>
-      <Race v-if="validToken && compontentToShow == 'RaceComponent'"></Race>
+      <RaceEdit v-if="validToken && compontentToShow == 'RaceComponent'"></RaceEdit>
       <Finance v-if="validToken && compontentToShow == 'FinanceComponent'"></Finance>
       <Print v-if="validToken && compontentToShow == 'PrintComponent'"></Print>
 
@@ -43,13 +43,13 @@
 import Login from '@/components/Login'
 import ParticipantList from "@/components/ParticipantList";
 import TShirts from "../components/TShirts";
-import Race from "../components/Race";
 import Finance from "../components/Finance";
 import Print from "../components/Print";
+import RaceEdit from "../components/RaceEdit";
 
 export default {
   name: 'Admin',
-  components: {Login, ParticipantList, TShirts, Race, Finance, Print},
+  components: {RaceEdit, Login, ParticipantList, TShirts, Finance, Print},
   data: () => ({
     validToken: false,
     compontentToShow: "participantList"
