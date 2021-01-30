@@ -38,20 +38,69 @@
       >
         <v-card-subtitle>Nur versand, keine Abholung. 15Euro</v-card-subtitle>
         <v-card-text>
-          <v-select
-              v-model="shirtSize"
-              label="Groesse"
-              required
-              :rules="shirtRules"
-              :items=shirtSizes>
-          </v-select>
-          <v-select
-              v-model="shirtModel"
-              label="Model"
-              required
-              :rules="shirtRules"
-              :items="shirtModels">
-          </v-select>
+          <v-row>
+            <v-col>
+              <v-select
+                  v-model="shirtSize"
+                  label="Groesse"
+                  required
+                  :rules="shirtRules"
+                  :items=shirtSizes>
+              </v-select>
+              <v-select
+                  v-model="shirtModel"
+                  label="Model"
+                  required
+                  :rules="shirtRules"
+                  :items="shirtModels">
+              </v-select>
+            </v-col>
+            <v-col>
+              <v-dialog
+                  v-model="showImage">
+                <template v-slot:activator="{ on, attrs }">
+                  Shirt Vorschau/Grössentabelle:
+                  <v-img
+                      src="/shirt.png"
+                      width="200px"
+                      v-bind="attrs"
+                      v-on="on"
+                  >
+                  </v-img>
+                </template>
+                <v-card >
+                  <v-carousel show-arrows>
+                    <v-carousel-item>
+                      <v-img
+                          src="/shirt.png"
+                      ></v-img>
+                    </v-carousel-item>
+                    <v-carousel-item>
+                      <v-img
+                          src="/sizes_unisex.png"
+                      ></v-img>
+                    </v-carousel-item>
+                    <v-carousel-item>
+                      <v-img
+                          src="/sizes_tailliert.png"
+                      ></v-img>
+                    </v-carousel-item>
+                  </v-carousel>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="primary"
+                        text
+                        @click="showImage = false"
+                    >
+                      Schliessen
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-col>
+          </v-row>
+
           <h2>Lieferanschrift</h2>
           <v-row>
             <v-col cols="8">
@@ -77,13 +126,13 @@
                   :rules="shirtRules"
                   label="PLZ"></v-text-field>
             </v-col>
-          <v-col cols="10">
-          <v-text-field
-              v-model="city"
-              required
-              :rules="shirtRules"
-              label="Stadt"></v-text-field>
-          </v-col>
+            <v-col cols="10">
+              <v-text-field
+                  v-model="city"
+                  required
+                  :rules="shirtRules"
+                  label="Stadt"></v-text-field>
+            </v-col>
 
           </v-row>
           <v-text-field
@@ -187,6 +236,7 @@ export default {
     registrationSuccessful: false,
     registrationResult: '',
     loading: false,
+    showImage: false,
   }),
   computed: {
     shirtRules() {
@@ -226,7 +276,7 @@ export default {
       }
     },
     clearFields() {
-      this.loading= false;
+      this.loading = false;
       this.$refs.form.reset();
       this.registrationSuccessful = false;
     }
