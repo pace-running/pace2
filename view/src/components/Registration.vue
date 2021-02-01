@@ -28,11 +28,71 @@
           label="E-mail"
       ></v-text-field>
 
-      <v-checkbox
-          v-model="shirtWanted"
-          label="Ich will ein T-Shirt haben"
-      ></v-checkbox>
+      <v-row>
+        <v-col>
+          <v-checkbox
+              v-model="shirtWanted"
+              label="Ich will ein T-Shirt haben"
+          ></v-checkbox>
+        </v-col>
+        <v-col class="d-flex">
+          <v-dialog
+              width="340px"
+              v-model="showShirtCarousel">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  class="align-self-center"
+                  color="brown"
+                  outlined
+                  v-bind="attrs"
+                  v-on="on"
+              >Shirt Vorschau/Grössentabelle
+              </v-btn>
+            </template>
+            <v-card>
+              <v-carousel show-arrows>
+                <v-carousel-item>
+                  <v-card>
+                    <v-card-title>Shirt</v-card-title>
+                    <v-img
+                        src="/shirt.png"
+                    ></v-img>
+                  </v-card>
+                </v-carousel-item>
+                <v-carousel-item>
+                  <v-card>
+                    <v-card-title>Unisex</v-card-title>
+                    <v-img
+                        src="/sizes_unisex.png"
+                    ></v-img>
+                  </v-card>
+                </v-carousel-item>
+                <v-carousel-item>
+                  <v-card>
+                    <v-card-title>Tailliert</v-card-title>
+                    <v-img
+                        src="/sizes_tailliert.png"
+                    ></v-img>
+                  </v-card>
+                </v-carousel-item>
+              </v-carousel>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="primary"
+                    text
+                    @click="showShirtCarousel = false"
+                >
+                  Schliessen
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-col>
+      </v-row>
+
       <v-card
+          elevation="10"
           :disabled="shirtWanted == 0"
           ref="shirtCard"
       >
@@ -56,58 +116,7 @@
               </v-select>
             </v-col>
             <v-col>
-              <v-dialog
-                  width="340px"
-                  v-model="showImage">
-                <template v-slot:activator="{ on, attrs }">
-                  Shirt Vorschau/Grössentabelle:
-                  <v-img
-                      src="/shirt.png"
-                      width="200px"
-                      v-bind="attrs"
-                      v-on="on"
-                  >
-                  </v-img>
-                </template>
-                <v-card>
-                  <v-carousel show-arrows>
-                    <v-carousel-item>
-                      <v-card>
-                        <v-card-title>Shirt</v-card-title>
-                        <v-img
-                            src="/shirt.png"
-                        ></v-img>
-                      </v-card>
-                    </v-carousel-item>
-                    <v-carousel-item>
-                      <v-card>
-                        <v-card-title>Unisex</v-card-title>
-                        <v-img
-                            src="/sizes_unisex.png"
-                        ></v-img>
-                      </v-card>
-                    </v-carousel-item>
-                    <v-carousel-item>
-                      <v-card>
-                        <v-card-title>Tailliert</v-card-title>
-                        <v-img
-                            src="/sizes_tailliert.png"
-                        ></v-img>
-                      </v-card>
-                    </v-carousel-item>
-                  </v-carousel>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        color="primary"
-                        text
-                        @click="showImage = false"
-                    >
-                      Schliessen
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
+
             </v-col>
           </v-row>
 
@@ -246,7 +255,7 @@ export default {
     registrationSuccessful: false,
     registrationResult: '',
     loading: false,
-    showImage: false,
+    showShirtCarousel: false,
   }),
   computed: {
     shirtRules() {
