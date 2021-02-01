@@ -57,6 +57,7 @@
             </v-col>
             <v-col>
               <v-dialog
+                  width="340px"
                   v-model="showImage">
                 <template v-slot:activator="{ on, attrs }">
                   Shirt Vorschau/Grössentabelle:
@@ -68,22 +69,31 @@
                   >
                   </v-img>
                 </template>
-                <v-card >
+                <v-card>
                   <v-carousel show-arrows>
                     <v-carousel-item>
-                      <v-img
-                          src="/shirt.png"
-                      ></v-img>
+                      <v-card>
+                        <v-card-title>Shirt</v-card-title>
+                        <v-img
+                            src="/shirt.png"
+                        ></v-img>
+                      </v-card>
                     </v-carousel-item>
                     <v-carousel-item>
-                      <v-img
-                          src="/sizes_unisex.png"
-                      ></v-img>
+                      <v-card>
+                        <v-card-title>Unisex</v-card-title>
+                        <v-img
+                            src="/sizes_unisex.png"
+                        ></v-img>
+                      </v-card>
                     </v-carousel-item>
                     <v-carousel-item>
-                      <v-img
-                          src="/sizes_tailliert.png"
-                      ></v-img>
+                      <v-card>
+                        <v-card-title>Tailliert</v-card-title>
+                        <v-img
+                            src="/sizes_tailliert.png"
+                        ></v-img>
+                      </v-card>
                     </v-carousel-item>
                   </v-carousel>
                   <v-card-actions>
