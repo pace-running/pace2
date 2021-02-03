@@ -33,7 +33,7 @@
     <td cols="1"
         v-on:click=openEditor
     >
-      <v-icon v-if="participant.shirtModel"
+      <v-icon v-if="typeof participant.Shirt !== 'undefined' && participant.Shirt != null && participant.Shirt.model != '' && participant.Shirt.size != '' "
               color="green"
       >mdi-tshirt-crew-outline
       </v-icon>

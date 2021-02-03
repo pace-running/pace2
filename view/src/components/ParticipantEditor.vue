@@ -34,17 +34,18 @@
         <v-checkbox
             label="Shirt bestellt"
             v-model="wantsShirt"
+            @change="wantsShirtChanged"
         ></v-checkbox>
         <v-card>
           <v-card-text>
             <v-select
                 label="Groesse"
-                v-model="participant.shirtSize"
+                v-model="participant.Shirt.size"
                 :items=shirtSizes>
             </v-select>
             <v-select
                 label="Model"
-                v-model="participant.shirtModel"
+                v-model="participant.Shirt.model"
                 :items="shirtModels">
             </v-select>
             <h2>Lieferanschrift</h2>
@@ -100,18 +101,31 @@ export default {
     shirtModels: ['Tailliert', 'Unisex'],
     wantsShirt: false
   }),
+  mounted: function () {
+    if(this.participant.Shirt) {
+      this.wantsShirt = true
+    }
+    else {
+      this.participant.Shirt = {
+        "model": '',
+        "size": ''
+      }
+    }
+  },
   methods: {
+    wantsShirtChanged() {
+      if(!this.wantsShirt) {
+        this.participant.Shirt.model = '';
+        this.participant.Shirt.size= '';
+      }
+    },
     save() {
       const url = `${API_URL}/participant/update/${this.participant.id}`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`}
       }
-      if(!this.wantsShirt) {
-       this.participant.shirtSize = null;
-       this.participant.shirtModel = null;
-      }
-      const requestBody = {
+     const requestBody = {
         "firstName": this.participant.firstName,
         "lastName": this.participant.lastName,
         "team": this.participant.team,
@@ -121,16 +135,17 @@ export default {
         "plz": this.participant.plz,
         "city": this.participant.city,
         "country": this.participant.country,
-        "shirtModel": this.participant.shirtModel,
-        "shirtSize": this.participant.shirtSize
+      }
+      if (this.wantsShirt) {
+        requestBody.Shirt = {
+          "model": this.participant.Shirt.model,
+          "size": this.participant.Shirt.size
+        }
       }
       axios.put(url, requestBody,requestConfig)
           .then(() => {
             this.$emit('closeEditor')
           })
-
-
-
     }
   }
 }

@@ -279,6 +279,7 @@ export default {
         data.lastName = this.lastName;
         data.email = this.email;
         if (this.shirtWanted) {
+          data.shirtWanted = true;
           data.shirtModel = this.shirtModel;
           data.shirtSize = this.shirtSize;
           data.street = this.street;
