@@ -1,7 +1,8 @@
 const DB = require('../models/index')
 const Participant = DB.Participant
+const Shirt = DB.Shirt
 // const Op = DB.Sequelize.Op;
-const { Op } = require("sequelize");
+const {Op} = require("sequelize");
 const crypto = require('crypto');
 const _ = require('lodash');
 const taskman = require('node-taskman');
@@ -11,14 +12,14 @@ exports.findAll = (req, res, next) => {
     const {page, size, search} = req.query;
     const {limit, offset} = getPagination(page, size)
     let whereclause = null
-    if(search) {
-        whereclause =       {
+    if (search) {
+        whereclause = {
             [Op.or]: [
-                { firstName: { [Op.substring]: search}},
-                { lastName: { [Op.substring]: search}},
-                { email: { [Op.substring]: search}},
-                { team: { [Op.substring]: search}},
-                { paymentToken: { [Op.substring]: search}},
+                {firstName: {[Op.substring]: search}},
+                {lastName: {[Op.substring]: search}},
+                {email: {[Op.substring]: search}},
+                {team: {[Op.substring]: search}},
+                {paymentToken: {[Op.substring]: search}},
                 DB.sequelize.where(
                     DB.sequelize.cast(DB.sequelize.col('startNumber'), 'varchar'),
                     {[Op.substring]: search}
@@ -28,6 +29,7 @@ exports.findAll = (req, res, next) => {
     }
     Participant.findAndCountAll({
         where: whereclause,
+        include: Shirt,
         limit: limit,
         offset: offset,
         order: [
@@ -42,20 +44,8 @@ exports.findAll = (req, res, next) => {
 }
 
 exports.update = (req, res, next) => {
-    Participant.findByPk(req.params.id)
+    updateParticipant(req.body, req.params.id)
         .then((result) => {
-            result.firstName = req.body.firstName;
-            result.lastName = req.body.lastName;
-            result.team = req.body.team,
-                result.email = req.body.email,
-                result.street = req.body.street,
-                result.streetNumber = req.body.streetNumber,
-                result.city = req.body.city,
-                result.plz = req.body.plz,
-                result.country = req.body.country,
-                result.shirtSize = req.body.shirtSize,
-                result.shirtModel = req.body.shirtModel,
-                result.save()
             res.status(200)
             res.send({"updated": result.updatedAt})
         }).catch(err => {
@@ -63,22 +53,60 @@ exports.update = (req, res, next) => {
     })
 }
 
+async function updateParticipant(participant, id) {
+    const p = await Participant.findByPk(id)
+    const s = await p.getShirt();
+    p.firstName = participant.firstName;
+    p.lastName = participant.lastName;
+    p.team = participant.team;
+    p.email = participant.email;
+    p.street = participant.street;
+    p.streetNumber = participant.streetNumber;
+    p.city = participant.city;
+    p.plz = participant.plz;
+    p.country = participant.country;
+    if (participant.Shirt) {
+        console.log(s)
+        if (s != null) {
+            console.log("saving shirt")
+            s.model = participant.Shirt.model,
+            s.size = participant.Shirt.size
+            s.save();
+        } else {
+            console.log("creating shirt")
+            const s = await Shirt.create({
+                model: participant.Shirt.model,
+                size: participant.Shirt.size
+            })
+            p.setShirt(s);
+        }
+    } else {
+        if(s) {
+            console.log("deleting Shirt")
+            await s.destroy();
+        }
+    }
+    console.log("saving")
+    await p.save();
+    return p
+}
+
 exports.shirts = (req, res, next) => {
     let payed = Participant.findAll({
         where: {hasPayed: true},
-        group: ['shirtSize','shirtModel'],
-        attributes: ['shirtSize','shirtModel', [DB.Sequelize.fn('COUNT', 'shirtSize'), 'count']],
+        group: ['shirtSize', 'shirtModel'],
+        attributes: ['shirtSize', 'shirtModel', [DB.Sequelize.fn('COUNT', 'shirtSize'), 'count']],
     });
     let unpayed = Participant.findAll({
         where: {hasPayed: false},
-        group: ['shirtSize','shirtModel'],
-        attributes: ['shirtSize','shirtModel', [DB.Sequelize.fn('COUNT', 'shirtSize'), 'count']],
+        group: ['shirtSize', 'shirtModel'],
+        attributes: ['shirtSize', 'shirtModel', [DB.Sequelize.fn('COUNT', 'shirtSize'), 'count']],
     });
-    Promise.all([unpayed,payed])
+    Promise.all([unpayed, payed])
         .then(values => {
-            res.send({'unpayed':values[0], 'payed': values[1]})
+            res.send({'unpayed': values[0], 'payed': values[1]})
         }).catch(err => {
-            next(err)
+        next(err)
     })
 }
 exports.markPayed = (req, res, next) => {
@@ -93,34 +121,44 @@ exports.markPayed = (req, res, next) => {
 }
 
 exports.register = (req, res, next) => {
-    return startNumber().then((number) => {
-        Participant.create({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            street: req.body.street,
-            streetNumber: req.body.streetNumber,
-            city: req.body.city,
-            plz: req.body.plz,
-            team: req.body.team,
-            shirtSize: req.body.shirtSize,
-            shirtModel: req.body.shirtModel,
-            country: req.body.country,
-            hasPayed: false,
-            startNumber: number,
-            paymentToken: paymentToken(),
-            secretToken: crypto.randomBytes(32).toString('hex')
-        }).then((result) => {
+    createParticipant(req.body)
+        .then((result) => {
             if (req.body.email.length > 0) {
                 var queue = taskman.createQueue('confirmationEmail');
                 queue.push(result);
             }
-            res.status(201);
+           res.status(201);
             res.send(result);
         }).catch((err) => {
-            next(err)
-        })
+        next(err)
     })
+}
+
+async function createParticipant(participant) {
+    const number = await startNumber();
+    const p = await Participant.create({
+        firstName: participant.firstName,
+        lastName: participant.lastName,
+        email: participant.email,
+        street: participant.street,
+        streetNumber: participant.streetNumber,
+        city: participant.city,
+        plz: participant.plz,
+        team: participant.team,
+        country: participant.country,
+        hasPayed: false,
+        startNumber: number,
+        paymentToken: paymentToken(),
+        secretToken: crypto.randomBytes(32).toString('hex')
+    })
+    if (participant.Shirt) {
+        const s = await Shirt.create({
+            model: participant.Shirt.model,
+            size: participant.Shirt.size
+        })
+        await p.setShirt(s)
+    }
+    return p;
 }
 
 function getPagination(page, size) {

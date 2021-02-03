@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Participant.hasOne(models.Shirt, {
+        foreignKey: 'participantId',
+      })
     }
   };
   Participant.init({
@@ -26,8 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     hasPayed: DataTypes.BOOLEAN,
     secretToken: DataTypes.STRING,
     paymentToken: DataTypes.STRING,
-    shirtModel: DataTypes.STRING,
-    shirtSize: DataTypes.STRING,
     team: DataTypes.STRING,
   }, {
     sequelize,

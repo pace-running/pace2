@@ -48,12 +48,6 @@ module.exports = {
         type: Sequelize.CITEXT,
         allowNull: false,
       },
-      shirtModel: {
-        type: Sequelize.CITEXT,
-      },
-      shirtSize: {
-        type: Sequelize.CITEXT,
-      },
       team: {
         type: Sequelize.CITEXT,
       },
