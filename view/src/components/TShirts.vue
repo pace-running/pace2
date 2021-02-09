@@ -14,8 +14,8 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>
-                    {{ shirt.shirtModel }}
-                    {{ shirt.shirtSize }}:
+                    {{ shirt.model }}
+                    {{ shirt.size }}:
                     {{ shirt.count }}
                   </v-list-item-title>
                 </v-list-item-content>
@@ -34,8 +34,8 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>
-                    {{ shirt.shirtModel }}
-                    {{ shirt.shirtSize }}:
+                    {{ shirt.size }}
+                    {{ shirt.model }}:
                     {{ shirt.count }}
                   </v-list-item-title>
                 </v-list-item-content>
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     getShirts: function () {
-      const url = `${API_URL}/participant/shirts`
+      const url = `${API_URL}/race/shirts`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`},
