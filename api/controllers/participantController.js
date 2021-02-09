@@ -4,8 +4,8 @@ const Shirt = DB.Shirt
 // const Op = DB.Sequelize.Op;
 const {Op} = require("sequelize");
 const crypto = require('crypto');
-const _ = require('lodash');
 const taskman = require('node-taskman');
+const _ = require('lodash');
 
 
 exports.findAll = (req, res, next) => {
@@ -117,6 +117,7 @@ exports.register = (req, res, next) => {
     })
 }
 
+
 async function createParticipant(participant) {
     const number = await startNumber();
     const p = await Participant.create({
@@ -178,3 +179,4 @@ function paymentToken() {
     }
     return 'LGR-' + text;
 }
+
