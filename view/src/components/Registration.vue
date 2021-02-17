@@ -121,39 +121,26 @@
           </v-row>
 
           <h2>Lieferanschrift</h2>
-          <v-row>
-            <v-col cols="8">
-              <v-text-field
-                  v-model="street"
-                  required
-                  :rules="shirtRules"
-                  label="Strassse"></v-text-field>
-            </v-col>
-            <v-col cols="4">
-              <v-text-field
-                  v-model="streetNumber"
-                  required
-                  :rules="shirtRules"
-                  label="Hausnummer"></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="2">
-              <v-text-field
-                  v-model="plz"
-                  required
-                  :rules="shirtRules"
-                  label="PLZ"></v-text-field>
-            </v-col>
-            <v-col cols="10">
-              <v-text-field
-                  v-model="city"
-                  required
-                  :rules="shirtRules"
-                  label="Stadt"></v-text-field>
-            </v-col>
-
-          </v-row>
+          <v-text-field
+              v-model="street"
+              required
+              :rules="shirtRules"
+              label="Strassse"></v-text-field>
+          <v-text-field
+              v-model="streetNumber"
+              required
+              :rules="shirtRules"
+              label="Hausnummer"></v-text-field>
+          <v-text-field
+              v-model="city"
+              required
+              :rules="shirtRules"
+              label="Stadt"></v-text-field>
+          <v-text-field
+              v-model="plz"
+              required
+              :rules="shirtRules"
+              label="PLZ"></v-text-field>
           <v-text-field
               v-model="country"
               required
