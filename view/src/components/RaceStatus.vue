@@ -4,9 +4,12 @@
     <v-card-title>
       {{ this.raceInfo.name}}
     </v-card-title>
-    <v-card-actions>
+    <v-btn v-if="this.$store.state.raceOpen">
       <router-link to="registration">Anmelden</router-link>
-    </v-card-actions>
+    </v-btn>
+    <v-card-text v-if="!this.$store.state.raceOpen">
+      Die Anmeldung für dieses Jahr öffnet am 1.3.
+    </v-card-text>
   </v-card>
   </v-container>
 </template>
@@ -30,6 +33,7 @@ export default {
       axios.get(url)
           .then((response) => {
             this.raceInfo = response.data
+            this.$store.commit('setRaceStatus', response.data.isOpen)
           })
     }
 

@@ -25,10 +25,6 @@
         <v-btn
             text
             x-small
-            to="/"><span>Registrieren</span></v-btn>
-        <v-btn
-            text
-            x-small
           to="/impressum">Impressum</v-btn>
         <v-btn
             text

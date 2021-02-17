@@ -1,6 +1,6 @@
 <template>
   <span>
-    <Registration></Registration>
+    <Registration v-if="this.$store.state.raceOpen"></Registration>
   </span>
 
 </template>
