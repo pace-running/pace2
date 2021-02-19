@@ -24,8 +24,7 @@ export default {
     submitFile() {
       let formData = new FormData;
       formData.append('file',this.file)
-      const API_URL = 'http://localhost:3000';
-      const url = `${API_URL}/participant/importPayments`
+      const url = `${this.$base_url}/participant/importPayments`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`}

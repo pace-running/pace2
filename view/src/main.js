@@ -5,6 +5,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
+Vue.prototype.$base_url = process.env['VUE_APP_BASEURL']
 
 Vue.use(VueRouter)
 Vue.use(Vuex)

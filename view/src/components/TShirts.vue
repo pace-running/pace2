@@ -51,7 +51,6 @@
 <script>
 import axios from "axios";
 
-const API_URL = 'http://localhost:3000';
 export default {
   name: "TShirts",
   data: () => ({
@@ -62,7 +61,7 @@ export default {
   },
   methods: {
     getShirts: function () {
-      const url = `${API_URL}/race/shirts`
+      const url = `${this.$base_url}/race/shirts`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`},

@@ -90,7 +90,6 @@
 
 <script>
 import axios from "axios";
-const API_URL = 'http://localhost:3000';
 export default {
   name: "ParticipantEditor",
   props: {
@@ -120,7 +119,7 @@ export default {
       }
     },
     save() {
-      const url = `${API_URL}/participant/update/${this.participant.id}`
+      const url = `${this.$base_url}/participant/update/${this.participant.id}`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`}

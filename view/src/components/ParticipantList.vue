@@ -43,7 +43,6 @@ import axios from 'axios'
 import ParticipantListItem from "./ParticipantListItem";
 import ParticipantEditor from "./ParticipantEditor";
 
-const API_URL = 'http://localhost:3000';
 export default {
   name: "ParticipantList",
   components: {ParticipantEditor, ParticipantListItem},
@@ -79,7 +78,7 @@ export default {
       this.getParticipants();
     },
     getParticipants() {
-      const url = `${API_URL}/participant/`
+      const url = `${this.$base_url}/participant/`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`},

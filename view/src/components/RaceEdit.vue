@@ -36,8 +36,7 @@ export default {
   },
   methods: {
     getRace() {
-      const API_URL = 'http://localhost:3000';
-      const url = `${API_URL}/race/`
+      const url = `${this.$base_url}/race/`
 
       axios.get(url)
           .then((response) => {
@@ -45,8 +44,7 @@ export default {
           })
     },
     toggleShirtsEnabled() {
-      const API_URL = 'http://localhost:3000';
-      const url = `${API_URL}/race/toggleShirtsEnabled`
+      const url = `${this.$base_url}/race/toggleShirtsEnabled`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`}
@@ -57,8 +55,7 @@ export default {
           })
     },
     toggleOpen() {
-      const API_URL = 'http://localhost:3000';
-      const url = `${API_URL}/race/toggleOpen`
+      const url = `${this.$base_url}/race/toggleOpen`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`}

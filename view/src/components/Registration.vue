@@ -218,7 +218,6 @@
 <script>
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3000';
 export default {
   name: 'Registration',
 
@@ -258,7 +257,7 @@ export default {
   methods: {
     register() {
       this.loading = true;
-      const url = `${API_URL}/participant/register`;
+      const url = `{this.base_url}/participant/register`;
       this.$refs.form.validate();
       if (this.checkbox) {
         const data = {};

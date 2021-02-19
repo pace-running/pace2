@@ -5,6 +5,7 @@ const cors = require('cors');
 const magic = require('express-routemagic');
 const app = express();
 
+app.use(express.static('public'))
 
 app.use(cors({
     credentials: true,

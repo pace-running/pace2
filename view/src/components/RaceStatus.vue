@@ -27,8 +27,7 @@ export default {
   },
   methods: {
     getRace() {
-      const API_URL = 'http://localhost:3000';
-      const url = `${API_URL}/race/`
+      const url = `${this.$base_url}/race/`
 
       axios.get(url)
           .then((response) => {

@@ -50,7 +50,6 @@
 <script>
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3000';
 export default {
   name: "ParticipantListItem",
   props: {participant: Object},
@@ -69,7 +68,7 @@ export default {
     },
     markPayed() {
       const token = localStorage.pace_token
-      const url = `${API_URL}/participant/markPayed/${this.participant.id}`
+      const url = `${this.$base_url}/participant/markPayed/${this.participant.id}`
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`}
       }

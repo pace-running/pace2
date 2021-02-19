@@ -32,7 +32,6 @@
 <script>
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3000';
 
 export default {
   name: "Login",
@@ -43,7 +42,7 @@ export default {
   }),
   methods: {
     login() {
-      const url = `${API_URL}/login`
+      const url = `${this.$base_url}/login`
       const data = {username: this.username, password: this.password};
       axios.post(url, data)
           .then((response) => {
@@ -56,7 +55,7 @@ export default {
           })
     },
     checkToken() {
-      const url = `${API_URL}/login`
+      const url = `${this.$base_url}/login`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`}
