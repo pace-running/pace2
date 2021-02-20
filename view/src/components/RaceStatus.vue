@@ -1,16 +1,26 @@
 <template>
   <v-container>
-  <v-card>
-    <v-card-title>
-      {{ this.raceInfo.name}}
-    </v-card-title>
-    <v-btn v-if="this.$store.state.raceOpen">
-      <router-link to="registration">Anmelden</router-link>
-    </v-btn>
-    <v-card-text v-if="!this.$store.state.raceOpen">
-      Die Anmeldung für dieses Jahr öffnet am 1.3.
-    </v-card-text>
-  </v-card>
+    <v-card v-if="this.$store.state.raceOpen">
+      <v-card-title>
+        {{ this.raceInfo.name }}
+      </v-card-title>
+      <v-img
+          src="/fcsp_allcolorsarbeautiful.jpeg"
+      ></v-img>
+      <v-card-actions>
+        <v-btn v-if="this.$store.state.raceOpen">
+          <router-link to="registration">Anmelden</router-link>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <v-card v-if="!this.$store.state.raceOpen">
+      <v-card-title>
+        Die Anmeldung für dieses Jahr öffnet am 1.3.
+      </v-card-title>
+      <v-img
+          src="/fcsp_allcolorsarbeautiful.jpeg"
+      ></v-img>
+    </v-card>
   </v-container>
 </template>
 
@@ -23,7 +33,9 @@ export default {
     raceInfo: {}
   }),
   mounted: function () {
-    this.getRace()
+    if (this.$store.state.raceOpen) {
+      this.getRace()
+    }
   },
   methods: {
     getRace() {
