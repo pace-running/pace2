@@ -9,7 +9,14 @@ resources:
   - service.yaml
   - deployment.yaml
   - namespace.yaml
+  - redis.yaml
+  - worker.yaml
 
 secretGenerator:
   - name: pace-secrets
     env: secrets.env
+
+configMapGenerator:
+  - name: redis-config
+    files:
+      - redis-config

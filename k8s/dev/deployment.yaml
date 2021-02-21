@@ -12,6 +12,8 @@ spec:
             value: "development"
           - name: POSTGRES_HOST
             value: dev-pace-postgresql
+          - name: REDIS_HOST
+            value: dev-redis
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:

@@ -1,10 +1,16 @@
 const DB = require('../models/index')
+const Queue = require('bee-queue');
+const queue = new Queue('confirmationEmail', {
+    redis: {
+        host: process.env.REDIS_HOST || "localhost"
+    },
+    isWorker: false,
+});
 const Participant = DB.Participant
 const Shirt = DB.Shirt
 // const Op = DB.Sequelize.Op;
 const {Op} = require("sequelize");
 const crypto = require('crypto');
-const taskman = require('node-taskman');
 const _ = require('lodash');
 
 
@@ -107,8 +113,8 @@ exports.register = (req, res, next) => {
     createParticipant(req.body)
         .then((result) => {
             if (req.body.email.length > 0) {
-                var queue = taskman.createQueue('confirmationEmail');
-                queue.push(result);
+                const job = queue.createJob(result);
+                job.save()
             }
            res.status(201);
             res.send(result);

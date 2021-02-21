@@ -9,6 +9,7 @@ resources:
   - ingress.yaml
 patchesStrategicMerge:
   - deployment.yaml
+  - worker.yaml
 
 secretGenerator:
   - name: pace-secrets

@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: pace
 spec:
+  replicas: 3
   template:
     spec:
       containers:
@@ -10,6 +11,8 @@ spec:
         env:
           - name: NODE_ENV
             value: "production"
+          - name: REDIS_HOST
+            value: prod-redis
           - name: POSTGRES_HOST
             value: prod-pace-postgresql
           - name: POSTGRES_PASSWORD

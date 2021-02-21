@@ -16,15 +16,17 @@ spec:
           - containerPort: 3000
         env:
           - name: NODE_ENV
-            value: "production"
+            value: "local"
           - name: POSTGRES_USER
             value: postgres
           - name: POSTGRES_HOST
-            value: prod-pace-postgresql
+            value: pace-postgresql
+          - name: REDIS_HOST
+            value: redis
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: prod-pace-postgresql
+                name: pace-postgresql
                 key: postgresql-password
           - name: PACE_JWT_TOKEN
             valueFrom:
@@ -36,3 +38,4 @@ spec:
               secretKeyRef:
                 name: pace-secrets
                 key: password
+
