@@ -10,7 +10,7 @@ module.exports = {
         "username": process.env.POSTGRES_USER,
         "password": process.env.POSTGRES_PASSWORD,
         "database": "pace",
-        "host": "pace-postgresql",
+        "host": process.env.POSTGRES_HOST,
         "dialect": "postgres"
 
     },
@@ -18,7 +18,7 @@ module.exports = {
         "username": process.env.POSTGRES_USER,
         "password": process.env.POSTGRES_PASSWORD,
         "database": "pace",
-        "host": "pace-postgresql",
+        "host": process.env.POSTGRES_HOST,
         "dialect": "postgres"
     }
 };

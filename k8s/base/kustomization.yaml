@@ -6,7 +6,10 @@ kind: Kustomization
 namespace: pace
 
 resources:
-  - ingress.yaml
   - service.yaml
   - deployment.yaml
   - namespace.yaml
+
+secretGenerator:
+  - name: pace-secrets
+    env: secrets.env

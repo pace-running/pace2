@@ -4,3 +4,6 @@ view/node_modules
 worker/node_modules
 api/dist
 api/uploads
+
+k8s/prod/prod.env
+k8s/dev/dev.env

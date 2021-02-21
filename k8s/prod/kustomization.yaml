@@ -1,0 +1,15 @@
+namePrefix: prod-
+namespace: prod-pace
+commonLabels:
+  variant: production
+bases:
+- ../base/
+resources:
+  - ingress.yaml
+patchesStrategicMerge:
+  - deployment.yaml
+
+secretGenerator:
+  - name: pace-secrets
+    behavior: merge
+    env: prod.env

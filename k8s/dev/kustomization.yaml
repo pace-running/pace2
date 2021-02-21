@@ -1,0 +1,16 @@
+namePrefix: dev-
+namespace: dev-pace
+commonLabels:
+  variant: development
+bases:
+- ../base/
+
+resources:
+  - ingress.yaml
+patchesStrategicMerge:
+  - deployment.yaml
+
+secretGenerator:
+  - name: pace-secrets
+    behavior: merge
+    env: dev.env
