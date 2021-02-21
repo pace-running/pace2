@@ -4,6 +4,7 @@ COPY view/package.json /usr/src/view/
 COPY view/yarn.lock /usr/src/view/
 COPY view/src /usr/src/view/src/
 COPY view/public/* /usr/src/view/public/
+COPY view/public/fonts /usr/src/view/public/fonts/
 COPY view/.env /usr/src/view/
 COPY view/.env.docker /usr/src/view/
 RUN yarn install
