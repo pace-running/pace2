@@ -33,9 +33,7 @@ export default {
     raceInfo: {}
   }),
   mounted: function () {
-    if (this.$store.state.raceOpen) {
-      this.getRace()
-    }
+    this.getRace()
   },
   methods: {
     getRace() {
