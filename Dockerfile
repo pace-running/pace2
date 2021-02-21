@@ -1,9 +1,9 @@
 FROM node:current-alpine
 WORKDIR /usr/src/view
-ENV CI 1
 COPY view/package.json /usr/src/view/
 COPY view/yarn.lock /usr/src/view/
 COPY view/src /usr/src/view/src/
+COPY view/public/* /usr/src/view/public/
 COPY view/.env /usr/src/view/
 COPY view/.env.docker /usr/src/view/
 RUN yarn install

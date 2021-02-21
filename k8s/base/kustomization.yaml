@@ -1,0 +1,12 @@
+commonLabels:
+  app: pace
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: pace
+
+resources:
+  - ingress.yaml
+  - service.yaml
+  - deployment.yaml
+  - namespace.yaml

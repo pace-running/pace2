@@ -1,0 +1,15 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pace
+spec:
+  selector:
+    use: app
+  sessionAffinity: None
+  type: NodePort
+  ports:
+  - nodePort:
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
