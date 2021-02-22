@@ -1,15 +1,15 @@
 <template>
   <v-container>
     <v-card v-if="this.$store.state.raceOpen">
-      <v-card-title>
-        {{ this.raceInfo.name }}
-      </v-card-title>
-      <v-img
+      <router-link to="registration" style="text-decoration: none; color: inherit;">
+        <v-img
           src="/fcsp_allcolorsarbeautiful.jpeg"
-      ></v-img>
+      >
+      </v-img>
+      </router-link>
       <v-card-actions>
         <v-btn v-if="this.$store.state.raceOpen">
-          <router-link to="registration">Anmelden</router-link>
+          <router-link to="registration" style="text-decoration: none; color: inherit;">Jetzt anmelden</router-link>
         </v-btn>
       </v-card-actions>
     </v-card>

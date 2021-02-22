@@ -3,7 +3,6 @@
     <h2>Zum Lauf anmelden</h2>
     <v-form
         ref="form"
-        v-model="valid"
         lazy-validation
     >
       <v-text-field
@@ -176,51 +175,32 @@
           </div>
         </template>
       </v-checkbox>
-
       <v-btn
-          :disabled="!valid"
-          :loading="loading"
           color="brown"
           class="white--text mr-4"
-          @click="register"
+          @click.stop="register"
       >
-        Registrieren
+        Anmelden
       </v-btn>
 
+      <v-dialog
+          v-model="registrationSuccessful">
+        <RegistrationConfirmationDialog :participant="this.registrationResult"></RegistrationConfirmationDialog>
+        <v-btn @click.stop="clearFields">Schliessen</v-btn>
+      </v-dialog>
     </v-form>
-    <v-dialog
-        v-model="registrationSuccessful">
-      <v-card>
-        <v-card-title>Registrierung erfolgreich</v-card-title>
-        <v-card-text>Deine Startnummer: {{ registrationResult.startNumber }}
-          {{ registrationResult.shirtModel }}
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>
-                Verwendungszweck: {{ registrationResult.paymentToken }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-              class="white--text"
-              color="brown"
-              @click="clearFields">OK
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+
   </v-container>
 
 </template>
 
 <script>
 import axios from 'axios'
+import RegistrationConfirmationDialog from "./RegistrationConfirmationDialog";
 
 export default {
   name: 'Registration',
-
+  components: {RegistrationConfirmationDialog},
   data: () => ({
     shirtSizes: ['XS', 'S', 'M', 'L'],
     shirtSize: '',
@@ -232,7 +212,6 @@ export default {
     plz: '',
     city: '',
     country: '',
-    valid: false,
     firstName: '',
     lastName: '',
     email: '',
@@ -240,7 +219,6 @@ export default {
     checkbox: false,
     registrationSuccessful: false,
     registrationResult: '',
-    loading: false,
     showShirtCarousel: false,
   }),
   computed: {
@@ -256,33 +234,32 @@ export default {
   },
   methods: {
     register() {
-      this.loading = true;
-      const url = `{this.base_url}/participant/register`;
-      this.$refs.form.validate();
-      if (this.checkbox) {
-        const data = {};
-        data.firstName = this.firstName;
-        data.lastName = this.lastName;
-        data.email = this.email;
-        if (this.shirtWanted) {
-          data.shirtWanted = true;
-          data.shirtModel = this.shirtModel;
-          data.shirtSize = this.shirtSize;
-          data.street = this.street;
-          data.streetNumber = this.streetNumber;
-          data.plz = this.plz;
-          data.city = this.city;
-          data.country = this.country;
+      const url = `${this.$base_url}/participant/register`;
+        if (this.checkbox) {
+          const data = {};
+          data.firstName = this.firstName;
+          data.lastName = this.lastName;
+          data.email = this.email;
+          if (this.shirtWanted) {
+            data.shirtWanted = true;
+            data.street = this.street;
+            data.streetNumber = this.streetNumber;
+            data.plz = this.plz;
+            data.city = this.city;
+            data.country = this.country;
+            data.Shirt = {
+              "model": this.shirtModel,
+              "size": this.shirtSize,
+            }
+          }
+          axios.put(url, data
+          ).then((response) => {
+            this.registrationSuccessful = true;
+            this.registrationResult = response.data;
+          })
         }
-        axios.put(url, data
-        ).then((response) => {
-          this.registrationSuccessful = true;
-          this.registrationResult = response.data;
-        })
-      }
     },
     clearFields() {
-      this.loading = false;
       this.$refs.form.reset();
       this.registrationSuccessful = false;
     }

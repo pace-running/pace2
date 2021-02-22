@@ -1,0 +1,77 @@
+<template>
+  <v-card>
+    <v-card-title>Hey {{participant.firstName}}, Du hast Dich erfolgreich angemeldet!</v-card-title>
+    <v-card-text>
+      <p class="text-h4">Deine Startnummer:
+        <v-chip color="brown"
+                class="text-h4"
+                outlined
+        >
+          {{ this.participant.startNumber }}
+        </v-chip>
+      </p>
+      <v-list-item>
+        <v-list-item-content><p class="text-h5">Rechnungsbetrag: {{this.participant.expectedAmount}} Euro</p></v-list-item-content>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>
+            Bitte überweise das Geld an:
+          </v-list-item-title>
+          FC St. Pauli Marathon <br>
+          IBAN: asdfasdf <br>
+          BLZ: asdf<br>
+          Verwendungszweck: {{ this.participant.paymentToken }}
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item v-if="this.participant.Shirt">
+        <v-list-item-content>
+          <v-list-item-title>Dein bestelltes Shirt ({{ participant.Shirt.model }}/{{ participant.Shirt.size }}) geht
+            an:
+          </v-list-item-title>
+          {{ this.participant.firstName }} {{ this.participant.lastName }} <br>
+          {{ this.participant.street }} {{ this.participant.streetNumber }} <br>
+          {{ this.participant.plz }} {{ this.participant.city }} <br>
+          {{ this.participant.country }} <br>
+          Der Versand der Tshirts erfolgt in Gruppen. <br>
+          Bitte habe verständnis, dass es ein paar Wochen Dauern kann bis das Tshirt bei Dir ist.
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item v-if="participant.email">
+        <v-list-item-content>
+        Wir haben dir zusätzlich eine Email geschickt in der Du die Daten nachsehen kannst.<br>
+        Sobald das Geld bei uns angekommen ist, bekommst Du eine weitere Bestätigungsmail.<br>
+        Darin findest Du auch einen Link zum ausdrucken deiner Startnummer<br>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item v-if="!participant.email">
+        <v-list-item-content>
+          <p color="red" class="text-h5">Achtung!</p>
+          Du hast uns keine Email hinterlassen!<br>
+          Das ist okay, sobald das Geld bei uns eingegangen ist,
+          kannst Du Dir deine Startnummer runterladen. Dafür musst Du Dir diesen Link gut merken:
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item>
+        <v-btn>Startnummer runterladen</v-btn>
+      </v-list-item>
+      <v-list-item>
+      </v-list-item>
+      Vielen Dank für Deine Anmeldung. Wir wünschen Dir viel Spass,<br>
+      Das Lauf-gegen-Rechts Team
+    </v-card-text>
+  </v-card>
+</template>
+
+<script>
+export default {
+  name: "RegistrationConfirmationDialog",
+  props: {
+    participant: Object,
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

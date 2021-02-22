@@ -5,13 +5,15 @@
         color="brown"
         dark
     >
-    <h2 class="mr-2">Lauf gegen Rechts 2021</h2>
+      <router-link to="/" style="text-decoration: none; color: inherit;">
+        <h2 class="mr-2">Lauf gegen Rechts 2021</h2>
+      </router-link>
       <v-spacer></v-spacer>
       <div class="mt-5">
-      <v-img src="/logo.svg"
-             height="90px"
-             width="90px"
-      ></v-img>
+        <v-img src="/logo.svg"
+               height="90px"
+               width="90px"
+        ></v-img>
       </div>
     </v-app-bar>
 
@@ -25,11 +27,13 @@
         <v-btn
             text
             x-small
-          to="/impressum">Impressum</v-btn>
+            to="/impressum">Impressum
+        </v-btn>
         <v-btn
             text
             x-small
-          to="datenschutz">Datenschutz</v-btn>
+            to="datenschutz">Datenschutz
+        </v-btn>
       </v-col>
     </v-footer>
   </v-app>
@@ -40,8 +44,7 @@
 export default {
   name: 'App',
 
-  components: {
-  },
+  components: {},
 
   data: () => ({
     //
