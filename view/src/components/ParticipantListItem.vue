@@ -1,9 +1,9 @@
 <template>
+
+
   <tr>
 
-    <td cols="1"
-        v-on:click=openEditor
-    >
+    <td cols="1">
       <v-chip color="brown"
               class="ma-2"
               outlined
@@ -12,7 +12,6 @@
       </v-chip>
     </td>
     <td cols="3"
-        v-on:click=openEditor
     >
       <v-row>
         <v-col>
@@ -27,11 +26,9 @@
       </v-row>
     </td>
     <td cols="2"
-        v-on:click=openEditor
     >{{ participant.paymentToken }}
     </td>
     <td cols="1"
-        v-on:click=openEditor
     >
       <v-icon v-if="typeof participant.Shirt !== 'undefined' && participant.Shirt != null"
               color="green"
@@ -45,16 +42,38 @@
         <paymentstatus :status="participant.hasPayed"></paymentstatus>
       </v-btn>
     </td>
+    <td>
+      <v-dialog
+        v-model="dialog"
+        width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+            color="brown"
+            dark
+            outlined
+            v-bind="attrs"
+            v-on="on"
+        >
+          Bearbeiten
+        </v-btn>
+      </template>
+      <ParticipantEditor :participant="this.participant"></ParticipantEditor>
+    </v-dialog>
+    </td>
+
   </tr>
+
 </template>
 
 <script>
 import axios from 'axios'
 import Paymentstatus from "./basic/Paymentstatus";
+import ParticipantEditor from "./ParticipantEditor";
 
 export default {
   name: "ParticipantListItem",
-  components: {Paymentstatus},
+  components: {ParticipantEditor, Paymentstatus},
   props: {participant: Object},
   computed: {
     paymentColor() {
@@ -66,9 +85,6 @@ export default {
     }
   },
   methods: {
-    openEditor() {
-      this.$emit('openEditor', this.participant)
-    },
     markPayed() {
       const token = localStorage.pace_token
       const url = `${this.$base_url}/participant/markPayed/${this.participant.id}`
