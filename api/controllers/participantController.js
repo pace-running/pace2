@@ -112,7 +112,7 @@ exports.markPayed = (req, res, next) => {
 exports.register = (req, res, next) => {
     createParticipant(req.body)
         .then((result) => {
-            if (req.body.email.length > 0) {
+            if (req.body.email != null && req.body.email.length > 0) {
                 const job = queue.createJob(result);
                 job.save()
             }
@@ -148,7 +148,13 @@ async function createParticipant(participant) {
         })
         await p.setShirt(s)
     }
-    return p;
+    return await byId(p.id);
+}
+
+async function byId(id) {
+    return Participant.findByPk(id,{
+        include: Shirt
+    })
 }
 
 function getPagination(page, size) {
