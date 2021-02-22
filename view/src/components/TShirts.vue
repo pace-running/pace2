@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-toolbar flat>
       <v-toolbar-title>T-Shirts</v-toolbar-title>
     </v-toolbar>
@@ -45,7 +45,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>

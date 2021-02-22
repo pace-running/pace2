@@ -39,19 +39,22 @@
       </v-icon>
     </td>
     <td cols="1">
-      <v-icon
-          @click="markPayed"
-          :color=paymentColor>mdi-check-circle
-      </v-icon>
+      <v-btn
+          plain
+          @click="markPayed">
+        <paymentstatus :status="participant.hasPayed"></paymentstatus>
+      </v-btn>
     </td>
   </tr>
 </template>
 
 <script>
 import axios from 'axios'
+import Paymentstatus from "./basic/Paymentstatus";
 
 export default {
   name: "ParticipantListItem",
+  components: {Paymentstatus},
   props: {participant: Object},
   computed: {
     paymentColor() {

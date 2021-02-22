@@ -20,5 +20,6 @@ router.put('/register', ParticipantController.register)
 
 router.put('/importPayments', jwtAuth,upload.single('file'), FinanceController.importPayments)
 
+router.get('/byToken/:token', ParticipantController.byToken)
 
 module.exports = router;

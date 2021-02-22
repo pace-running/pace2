@@ -53,7 +53,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <v-btn>Startnummer runterladen</v-btn>
+        <v-btn :href="myLink">Startnummer runterladen</v-btn>
       </v-list-item>
       <v-list-item>
       </v-list-item>
@@ -68,6 +68,11 @@ export default {
   name: "RegistrationConfirmationDialog",
   props: {
     participant: Object,
+  },
+  computed: {
+    myLink() {
+      return `/#/me?token=${this.participant.secretToken}`
+    }
   }
 }
 </script>

@@ -98,6 +98,20 @@ async function updateParticipant(participant, id) {
     return p
 }
 
+exports.byToken = (req,res,next) => {
+    console.log('getting token')
+    Participant.findOne({
+        where: {
+            secretToken: req.params.token
+        },
+        include: Shirt
+    }).then(result => {
+        res.status(200)
+        res.send(result)
+    }).catch((err) => {
+        next(err)
+    });
+}
 
 exports.markPayed = (req, res, next) => {
     Participant.findByPk(req.params.id)

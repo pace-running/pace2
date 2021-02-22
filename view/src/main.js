@@ -14,11 +14,13 @@ import Impressum from '@/pages/impressum'
 import Datenschutz from '@/pages/datenschutz'
 import RegistrationPage from "@/pages/registration";
 import RaceStatus from "./components/RaceStatus";
+import Me from "./components/ParticipantSelfService"
 import Admin from "@/pages/admin";
 
 const routes = [
   { path: '/', component: RaceStatus},
   { path: '/registration', component: RegistrationPage},
+  { path: '/me', component: Me},
   { path: '/datenschutz', component: Datenschutz},
   { path: '/impressum', component: Impressum},
   { path: '/admin', component: Admin},
