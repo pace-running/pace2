@@ -70,6 +70,7 @@ async function updateParticipant(participant, id) {
     p.streetNumber = participant.streetNumber;
     p.city = participant.city;
     p.plz = participant.plz;
+    p.expectedPayment = calculateAmount(participant)
     p.country = participant.country;
     if (participant.Shirt) {
         console.log(s)
@@ -139,6 +140,7 @@ async function createParticipant(participant) {
         hasPayed: false,
         startNumber: number,
         paymentToken: paymentToken(),
+        expectedPayment: calculateAmount(participant),
         secretToken: crypto.randomBytes(32).toString('hex')
     })
     if (participant.Shirt) {
@@ -190,5 +192,13 @@ function paymentToken() {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return 'LGR-' + text;
+}
+
+function calculateAmount(participant) {
+    let amount = 10;
+    if(participant.Shirt) {
+        amount = amount + 15
+    }
+    return amount;
 }
 

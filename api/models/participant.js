@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     hasPayed: DataTypes.BOOLEAN,
     secretToken: DataTypes.STRING,
     paymentToken: DataTypes.STRING,
+    expectedPayment: DataTypes.STRING,
     team: DataTypes.STRING,
   }, {
     sequelize,
