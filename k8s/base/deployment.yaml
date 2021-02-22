@@ -9,6 +9,22 @@ spec:
       labels:
         use: app
     spec:
+      initContainers:
+        - name: db-migration
+          image: localhost:32000/pace2:latest
+          command: [ 'sh', '-c', "npx sequelize db:migrate"]
+          env:
+            - name: NODE_ENV
+              value: "local"
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_HOST
+              value: pace-postgresql
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pace-postgresql
+                  key: postgresql-password
       containers:
       - name: pace
         image: localhost:32000/pace2:latest

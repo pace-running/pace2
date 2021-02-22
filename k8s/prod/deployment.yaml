@@ -6,6 +6,17 @@ spec:
   replicas: 3
   template:
     spec:
+      initContainers:
+        - name: db-migration
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: POSTGRES_HOST
+              value: prod-pace-postgresql
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: prod-pace-postgresql
       containers:
       - name: pace
         env:

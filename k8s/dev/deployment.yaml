@@ -5,11 +5,22 @@ metadata:
 spec:
   template:
     spec:
+      initContainers:
+      - name: db-migration
+        env:
+          - name: NODE_ENV
+            value: "dev"
+          - name: POSTGRES_HOST
+            value: dev-pace-postgresql
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: dev-pace-postgresql
       containers:
       - name: pace
         env:
           - name: NODE_ENV
-            value: "development"
+            value: "dev"
           - name: POSTGRES_HOST
             value: dev-pace-postgresql
           - name: REDIS_HOST
