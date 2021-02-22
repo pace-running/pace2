@@ -239,6 +239,7 @@ export default {
           const data = {};
           data.firstName = this.firstName;
           data.lastName = this.lastName;
+          data.team = this.team;
           data.email = this.email;
           if (this.shirtWanted) {
             data.shirtWanted = true;
