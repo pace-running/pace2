@@ -1,8 +1,5 @@
 <template>
   <v-container>
-    <v-toolbar flat>
-      <v-toolbar-title>T-Shirts</v-toolbar-title>
-    </v-toolbar>
     <v-row>
       <v-col>
         <v-card>

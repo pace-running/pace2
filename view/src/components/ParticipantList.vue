@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <v-toolbar flat>
-      <v-toolbar-title>Teilnehmer:innen</v-toolbar-title>
-    </v-toolbar>
-
+  <v-container>
     <v-form @submit="searchParticipants">
       <v-text-field clearable @click:clear="searchCleared" v-model="search" label="Suche">Suche</v-text-field>
     </v-form>
@@ -30,7 +26,7 @@
         @input="handlePageChange"
     >
     </v-pagination>
-  </div>
+  </v-container>
 </template>
 
 <script>

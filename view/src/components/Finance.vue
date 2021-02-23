@@ -1,11 +1,8 @@
 <template>
-<div>
-  <v-toolbar flat>
-    <v-toolbar-title >Finanzen</v-toolbar-title>
-  </v-toolbar>
-  <v-file-input @change="handleFileChange" ref="fileinput" label="Kontoauszug"></v-file-input>
-  <v-btn @click="submitFile">Importieren</v-btn>
-</div>
+  <v-container>
+    <v-file-input @change="handleFileChange" ref="fileinput" label="Kontoauszug"></v-file-input>
+    <v-btn @click="submitFile">Importieren</v-btn>
+  </v-container>
 </template>
 
 <script>
@@ -13,7 +10,7 @@ import axios from "axios";
 
 export default {
   name: "Finance",
-  data: () => ( {
+  data: () => ({
     file: ''
   }),
   methods: {
@@ -23,7 +20,7 @@ export default {
     },
     submitFile() {
       let formData = new FormData;
-      formData.append('file',this.file)
+      formData.append('file', this.file)
       const url = `${this.$base_url}/participant/importPayments`
       const token = localStorage.pace_token
       const requestConfig = {
@@ -34,7 +31,6 @@ export default {
             this.$refs.fileinput.clear
 
           })
-
 
 
     }

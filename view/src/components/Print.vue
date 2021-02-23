@@ -1,10 +1,7 @@
 <template>
-<div>
-  <v-toolbar flat>
-    <v-toolbar-title>Drucken</v-toolbar-title>
-  </v-toolbar>
+<v-container>
   <v-btn @click.stop="download">CSV runterladen</v-btn>
-</div>
+</v-container>
 </template>
 
 <script>
