@@ -34,7 +34,7 @@
           {{ this.participant.plz }} {{ this.participant.city }} <br>
           {{ this.participant.country }} <br>
           Der Versand der Tshirts erfolgt in Gruppen. <br>
-          Bitte habe verständnis, dass es ein paar Wochen Dauern kann bis das Tshirt bei Dir ist.
+          Bitte habe Verständnis, dass es ein paar Wochen dauern kann bis das Tshirt bei Dir ist.
         </v-list-item-content>
       </v-list-item>
       <v-list-item v-if="participant.email">
