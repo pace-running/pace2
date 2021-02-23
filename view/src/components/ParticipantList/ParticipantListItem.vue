@@ -83,7 +83,7 @@
 
 <script>
 import axios from 'axios'
-import Paymentstatus from "./basic/Paymentstatus";
+import Paymentstatus from "../basic/Paymentstatus";
 import ParticipantEditor from "./ParticipantEditor";
 
 export default {

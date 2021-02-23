@@ -233,6 +233,9 @@ function paymentToken() {
 
 function calculateAmount(participant) {
     let amount = 10;
+    if (participant.amount == "cheap") {
+        amount = 5;
+    }
     if(participant.Shirt) {
         amount = amount + 15
     }

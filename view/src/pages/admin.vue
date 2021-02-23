@@ -50,7 +50,7 @@
 </template>
 <script>
 import Login from '@/components/Login'
-import ParticipantList from "@/components/ParticipantList";
+import ParticipantList from "@/components/ParticipantList/ParticipantList";
 import TShirts from "../components/TShirts";
 import Finance from "../components/Finance";
 import Print from "../components/Print";

@@ -26,6 +26,17 @@
           v-model="email"
           label="E-Mail"
       ></v-text-field>
+      <v-select
+          v-model="amount"
+          :items="amountItems"
+          item-text="amount"
+          item-value="name"
+          label="Ich Spende"
+          required
+          suffix="Euro"
+          return-object
+          >
+      </v-select>
 
       <v-row>
         <v-col>
@@ -216,6 +227,11 @@ export default {
     lastName: '',
     email: '',
     team: '',
+    amount: { amount: 10, name: 'normal'},
+    amountItems: [
+      { amount: 10, name: 'normal'},
+      { amount: 5, name: 'cheap'}
+    ],
     agbCheckbox: false,
     registrationSuccessful: false,
     registrationResult: '',
@@ -245,6 +261,7 @@ export default {
           data.lastName = this.lastName;
           data.team = this.team;
           data.email = this.email;
+          data.amount = this.amount.name;
           if (this.shirtWanted) {
             data.shirtWanted = true;
             data.street = this.street;
