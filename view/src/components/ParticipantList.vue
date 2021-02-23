@@ -20,7 +20,7 @@
       </tr>
       </thead>
       <tbody>
-      <ParticipantListItem v-for="p in participants" :key="p.id"
+      <ParticipantListItem v-for="p in participants" :key="p.secretToken"
                            v-bind:participant="p"></ParticipantListItem>
       </tbody>
     </v-simple-table>
