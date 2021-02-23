@@ -19,8 +19,9 @@
             Bitte überweise das Geld an:
           </v-list-item-title>
           FC St. Pauli Marathon <br>
-          IBAN: asdfasdf <br>
-          BLZ: asdf<br>
+          Hamburger Volksbank<br>
+          IBAN: DE09 2019 0003 0019 4004 20<br>
+          BLZ: GENODEF1HH2<br>
           Verwendungszweck: {{ this.participant.paymentToken }}
         </v-list-item-content>
       </v-list-item>
