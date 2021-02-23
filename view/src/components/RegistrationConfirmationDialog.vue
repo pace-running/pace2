@@ -39,7 +39,7 @@
       </v-list-item>
       <v-list-item v-if="participant.email">
         <v-list-item-content>
-        Wir haben dir zusätzlich eine Email geschickt in der Du die Daten nachsehen kannst.<br>
+        Wir haben dir zusätzlich eine E-Mail geschickt in der Du die Daten nachsehen kannst.<br>
         Sobald das Geld bei uns angekommen ist, bekommst Du eine weitere Bestätigungsmail.<br>
         Darin findest Du auch einen Link zum ausdrucken deiner Startnummer<br>
         </v-list-item-content>
@@ -47,7 +47,7 @@
       <v-list-item v-if="!participant.email">
         <v-list-item-content>
           <p color="red" class="text-h5">Achtung!</p>
-          Du hast uns keine Email hinterlassen!<br>
+          Du hast uns keine E-Mail hinterlassen!<br>
           Das ist okay, sobald das Geld bei uns eingegangen ist,
           kannst Du Dir deine Startnummer runterladen. Dafür musst Du Dir diesen Link gut merken:
         </v-list-item-content>

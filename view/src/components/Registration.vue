@@ -24,7 +24,7 @@
 
       <v-text-field
           v-model="email"
-          label="E-mail"
+          label="E-Mail"
       ></v-text-field>
 
       <v-row>
