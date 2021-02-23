@@ -1,5 +1,12 @@
 const Queue = require('bee-queue');
-const queue = new Queue('confirmationEmail', {
+const mail = require('./mail');
+const confirmationQueue = new Queue('confirmationEmail', {
+        redis: {
+            host: process.env.REDIS_HOST || "localhost"
+        }
+    }
+);
+const paymentConfirmationQueue = new Queue('paymentConfirmationEmail', {
         redis: {
             host: process.env.REDIS_HOST || "localhost"
         }
@@ -7,9 +14,15 @@ const queue = new Queue('confirmationEmail', {
 );
 
 // Process jobs from as many servers or processes as you like
-queue.process(function (job, done) {
+confirmationQueue.process(function (job, done) {
     console.log(`Processing job ${job.id}`);
-    console.log(job.data)
+    mail.registrationEmail(job.data)
+    return done(null, job.data);
+});
+
+paymentConfirmationQueue.process(function (job, done) {
+    console.log(`Processing job ${job.id}`);
+    mail.confirmationEmail(job.data)
     return done(null, job.data);
 });
 

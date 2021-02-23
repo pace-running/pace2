@@ -1,0 +1,12 @@
+h3 Hey #{firstName}!
+  h5 Das Geld ist bei uns angekommen
+  p Deine Startnummer kannst Du dir hier runterladen:
+  a(href=base_url + '/#/me?token=' + secretToken) Startnummern Download
+  if Shirt
+    h5 Wir schicken das Shirt (#{Shirt.model}/#{Shirt.size}) bald an:
+    p #{firstName} #{lastName}
+    p #{street} #{streetNumber}
+    p #{plz} #{city}
+    p #{country}
+p Viele Grüsse,
+p das Lauf-gegen-Rechts orga team

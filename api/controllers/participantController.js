@@ -6,6 +6,12 @@ const queue = new Queue('confirmationEmail', {
     },
     isWorker: false,
 });
+const paymentConfirmationQueue = new Queue('paymentConfirmationEmail', {
+    redis: {
+        host: process.env.REDIS_HOST || "localhost"
+    },
+    isWorker: false,
+});
 const Participant = DB.Participant
 const Shirt = DB.Shirt
 // const Op = DB.Sequelize.Op;
@@ -114,10 +120,14 @@ exports.byToken = (req,res,next) => {
 }
 
 exports.markPayed = (req, res, next) => {
-    Participant.findByPk(req.params.id)
+    Participant.findByPk(req.params.id,{include: Shirt})
         .then((result) => {
             result.hasPayed = req.body.hasPayed;
             result.save();
+            if (req.body.hasPayed == true) {
+                const job = paymentConfirmationQueue.createJob(result);
+                job.save()
+            }
             res.send({"hasPayed": result.hasPayed});
         }).catch((err) => {
         next(err)

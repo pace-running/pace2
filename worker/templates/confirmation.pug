@@ -1,0 +1,30 @@
+h3 Hey #{firstName}!
+  h5 Danke für deine Registrierung.
+      |  Bitte überweise den Betrag von&nbsp;
+      span.amount #{expectedPayment}
+      |  Euro auf folgendes Konto:
+      pre FC St. Pauli Marathon <br>
+        br
+        | Hamburger Volksbank
+        br
+        | IBAN: DE09 2019 0003 0019 4004 20
+        br
+        | BIC: GENODEF1HH2
+        br
+        | Verwendungszweck: #{paymentToken}
+  h5 Deine Startnummer:&nbsp;
+    span.startNumber #{startNumber}
+
+  if Shirt
+    h5 Versandadresse für dein Shirt (#{Shirt.model}/#{Shirt.size}):
+    p #{firstName} #{lastName}
+    p #{street} #{streetNumber}
+    p #{plz} #{city}
+    p #{country}
+    p
+      small Bitte beachte, dass es ein paar Wochen dauern kann bis wir das Shirt verschicken
+
+h5 Startummern download:
+a(href=base_url + '/#/me?token=' + secretToken) Startnummern Download
+p Viele Grüsse,
+p das Lauf-gegen-Rechts orga team
