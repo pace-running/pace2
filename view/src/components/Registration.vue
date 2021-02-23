@@ -150,8 +150,8 @@
       </v-card>
 
       <v-checkbox
-          v-model="checkbox"
-          :rules="[v => !!v || 'Muss leider gelesen werden']"
+          v-model="agbCheckbox"
+          :rules="agbRule"
           label="Datenschutz gelesen"
           required
       >
@@ -216,12 +216,15 @@ export default {
     lastName: '',
     email: '',
     team: '',
-    checkbox: false,
+    agbCheckbox: false,
     registrationSuccessful: false,
     registrationResult: '',
     showShirtCarousel: false,
   }),
   computed: {
+    agbRule() {
+      return [ this.agbCheckbox == true || "Muss leider gelesen werden"]
+    },
     shirtRules() {
       const rules = [];
       if (this.shirtWanted) {
@@ -234,8 +237,9 @@ export default {
   },
   methods: {
     register() {
+      let valid = this.$refs.form.validate()
       const url = `${this.$base_url}/participant/register`;
-        if (this.checkbox) {
+        if (valid) {
           const data = {};
           data.firstName = this.firstName;
           data.lastName = this.lastName;
