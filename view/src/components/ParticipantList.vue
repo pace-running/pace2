@@ -18,7 +18,7 @@
       </tr>
       </thead>
       <tbody>
-      <ParticipantListItem v-for="p in participants" :key="p.id" @openEditor=openEditor
+      <ParticipantListItem v-for="p in participants" :key="p.id"
                            v-bind:participant="p"></ParticipantListItem>
       </tbody>
     </v-simple-table>
@@ -28,24 +28,16 @@
         @input="handlePageChange"
     >
     </v-pagination>
-
-    <v-dialog
-        v-model="participantEditor"
-        width="500"
-    >
-      <ParticipantEditor @closeEditor=closeEditor :participant=participant></ParticipantEditor>
-    </v-dialog>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import ParticipantListItem from "./ParticipantListItem";
-import ParticipantEditor from "./ParticipantEditor";
 
 export default {
   name: "ParticipantList",
-  components: {ParticipantEditor, ParticipantListItem},
+  components: {ParticipantListItem},
   data: () => ({
     participants: [],
     currentPage: 1,
@@ -58,9 +50,6 @@ export default {
     this.getParticipants();
   },
   methods: {
-    closeEditor: function () {
-      this.participantEditor = false
-    },
     searchCleared: function () {
       this.search = ''
       this.getParticipants()
@@ -68,10 +57,6 @@ export default {
     searchParticipants: function () {
       this.currentPage = 1
       this.getParticipants()
-    },
-    openEditor: function (p) {
-      this.participant = p;
-      this.participantEditor = true
     },
     handlePageChange(page) {
       this.currentPage = page;

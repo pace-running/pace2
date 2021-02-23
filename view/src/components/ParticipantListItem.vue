@@ -44,22 +44,25 @@
     </td>
     <td>
       <v-dialog
-        v-model="dialog"
-        width="500"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-            color="brown"
-            dark
-            outlined
-            v-bind="attrs"
-            v-on="on"
-        >
-          Bearbeiten
-        </v-btn>
-      </template>
-      <ParticipantEditor :participant="this.participant"></ParticipantEditor>
-    </v-dialog>
+          persistent
+          width="500"
+          v-model="dialog"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+              color="brown"
+              dark
+              outlined
+              v-bind="attrs"
+              v-on="on"
+          >
+            Bearbeiten
+          </v-btn>
+        </template>
+        <ParticipantEditor
+            @closeEditor="closeEditor"
+            :participant="this.participant"></ParticipantEditor>
+      </v-dialog>
     </td>
 
   </tr>
@@ -75,16 +78,11 @@ export default {
   name: "ParticipantListItem",
   components: {ParticipantEditor, Paymentstatus},
   props: {participant: Object},
-  computed: {
-    paymentColor() {
-      if (this.participant.hasPayed == true) {
-        return "green"
-      } else {
-        return "red"
-      }
-    }
-  },
+  data: () => ({
+   dialog: false
+  }),
   methods: {
+    closeEditor() {this.dialog=false},
     markPayed() {
       const token = localStorage.pace_token
       const url = `${this.$base_url}/participant/markPayed/${this.participant.id}`

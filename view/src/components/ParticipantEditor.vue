@@ -111,7 +111,6 @@ export default {
   },
   watch: {
     wantsShirt: function(state) {
-      console.log(state)
       if(state == true) {
         this.participant.Shirt = {}
       }
