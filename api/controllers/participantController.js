@@ -143,9 +143,22 @@ exports.register = (req, res, next) => {
             }
            res.status(201);
             res.send(result);
-        }).catch((err) => {
+        }).catch(err => {
         next(err)
     })
+}
+
+exports.resendConfirmation = (req,res,next) => {
+    Participant.findByPk(req.params.id,{include: Shirt})
+        .then(participant => {
+            if (participant.getDataValue('email')) {
+                console.log('found  email address')
+                const job = queue.createJob(participant);
+                job.save()
+            }
+            res.status(200)
+            res.send(participant)
+        }).catch(err => next(err))
 }
 
 

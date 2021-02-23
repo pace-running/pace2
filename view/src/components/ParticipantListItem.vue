@@ -37,7 +37,9 @@
     </td>
     <td cols="1">
       <v-btn
-          plain
+          color="brown"
+          dark
+          outlined
           @click="markPayed">
         <paymentstatus :status="participant.hasPayed"></paymentstatus>
       </v-btn>
@@ -56,13 +58,23 @@
               v-bind="attrs"
               v-on="on"
           >
-            Bearbeiten
+            <v-icon>mdi-account-edit-outline</v-icon>
           </v-btn>
         </template>
         <ParticipantEditor
             @closeEditor="closeEditor"
             :participant="this.participant"></ParticipantEditor>
       </v-dialog>
+    </td>
+    <td>
+      <v-btn v-if="participant.email"
+          color="brown"
+          dark
+          outlined
+          @click.stop="resendConfirmation"
+      >
+        <v-icon>mdi-email-check-outline</v-icon>
+      </v-btn>
     </td>
 
   </tr>
@@ -94,6 +106,14 @@ export default {
           .then(() => {
             this.participant.hasPayed = !this.participant.hasPayed
           })
+    },
+    resendConfirmation() {
+      const token = localStorage.pace_token
+      const url = `${this.$base_url}/participant/resendconfirmation/${this.participant.id}`
+      const requestConfig = {
+        headers: {Authorization: `Bearer ${token}`}
+      }
+      axios.post(url, null, requestConfig)
     }
   }
 }

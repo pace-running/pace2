@@ -15,6 +15,8 @@
         <th>Token</th>
         <th>T-Shirt</th>
         <th>Bezahlt</th>
+        <th>Bearbeiten</th>
+        <th>Bestätigungsmail verschicken</th>
       </tr>
       </thead>
       <tbody>

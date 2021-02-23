@@ -16,6 +16,8 @@ router.put('/update/:id', jwtAuth, ParticipantController.update)
 
 router.post('/markPayed/:id',jwtAuth,ParticipantController.markPayed)
 
+router.post('/resendconfirmation/:id',jwtAuth,ParticipantController.resendConfirmation)
+
 router.put('/register', ParticipantController.register)
 
 router.put('/importPayments', jwtAuth,upload.single('file'), FinanceController.importPayments)
