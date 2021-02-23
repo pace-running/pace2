@@ -1,4 +1,5 @@
 const DB = require('../models/index')
+const csv = require('fast-csv')
 const Participant = DB.Participant
 const Shirt = DB.Shirt
 const {Op} = require("sequelize");
@@ -30,4 +31,33 @@ async function statsByPaymentstatus(status) {
         },
         attributes: ['size', 'model', [DB.Sequelize.fn('COUNT', 'size'), 'count']],
     })
+}
+
+exports.shirtCSV = (req,res,next) => {
+    Participant.findAll({
+            where: {
+                hasPayed: true,
+                '$Shirt.id$':  {[Op.ne]: null}
+            },
+            order: [['Shirt', 'size'],['Shirt','model']],
+            include: Shirt
+        }
+    ).then(participants => {
+        res.setHeader("content-type", "application/pdf");
+        res.setHeader('Content-disposition', 'attachment; filename=adressen.csv');
+        const csvStream = csv.format({headers: true})
+        csvStream.pipe(res)
+        participants.forEach(p => {
+            csvStream.write({
+                name: p.getDataValue('firstName') + ' ' + p.getDataValue('lastName'),
+                strasse: p.getDataValue('street') + ' ' + p.getDataValue('streetNumber'),
+                stadt: p.getDataValue('plz') + ' ' + p.getDataValue('city'),
+                land: p.getDataValue('country'),
+                shirt: p.getDataValue('Shirt').getDataValue('model')  + '/' + p.getDataValue('Shirt').getDataValue('size')
+            })
+        })
+        csvStream.end();
+    }).catch(err => {next(err)})
+
+
 }

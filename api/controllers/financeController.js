@@ -1,6 +1,6 @@
 "use strict";
 
-const csv = require('@fast-csv/parse');
+const csv = require('fast-csv');
 
 const headers = [
     'Buchungstag', 'Valuta', 'Textschl黶sel', 'Auftraggeber/Zahlungsempfänger', 'Empfänger/Zahlungspflichtiger', 'Konto-Nr.', 'IBAN', 'BLZ', 'BIC', 'Vorgang/Verwendungszweck', 'Kundenreferenz', 'Währung', 'Umsatz', 'H'
