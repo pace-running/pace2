@@ -2,10 +2,7 @@
   <v-container>
     <v-card v-if="this.$store.state.raceOpen">
       <router-link to="registration" style="text-decoration: none; color: inherit;">
-        <v-img
-          src="/fcsp_allcolorsarbeautiful.jpeg"
-      >
-      </v-img>
+        <acab></acab>
       </router-link>
       <v-card-actions>
         <v-btn v-if="this.$store.state.raceOpen">
@@ -17,18 +14,18 @@
       <v-card-title>
         Die Anmeldung für dieses Jahr öffnet am 1.3.
       </v-card-title>
-      <v-img
-          src="/fcsp_allcolorsarbeautiful.jpeg"
-      ></v-img>
+      <acab></acab>
     </v-card>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import acab from "./basic/acab";
 
 export default {
   name: "RaceStatus",
+  components: {acab},
   data: () => ({
     raceInfo: {}
   }),
