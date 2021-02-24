@@ -4,8 +4,8 @@
       <v-card-title v-if="p.hasPayed">Bezahlt</v-card-title>
       <v-card-title v-if="!p.hasPayed">Ausstehend</v-card-title>
       <v-card-text>
-      <div>Anzahl: {{ p.count }}</div>
-      <div>Summe: {{ p.total_amount }} Euro</div>
+      <div>Registrierungen: {{ p.count }}</div>
+      <div>Summe: <strong>{{ p.total_amount }} </strong> Euro</div>
       </v-card-text>
     </v-card>
   </div>

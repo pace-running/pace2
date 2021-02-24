@@ -63,6 +63,8 @@ export default {
       axios.get(url, requestConfig)
           .then(() => {
             this.$emit('loggedIn', true)
+            this.$store.commit('setLoggedIn', true)
+            this.$router.push('/admin/participants')
           })
           .catch(() => {
             this.$emit('loggedIn', false)

@@ -1,12 +1,16 @@
 <template>
+  <v-main>
   <v-app>
     <v-app-bar
-        app
         color="brown"
         dark
+        app
     >
+      <v-app-bar-nav-icon
+          v-if="this.$store.state.isLoggedIn"
+          @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link to="/" style="text-decoration: none; color: inherit;">
-        <h2 class="mr-2">Lauf gegen Rechts 2021</h2>
+        <v-app-bar-title>Lauf gegen Rechts 2021</v-app-bar-title>
       </router-link>
       <v-spacer></v-spacer>
       <div class="mt-5">
@@ -17,9 +21,32 @@
       </div>
     </v-app-bar>
 
-    <v-main>
+    <v-navigation-drawer
+        v-model="drawer"
+        absolute
+    >
+      <v-list nav dense>
+        <v-list-item-group v-model="group">
+          <v-list-item to="/admin/participants">
+            <v-list-item-title>Teilnehmer*innen</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/admin/shirts">
+            <v-list-item-title>T-Shirts</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/admin/print">
+            <v-list-item-title>Drucken</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/admin/finance">
+            <v-list-item-title>Finanzen</v-list-item-title>
+          </v-list-item>
+          <v-list-item to="/admin/settings">
+            <v-list-item-title>Einstellungen</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
       <router-view></router-view>
-    </v-main>
     <v-footer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
@@ -37,6 +64,7 @@
       </v-col>
     </v-footer>
   </v-app>
+  </v-main>
 </template>
 
 <script>
@@ -47,7 +75,13 @@ export default {
   components: {},
 
   data: () => ({
-    //
+    drawer: false,
+    group: null,
   }),
+  watch: {
+    group() {
+      this.drawer = false
+    }
+  }
 };
 </script>
