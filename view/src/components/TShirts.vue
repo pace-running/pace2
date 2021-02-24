@@ -1,55 +1,23 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
-        <v-card>
-          <v-card-title class="green">Bezahlt</v-card-title>
-          <v-card-text>
-            <div v-for="(shirt,index) in this.shirts.payed"
-                 :key="`shirt.size-${index}`"
-            >
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ shirt.model }}
-                    {{ shirt.size }}:
-                    {{ shirt.count }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col>
-        <v-card>
-          <v-card-title class="red">Unbezahlt</v-card-title>
-          <v-card-text>
-            <div v-for="(shirt,index) in this.shirts.unpayed"
-                 :key="`shirt.size-${index}`"
-            >
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ shirt.size }}
-                    {{ shirt.model }}:
-                    {{ shirt.count }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+    <ShirtStatus
+                 :shirts="this.shirts.payed"
+                 status="payed"
+    ></ShirtStatus>
+    <ShirtStatus
+                 :shirts="this.shirts.unpayed"
+                 status="unpayed"
+    ></ShirtStatus>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import ShirtStatus from "./basic/ShirtStatus";
 
 export default {
   name: "TShirts",
+  components: {ShirtStatus},
   data: () => ({
     shirts: []
   }),
