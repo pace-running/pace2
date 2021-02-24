@@ -9,6 +9,7 @@
     </v-card-title>
     <v-card-text>
       Bezahlt: <strong>{{ row.amount }}</strong> Euro
+      <div v-if="row.reason">Verwendungszweck: {{row.reason}}</div>
       <div v-for="p in row.participants" :key="p.id">
         <v-row>
           <v-col>
@@ -17,9 +18,6 @@
             <div v-if="p.team"> Team: {{ p.team }}</div>
             <div>Email: {{ p.email }}</div>
           </v-col>
-          <v-col v-if="p.hasPayed == false">
-            <PaymentButton :participant="p"> Als bezahlt markieren</PaymentButton>
-          </v-col>
         </v-row>
       </div>
     </v-card-text>
@@ -27,10 +25,8 @@
 </template>
 
 <script>
-import PaymentButton from "./PaymentButton";
 export default {
   name: "ResultRow",
-  components: {PaymentButton},
   props: {
     row: Object
   },

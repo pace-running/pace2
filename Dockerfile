@@ -10,7 +10,7 @@ COPY view/public/fonts /usr/src/view/public/fonts/
 COPY view/.env /usr/src/view/
 COPY view/.env.docker /usr/src/view/
 RUN yarn install
-RUN yarn build
+RUN yarn build-docker
 
 FROM node:current-alpine
 

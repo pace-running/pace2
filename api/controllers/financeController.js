@@ -96,9 +96,9 @@ async function participantsByToken(tokenList) {
 function checkValidAmount(participants, amount) {
     let expectedAmount = 0;
     participants.forEach(p => {
-        expectedAmount += p.expectedPayment
+        expectedAmount = expectedAmount + parseInt(p.expectedPayment)
     })
-    return expectedAmount == amount
+    return expectedAmount <= amount
 }
 
 async function markPayed(participants) {
@@ -128,7 +128,7 @@ async function findAndMarkAsPayed(banktransfers) {
                 result.push({count: count,error: "Betrag stimmt nicht überein", result: false, participants: participants, tokens: banktranfer.found, amount: banktranfer.amount})
             }
         } else {
-            result.push({count: count, error: "Verwendungszweck nicht gefunden", result: false, tokens: banktranfer.found, amount: banktranfer.amount})
+            result.push({count: count, error: "Verwendungszweck nicht gefunden", result: false, tokens: banktranfer.found, amount: banktranfer.amount, reason: banktranfer.reason})
         }
     }
     return result
