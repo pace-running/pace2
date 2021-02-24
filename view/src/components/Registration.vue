@@ -111,18 +111,22 @@
           <v-row>
             <v-col>
               <v-select
-                  v-model="shirtSize"
-                  label="Groesse"
-                  required
-                  :rules="shirtRules"
-                  :items=shirtSizes>
-              </v-select>
-              <v-select
+                  @change="resetSize"
                   v-model="shirtModel"
                   label="Model"
+                  ref="model"
                   required
                   :rules="shirtRules"
                   :items="shirtModels">
+              </v-select>
+              <v-select
+                  v-model="shirtSize"
+                  no-data-text="Wähle erst das Shirt Model (Unisex oder Tailliert)"
+                  label="Groesse"
+                  ref="size"
+                  required
+                  :rules="shirtRules"
+                  :items=shirtSizes>
               </v-select>
             </v-col>
             <v-col>
@@ -213,7 +217,9 @@ export default {
   name: 'Registration',
   components: {RegistrationConfirmationDialog},
   data: () => ({
-    shirtSizes: ['XS', 'S', 'M', 'L'],
+    shirtSizes: [],
+    shirtSizesTailliert: ['XS','S','M','L','XL'],
+    shirtSizesUnisex: ['S','M','L','XL','XL','XXL'],
     shirtSize: '',
     shirtModels: ['Tailliert', 'Unisex'],
     shirtModel: '',
@@ -284,6 +290,16 @@ export default {
     clearFields() {
       this.$refs.form.reset();
       this.registrationSuccessful = false;
+    },
+    resetSize() {
+      console.log(this.$refs.size)
+      console.log(this.$refs.model)
+      if (this.shirtModel == 'Tailliert') {
+        this.shirtSizes = this.shirtSizesTailliert
+      } else {
+        this.shirtSizes = this.shirtSizesUnisex
+      }
+      this.$refs.size.reset()
     }
   }
 }
