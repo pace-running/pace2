@@ -35,19 +35,19 @@
             label="Shirt bestellt"
             v-model="wantsShirt"
         ></v-checkbox>
-        <v-card>
+        <v-card v-if="this.wantsShirt">
           <v-card-text>
-            <v-select v-if="this.wantsShirt"
+            <v-select v-if="participant.Shirt"
                 label="Groesse"
-                v-model="participant.Shirt.size"
+                v-model="shirtSize"
                 :items=shirtSizes>
             </v-select>
-            <v-select v-if="this.wantsShirt"
+            <v-select v-if="participant.Shirt"
                 label="Model"
-                v-model="participant.Shirt.model"
+                v-model="shirtModel"
                 :items="shirtModels">
             </v-select>
-            <v-card flat v-if="this.wantsShirt">
+            <v-card flat>
             <h2>Lieferanschrift</h2>
             <v-row>
               <v-col cols="8">
@@ -100,13 +100,23 @@ export default {
     participant: Object
   },
   data: () => ({
-    shirtSizes: ['XS', 'S', 'M', 'L'],
+    shirtSizes: ['XS', 'S', 'M', 'L','XL'],
     shirtModels: ['Tailliert', 'Unisex'],
+    shirtModel: '',
+    shirtSize: '',
     wantsShirt: false
   }),
   mounted() {
+    let s = JSON.parse(JSON.stringify(this.participant.Shirt))
+    this.shirtSize = s.size
+    this.shirtModel = s.model
     if(this.participant.Shirt) {
       this.wantsShirt = true
+    }
+  },
+  computed: {
+    model() {
+      return JSON.parse(JSON.stringify(this.participant.Shirt)).model
     }
   },
   watch: {
@@ -139,8 +149,8 @@ export default {
       }
       if (this.wantsShirt) {
         requestBody.Shirt = {
-          "model": this.participant.Shirt.model,
-          "size": this.participant.Shirt.size
+          "model": this.shirtModel,
+          "size": this.shirtSize
         }
       }
       axios.put(url, requestBody, requestConfig)
