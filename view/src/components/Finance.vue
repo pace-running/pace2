@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <FinanceStats ref="financeStats"></FinanceStats>
     <v-file-input @change="handleFileChange" ref="fileinput" label="Kontoauszug"></v-file-input>
     <v-btn @click="submitFile">Importieren</v-btn>
     <v-list>
@@ -11,10 +12,11 @@
 <script>
 import axios from "axios";
 import ResultRow from "./Finance/ResultRow";
+import FinanceStats from "./Finance/FinanceStats";
 
 export default {
   name: "Finance",
-  components: {ResultRow},
+  components: {FinanceStats, ResultRow},
   data: () => ({
     file: '',
     result: {}
@@ -27,7 +29,7 @@ export default {
     submitFile() {
       let formData = new FormData;
       formData.append('file', this.file)
-      const url = `${this.$base_url}/participant/importPayments`
+      const url = `${this.$base_url}/race/importPayments`
       const token = localStorage.pace_token
       const requestConfig = {
         headers: {Authorization: `Bearer ${token}`}
@@ -37,7 +39,7 @@ export default {
             this.result = result.data
             console.log(result.data)
             this.$refs.fileinput.clear
-
+            this.$refs.financeStats.getStats()
           })
 
 

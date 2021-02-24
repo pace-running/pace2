@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     hasPayed: DataTypes.BOOLEAN,
     secretToken: DataTypes.STRING,
     paymentToken: DataTypes.STRING,
-    expectedPayment: DataTypes.STRING,
+    expectedPayment: DataTypes.INTEGER,
     team: DataTypes.STRING,
   }, {
     sequelize,

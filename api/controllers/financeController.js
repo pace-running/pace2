@@ -123,12 +123,32 @@ async function findAndMarkAsPayed(banktransfers) {
             let valid = checkValidAmount(participants, banktranfer.amount)
             if (valid == true) {
                 markPayed(participants)
-                result.push({count: count,result: true, participants: participants, tokens: banktranfer.found, amount: banktranfer.amount})
+                result.push({
+                    count: count,
+                    result: true,
+                    participants: participants,
+                    tokens: banktranfer.found,
+                    amount: banktranfer.amount
+                })
             } else {
-                result.push({count: count,error: "Betrag stimmt nicht überein", result: false, participants: participants, tokens: banktranfer.found, amount: banktranfer.amount})
+                result.push({
+                    count: count,
+                    error: "Betrag stimmt nicht überein",
+                    result: false,
+                    participants: participants,
+                    tokens: banktranfer.found,
+                    amount: banktranfer.amount
+                })
             }
         } else {
-            result.push({count: count, error: "Verwendungszweck nicht gefunden", result: false, tokens: banktranfer.found, amount: banktranfer.amount, reason: banktranfer.reason})
+            result.push({
+                count: count,
+                error: "Verwendungszweck nicht gefunden",
+                result: false,
+                tokens: banktranfer.found,
+                amount: banktranfer.amount,
+                reason: banktranfer.reason
+            })
         }
     }
     return result
@@ -144,5 +164,18 @@ exports.importPayments = (req, res, next) => {
     }).catch(err => {
         next(err)
     })
+}
+
+exports.stats = (req, res, next) => {
+    Participant.count({
+        attributes: [
+            'hasPayed',
+            [DB.Sequelize.fn('sum', DB.Sequelize.col('expectedPayment')), 'total_amount'],
+        ],
+        group: ['hasPayed'],
+    }).then(result => {
+        res.status(200)
+        res.send(result)
+    }).catch(err => {next(err)})
 }
 
