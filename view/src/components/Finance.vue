@@ -2,16 +2,22 @@
   <v-container>
     <v-file-input @change="handleFileChange" ref="fileinput" label="Kontoauszug"></v-file-input>
     <v-btn @click="submitFile">Importieren</v-btn>
+    <v-list>
+    <ResultRow v-for="row in result" :key="row.count" :row=row></ResultRow>
+    </v-list>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import ResultRow from "./Finance/ResultRow";
 
 export default {
   name: "Finance",
+  components: {ResultRow},
   data: () => ({
-    file: ''
+    file: '',
+    result: {}
   }),
   methods: {
     handleFileChange(file) {
@@ -27,7 +33,9 @@ export default {
         headers: {Authorization: `Bearer ${token}`}
       }
       axios.put(url, formData, requestConfig)
-          .then(() => {
+          .then((result) => {
+            this.result = result.data
+            console.log(result.data)
             this.$refs.fileinput.clear
 
           })

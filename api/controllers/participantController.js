@@ -14,7 +14,6 @@ const paymentConfirmationQueue = new Queue('paymentConfirmationEmail', {
 });
 const Participant = DB.Participant
 const Shirt = DB.Shirt
-// const Op = DB.Sequelize.Op;
 const {Op} = require("sequelize");
 const crypto = require('crypto');
 const _ = require('lodash');

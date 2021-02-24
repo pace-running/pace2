@@ -1,6 +1,17 @@
 "use strict";
 
 const csv = require('fast-csv');
+const DB = require('../models/index')
+const Participant = DB.Participant
+const {Op} = require("sequelize");
+
+const Queue = require('bee-queue');
+const paymentConfirmationQueue = new Queue('paymentConfirmationEmail', {
+    redis: {
+        host: process.env.REDIS_HOST || "localhost"
+    },
+    isWorker: false,
+});
 
 const headers = [
     'Buchungstag', 'Valuta', 'Textschl黶sel', 'Auftraggeber/Zahlungsempfänger', 'Empfänger/Zahlungspflichtiger', 'Konto-Nr.', 'IBAN', 'BLZ', 'BIC', 'Vorgang/Verwendungszweck', 'Kundenreferenz', 'Währung', 'Umsatz', 'H'
@@ -38,28 +49,100 @@ function PaymentRow(statement) {
     }
 }
 
-function parse(file,res) {
-    csv
-        .parseFile(file, {delimiter: ';', headers: headers})
-        .on('error', error => {
-            console.error(error)
-            res.end()
-        })
-        .on("data", statement => {
-            if (buchungstagPattern.test(statement.Buchungstag)) {
-                let row = new PaymentRow(statement)
-                console.log(row.getPossibleTokens())
-                res.write(row.getPossibleTokens().toString())
-            }
-        })
-        .on("end", () => {
-            console.log('done');
-            res.end()
-        })
+function parse(file, res) {
+    return new Promise(resolve => {
+        let banktransfers = []
+        csv
+            .parseFile(file, {delimiter: ';', headers: headers})
+            .on('error', error => {
+                console.error(error)
+                res.end()
+            })
+            .on("data", statement => {
+                if (buchungstagPattern.test(statement.Buchungstag)) {
+                    let row = new PaymentRow(statement)
+                    banktransfers.push({
+                        found: row.getPossibleTokens(),
+                        amount: row.getAmount(),
+                        reason: row.getReason()
+                    })
+                }
+            })
+            .on("end", () => {
+                console.log('done');
+                resolve(banktransfers)
+            })
+    })
 };
+
+async function participantsByToken(tokenList) {
+    let result = []
+    for (const token of tokenList) {
+        console.log("looking for token", token)
+        let p = await Participant.findOne({
+            where: {
+                paymentToken: token
+            }
+        }).catch(err => {
+            console.error(err)
+        })
+        if (p != null) {
+            result.push(p)
+        }
+    }
+    return result
+}
+
+function checkValidAmount(participants, amount) {
+    let expectedAmount = 0;
+    participants.forEach(p => {
+        expectedAmount += p.expectedPayment
+    })
+    return expectedAmount == amount
+}
+
+async function markPayed(participants) {
+    for (const p of participants) {
+        if (p.hasPayed == false) {
+            p.hasPayed = true
+            p.save()
+            const job = paymentConfirmationQueue.createJob(result);
+            job.save()
+        }
+    }
+
+}
+
+async function findAndMarkAsPayed(banktransfers) {
+    let result = []
+    let count = 0;
+    for (const banktranfer of banktransfers) {
+        let participants = await participantsByToken(banktranfer.found)
+        if (participants.length > 0) {
+            count++
+            let valid = checkValidAmount(participants, banktranfer.amount)
+            if (valid == true) {
+                markPayed(participants)
+                result.push({count: count,result: true, participants: participants, tokens: banktranfer.found, amount: banktranfer.amount})
+            } else {
+                result.push({count: count,error: "Betrag stimmt nicht überein", result: false, participants: participants, tokens: banktranfer.found, amount: banktranfer.amount})
+            }
+        } else {
+            result.push({count: count, error: "Verwendungszweck nicht gefunden", result: false, tokens: banktranfer.found, amount: banktranfer.amount})
+        }
+    }
+    return result
+}
 
 exports.importPayments = (req, res, next) => {
     let file = req.file.destination + req.file.filename;
-    parse(file, res)
+    parse(file, res).then(banktransfers => {
+        findAndMarkAsPayed(banktransfers)
+            .then(result => {
+                res.send(result)
+            })
+    }).catch(err => {
+        next(err)
+    })
 }
 
