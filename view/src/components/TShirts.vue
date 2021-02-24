@@ -5,8 +5,8 @@
         <v-card>
           <v-card-title class="green">Bezahlt</v-card-title>
           <v-card-text>
-            <div v-for="shirt in this.shirts.payed"
-                 :key="shirt.size"
+            <div v-for="(shirt,index) in this.shirts.payed"
+                 :key="`shirt.size-${index}`"
             >
               <v-list-item>
                 <v-list-item-content>
@@ -25,8 +25,8 @@
         <v-card>
           <v-card-title class="red">Unbezahlt</v-card-title>
           <v-card-text>
-            <div v-for="shirt in this.shirts.unpayed"
-                 :key="shirt.size"
+            <div v-for="(shirt,index) in this.shirts.unpayed"
+                 :key="`shirt.size-${index}`"
             >
               <v-list-item>
                 <v-list-item-content>
