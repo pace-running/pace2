@@ -106,7 +106,7 @@
           :disabled="shirtWanted == 0"
           ref="shirtCard"
       >
-        <v-card-subtitle>Nur versand, keine Abholung. 15Euro</v-card-subtitle>
+        <v-card-subtitle>Nur Versand, keine Abholung. 15Euro</v-card-subtitle>
         <v-card-text>
           <v-row>
             <v-col>
