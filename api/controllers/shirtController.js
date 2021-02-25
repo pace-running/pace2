@@ -19,7 +19,7 @@ exports.stats = (req, res, next) => {
 
 async function statsByPaymentstatus(status) {
     return Shirt.findAll({
-        group: ['size', 'model'],
+        group: ['orderedAt', 'size', 'model'],
         include: {
             model: Participant,
             attributes: [],
@@ -29,17 +29,28 @@ async function statsByPaymentstatus(status) {
                 }
             }
         },
-        attributes: ['size', 'model', [DB.Sequelize.fn('COUNT', 'size'), 'count']],
+        attributes: ['orderedAt', 'size', 'model', [DB.Sequelize.fn('COUNT', 'size'), 'count']],
     })
 }
 
-exports.shirtCSV = (req,res,next) => {
+async function markOrdered() {
+ //return DB.sequelize.query('SELECT * from "Shirts" LEFT JOIN "Participants" ON "Participants".id = "Shirts"."participantId"')
+ return DB.sequelize.query('update "Shirts" set "orderedAt" = current_timestamp from "Participants" where "Shirts"."participantId" = "Participants".id and "Participants"."hasPayed" = TRUE and "Shirts"."orderedAt" IS NULL')
+}
+
+exports.markShirtsAsOrdered = (req,res,next) => {
+    markOrdered().then(result =>{
+        res.send(result)
+    }).catch(err => {next(err)})
+}
+
+exports.shirtCSV = (req, res, next) => {
     Participant.findAll({
             where: {
                 hasPayed: true,
-                '$Shirt.id$':  {[Op.ne]: null}
+                '$Shirt.id$': {[Op.ne]: null}
             },
-            order: [['Shirt', 'size'],['Shirt','model']],
+            order: [['Shirt', 'size'], ['Shirt', 'model']],
             include: Shirt
         }
     ).then(participants => {
@@ -53,11 +64,13 @@ exports.shirtCSV = (req,res,next) => {
                 strasse: p.getDataValue('street') + ' ' + p.getDataValue('streetNumber'),
                 stadt: p.getDataValue('plz') + ' ' + p.getDataValue('city'),
                 land: p.getDataValue('country'),
-                shirt: p.getDataValue('Shirt').getDataValue('model')  + '/' + p.getDataValue('Shirt').getDataValue('size')
+                shirt: p.getDataValue('Shirt').getDataValue('model') + '/' + p.getDataValue('Shirt').getDataValue('size')
             })
         })
         csvStream.end();
-    }).catch(err => {next(err)})
+    }).catch(err => {
+        next(err)
+    })
 
 
 }

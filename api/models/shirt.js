@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   Shirt.init({
     model: DataTypes.STRING,
     size: DataTypes.STRING,
+    orderedAt: DataTypes.DATE,
     participantId: DataTypes.INTEGER
   }, {
     sequelize,
