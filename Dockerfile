@@ -7,10 +7,9 @@ COPY view/vue.config.js /usr/src/view/
 COPY view/src /usr/src/view/src/
 COPY view/public/* /usr/src/view/public/
 COPY view/public/fonts /usr/src/view/public/fonts/
-COPY view/.env /usr/src/view/
-COPY view/.env.docker /usr/src/view/
+ENV VUE_APP_BASEURL ""
 RUN yarn install
-RUN yarn build-docker
+RUN yarn build
 
 FROM node:current-alpine
 

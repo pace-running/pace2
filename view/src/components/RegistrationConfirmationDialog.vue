@@ -11,7 +11,7 @@
         </v-chip>
       </p>
       <v-list-item>
-        <v-list-item-content><p class="text-h5">Rechnungsbetrag: {{this.participant.expectedPayment}} Euro</p></v-list-item-content>
+        <v-list-item-content><p class="text-h5">Spendenbetrag: {{this.participant.expectedPayment}} Euro</p></v-list-item-content>
       </v-list-item>
       <v-list-item>
         <v-list-item-content>

@@ -10,30 +10,23 @@ Vue.prototype.$base_url = process.env['VUE_APP_BASEURL']
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
-import Impressum from '@/pages/impressum'
-import Datenschutz from '@/pages/datenschutz'
 import RegistrationPage from "@/pages/registration";
 import RaceStatus from "./components/RaceStatus";
 import ParticipantSelfService from "./components/ParticipantSelfService"
-import Login from "./components/Login";
-import Finance from "./components/Finance";
-import TShirts from "./components/TShirts";
-import ParticipantList from "./components/ParticipantList/ParticipantList";
-import RaceEdit from "./components/RaceEdit";
-import Print from "./components/Print";
 
 const routes = [
     {path: '/', component: RaceStatus},
     {path: '/registration', component: RegistrationPage, name: "Registration"},
     {path: '/me', component: ParticipantSelfService},
-    {path: '/datenschutz', component: Datenschutz},
-    {path: '/impressum', component: Impressum},
-    {path: '/login', component: Login, name: "Login"},
-    {path: '/admin/finance', component: Finance, meta: {requiresAuth: true}},
-    {path: '/admin/shirts', component: TShirts, meta: {requiresAuth: true}},
-    {path: '/admin/participants', component: ParticipantList, alias: "/admin", meta: {requiresAuth: true}},
-    {path: '/admin/print', component: Print, meta: {requiresAuth: true}},
-    {path: '/admin/settings', component: RaceEdit, meta: {requiresAuth: true}},
+    {path: '/datenschutz', component: () => import('./pages/datenschutz')},
+    {path: '/impressum', component: () => import('./pages/impressum')},
+    {path: '/login', component: () => import('./components/Login'), name: "Login"},
+    {path: '/admin/finance', component: () => import('./components/Finance'), meta: {requiresAuth: true}},
+    {path: '/admin/shirts', component: () => import('./components/TShirts'), meta: {requiresAuth: true}},
+    {path: '/admin/participants', component: () => import('./components/ParticipantList/ParticipantList'), alias: "/admin", meta: {requiresAuth: true}},
+    {path: '/admin/print', component: ()=> import('./components/Print'), meta: {requiresAuth: true}},
+    {path: '/admin/settings',  component:()  => import('./components/RaceEdit'), meta: {requiresAuth: true}},
+    { path: '/admin/mail', component: () => import('./components/mail/MailEditor'),meta: {requiresAuth: true} }
 ];
 const router = new VueRouter({routes})
 router.beforeEach((to, from, next) => {

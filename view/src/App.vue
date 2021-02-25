@@ -42,6 +42,9 @@
           <v-list-item to="/admin/settings">
             <v-list-item-title>Einstellungen</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/admin/mail">
+            <v-list-item-title>Mails verschicken</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
