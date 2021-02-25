@@ -8,18 +8,36 @@ const {Op} = require("sequelize");
 exports.stats = (req, res, next) => {
     let payed = statsByPaymentstatus(true);
     let unpayed = statsByPaymentstatus(false);
-    Promise.all([unpayed, payed])
+    let order_missing = unordered()
+    Promise.all([unpayed, payed,order_missing])
         .then(values => {
-            res.send({'payed': values[0], 'unpayed': values[1]})
+            res.send({'payed': values[0], 'unpayed': values[1], 'order_missing': values[2]})
         }).catch(err => {
         next(err)
+    })
+}
+
+async function unordered() {
+    return Shirt.findAll({
+        group: ['size', 'model'],
+        attributes: ['size', 'model', [DB.Sequelize.fn('COUNT', 'size'), 'count']],
+        where: {'orderedAt': null},
+        include: {
+            model: Participant,
+            attributes: [],
+            where: {
+                hasPayed: {
+                    [Op.eq]: true
+                }
+            }
+        },
     })
 }
 
 
 async function statsByPaymentstatus(status) {
     return Shirt.findAll({
-        group: ['orderedAt', 'size', 'model'],
+        group: ['size', 'model'],
         include: {
             model: Participant,
             attributes: [],
@@ -29,7 +47,7 @@ async function statsByPaymentstatus(status) {
                 }
             }
         },
-        attributes: ['orderedAt', 'size', 'model', [DB.Sequelize.fn('COUNT', 'size'), 'count']],
+        attributes: ['size', 'model', [DB.Sequelize.fn('COUNT', 'size'), 'count']],
     })
 }
 
