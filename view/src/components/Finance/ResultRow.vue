@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     markPayed(participantid) {
-      console.log("marking:",participantid)
     }
   }
 }

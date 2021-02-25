@@ -31,7 +31,6 @@ export default {
   }),
   computed: {
     unordered() {
-      console.log(this.shirts.order_missing)
       return ( this.shirts.order_missing.length > 0)
     }
   },

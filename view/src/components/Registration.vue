@@ -292,8 +292,6 @@ export default {
       this.registrationSuccessful = false;
     },
     resetSize() {
-      console.log(this.$refs.size)
-      console.log(this.$refs.model)
       if (this.shirtModel == 'Tailliert') {
         this.shirtSizes = this.shirtSizesTailliert
       } else {

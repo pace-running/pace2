@@ -71,7 +71,6 @@ export default {
       this.drawer = false
     },
     compontentToShow() {
-      console.log("change",this.compontentToShow)
       let map = new Map();
       map.set("participantList","Teilnehmer*innen")
       map.set("PrintComponent","Drucken")

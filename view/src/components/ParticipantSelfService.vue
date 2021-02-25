@@ -62,7 +62,6 @@ export default {
   },
   methods: {
     getParticipant() {
-      console.log(this.$route.query.token)
       const url = `${this.$base_url}/participant/byToken/${this.$route.query.token}`
       axios.get(url)
           .then(response => {

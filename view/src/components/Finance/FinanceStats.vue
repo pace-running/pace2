@@ -32,7 +32,6 @@ export default {
       axios.get(url, requestConfig)
           .then((result) => {
             this.stats = result.data
-            console.log(result.data)
           })
     }
   }

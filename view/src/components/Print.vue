@@ -17,7 +17,6 @@ export default {
      }
      axios.get(url, requestConfig)
      .then(response => {
-       console.log("downloaded", response.status)
        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
        var fileLink = document.createElement('a');
        fileLink.href = fileURL;

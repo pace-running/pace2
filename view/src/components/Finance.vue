@@ -24,7 +24,6 @@ export default {
   methods: {
     handleFileChange(file) {
       this.file = file
-      console.log(file)
     },
     submitFile() {
       let formData = new FormData;
@@ -37,7 +36,6 @@ export default {
       axios.put(url, formData, requestConfig)
           .then((result) => {
             this.result = result.data
-            console.log(result.data)
             this.$refs.fileinput.clear
             this.$refs.financeStats.getStats()
           })
