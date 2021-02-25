@@ -45,6 +45,9 @@ export default {
     participantEditor: false,
   }),
   mounted: function () {
+    if (this.$route.query.search) {
+      this.search = this.$route.query.search
+    }
     this.getParticipants();
   },
   methods: {
