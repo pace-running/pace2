@@ -24,7 +24,7 @@ import Print from "./components/Print";
 
 const routes = [
     {path: '/', component: RaceStatus},
-    {path: '/registration', component: RegistrationPage},
+    {path: '/registration', component: RegistrationPage, name: "Registration"},
     {path: '/me', component: ParticipantSelfService},
     {path: '/datenschutz', component: Datenschutz},
     {path: '/impressum', component: Impressum},
@@ -46,16 +46,27 @@ router.beforeEach((to, from, next) => {
     } else {
         next()
     }
+    if(to.name == "Registration") {
+        if(!store.getters.raceOpen) {
+            next({path: '/'})
+        } else {
+            next()
+        }
+    }
 })
 
 const store = new Vuex.Store({
     state: {
         raceOpen: false,
+        shirtsEnabled: false,
         isLoggedIn: false
     },
     getters: {
         isLoggedIn: state => {
             return state.isLoggedIn
+        },
+        raceOpen: state => {
+            return state.raceOpen
         }
     },
     mutations: {
@@ -64,6 +75,9 @@ const store = new Vuex.Store({
         },
         setLoggedIn(state, status) {
             state.isLoggedIn = status
+        },
+        setShirtsEnabled(state,status) {
+            state.shirtsEnabled = status
         }
     },
 })

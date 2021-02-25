@@ -38,7 +38,7 @@
           >
       </v-select>
 
-      <v-row>
+      <v-row v-if="this.$store.state.shirtsEnabled">
         <v-col>
           <v-checkbox
               v-model="shirtWanted"
@@ -102,6 +102,7 @@
       </v-row>
 
       <v-card
+          v-if="this.$store.state.shirtsEnabled"
           elevation="10"
           :disabled="shirtWanted == 0"
           ref="shirtCard"
