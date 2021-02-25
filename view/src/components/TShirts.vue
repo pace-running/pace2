@@ -1,12 +1,20 @@
 <template>
   <v-container>
     <ShirtStatus
-                 :shirts="this.shirts.payed"
-                 status="payed"
+        :shirts="this.shirts.payed"
+        status="payed"
+        name="Bezahlt (inkl bestellter Shirts)"
     ></ShirtStatus>
+        <ShirtStatus v-if="unordered"
+            :shirts="this.shirts.order_missing"
+            status="payed"
+            name="Noch nicht bestellt"
+        ></ShirtStatus>
+        <v-btn v-if="unordered" block @click.stop="markOrdered">Als bestellt markieren</v-btn>
     <ShirtStatus
-                 :shirts="this.shirts.unpayed"
-                 status="unpayed"
+        :shirts="this.shirts.unpayed"
+        status="unpayed"
+        name="Unbezahlt"
     ></ShirtStatus>
   </v-container>
 </template>
@@ -21,6 +29,12 @@ export default {
   data: () => ({
     shirts: []
   }),
+  computed: {
+    unordered() {
+      console.log(this.shirts.order_missing)
+      return ( this.shirts.order_missing.length > 0)
+    }
+  },
   mounted: function () {
     this.getShirts()
   },
@@ -35,6 +49,15 @@ export default {
           .then((response) => {
             this.shirts = response.data
           })
+    },
+    markOrdered: function() {
+      const url = `${this.$base_url}/race/shirts/markOrdered`
+      const token = localStorage.pace_token
+      const requestConfig = {
+        headers: {Authorization: `Bearer ${token}`},
+      }
+      axios.put(url, null,requestConfig)
+      .then(()=>{this.getShirts()})
     }
   }
 }

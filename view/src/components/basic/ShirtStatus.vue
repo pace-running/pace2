@@ -32,7 +32,8 @@ export default {
   name: "ShirtStatus",
   props: {
     shirts: Array,
-    status: String
+    status: String,
+    name: String
   },
   computed: {
     color() {
@@ -42,13 +43,6 @@ export default {
         return "red"
       }
     },
-    name() {
-      if (this.status == "payed") {
-        return "Bezahlt"
-      } else {
-        return "Unbezahlt"
-      }
-    }
   }
 }
 </script>
