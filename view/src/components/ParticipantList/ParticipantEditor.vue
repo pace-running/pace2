@@ -100,7 +100,7 @@ export default {
     participant: Object
   },
   data: () => ({
-    shirtSizes: ['XS', 'S', 'M', 'L','XL'],
+    shirtSizes: ['XS', 'S', 'M', 'L','XL','XXL'],
     shirtModels: ['Tailliert', 'Unisex'],
     shirtModel: '',
     shirtSize: '',

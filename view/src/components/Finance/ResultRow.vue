@@ -3,7 +3,7 @@
     <v-card-title>
       <v-icon :color="checkColor">mdi-check</v-icon>
       <span>{{ row.error }}</span>
-      <v-chip class="ma-2" label v-for="token in row.tokens" :key="token">
+      <v-chip class="ma-2" label v-for="token in row.tokens" :key="token" :to="{ path: '/admin/participants', query: { search: token }}">
         &nbsp;{{ token }}
       </v-chip>
     </v-card-title>
@@ -40,10 +40,6 @@ export default {
       } else {
         return "red"
       }
-    }
-  },
-  methods: {
-    markPayed(participantid) {
     }
   }
 }
