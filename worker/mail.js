@@ -34,3 +34,13 @@ exports.confirmationEmail = (participant) => {
         console.log(result.response)
     });
 }
+
+exports.bulkmail = (data) => {
+        transporter.sendMail({
+            from: '"Lauf gegen Rechts" <info@lauf-gegen-rechts.de>', // sender address
+            to: data.address,
+            subject: data.subject,
+            text: "Lauf gegen Rechts 2021. Infos im HTML.", // plain text body
+            html: data.html
+        })
+}

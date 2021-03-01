@@ -32,10 +32,6 @@
             ref="sendForm">
           <v-checkbox v-model="yesIwantToSpam"
                       label="Ja, testmail ist angekommen und sieht gut aus"></v-checkbox>
-          <v-select
-              :items="toWhom"
-              label="An wen"
-          ></v-select>
           <v-btn
               color="brown"
               :disabled="!yesIwantToSpam"
@@ -66,6 +62,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { VueEditor } from "vue2-editor"
 export default {
   components: {VueEditor},
@@ -76,12 +73,38 @@ export default {
     testAddress: '',
     snackbar: false,
     yesIwantToSpam: false,
-    toWhom: ['Alle', 'nur unbezahlte', 'nur bezahlte']
   }),
   methods: {
+    sendReal() {
+      const url = `${this.$base_url}/race/bulkmail/`
+      const token = localStorage.pace_token
+      const requestConfig = {
+        headers: {Authorization: `Bearer ${token}`},
+      }
+      const data = {
+        subject: this.subject,
+        html: this.myHTML,
+      }
+      axios.put(url,data,requestConfig).then(response => {
+        console.log(response)
+      })
+    },
     sendTest() {
-      console.log(this.myHTML)
       this.snackbar = true
+      const url = `${this.$base_url}/race/testmail/`
+      const token = localStorage.pace_token
+      const requestConfig = {
+        headers: {Authorization: `Bearer ${token}`},
+      }
+      const data = {
+        subject: this.subject,
+        html: this.myHTML,
+        address: this.testAddress
+      }
+      axios.put(url,data,requestConfig).then(response => {
+        console.log(response)
+      })
+
     }
   }
 }
