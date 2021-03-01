@@ -75,18 +75,7 @@
                 Nutzung unseres Angebotes automatisch zur Verfügung stellen.
                 Ihre Daten werden ausschließlich von uns verarbeitet und grundsätzlich nicht an Dritte verkauft,
                 verliehen
-                oder weitergegeben. Sofern wir uns bei der Verarbeitung Ihrer personenbezogenen Daten der Hilfe externer
-                Dienstleister bedienen, erfolgt dies im Rahmen einer sogenannten Auftragsverarbeitung, bei der wir als
-                Auftraggeber unseren Auftragnehmern gegenüber weisungsbefugt sind. Zum Betrieb unserer Webseite setzen
-                wir
-                für das Hosting einen externen Dienstleister ein. Unsere Webseite wird bei Amazon Web Services AWS
-                (Amazon
-                Web Services, Inc., aws.amazon.com) am Rechenzentrumsstandort Frankfurt a.M. gehostet. Sollten bei
-                einzelnen, der in Ziffern 6-8 aufgeführten Verarbeitungen weitere externe Dienstleister zum Einsatz
-                kommen, werden sie dort benannt.
-                Eine Datenübermittlung in Drittstaaten findet im Übrigen grundsätzlich nicht statt und ist auch nicht
-                geplant. Über Ausnahmen von diesem Grundsatz werden wir in den nachfolgend dargestellten Verarbeitungen
-                informieren.
+                oder weitergegeben.
               </li>
               <h3>Die VERARBEITUNGEN Im Einzelnen</h3>
               <li>
@@ -98,15 +87,14 @@
                     erfolgt, indem Sie das Anmeldeformular auf unserer Webseite ausfüllen und uns elektronisch
                     übermitteln.
                     Zur Anmeldung bedarf es keinerlei Pflichtangaben. Sie können freiwillig entscheiden, ob Sie Ihren
-                    Vornamen, Nachnamen, E-Mail-Adresse und/oder den Namen Ihres Teams angeben wollen. Darüber
-                    hinaus können Sie uns mitteilen, wie schnell Sie unterwegs sind – ob Sie selten, gelegentlich bis
-                    regelmäßig oder häufig, ambitioniert und schnell laufen. Weiterhin können Sie eine Auswahl zur Höhe
-                    der
+                    Vornamen, Nachnamen, E-Mail-Adresse und/oder den Namen Ihres Teams angeben wollen.
+                    Weiterhin können Sie eine Auswahl zur Höhe der
                     von Ihnen zu entrichtenden Teilnahmegebühr treffen. Schließlich können Sie im Rahmen Ihrer Anmeldung
-                    angeben, ob und in welcher Größe, sowie Ausführung (Tailliert, Unisex) Sie ein Laufshirt für 15 Euro
-                    erwerben wollen. Mit dem Anklicken des Buttons „Absenden“ übermitteln Sie uns das Formular. Ihnen
-                    wird
-                    dann im Anschluss auf unserer Webseite mitgeteilt, dass Ihre Anmeldung erfolgreich war und welche
+                    angeben, ob Sie ein TShirt fü 15Euro erwerben wollen.
+                    Sollt dies der Fall sein, werden folgende Angaben  nötig: Name, Vorname, Strasse, Hausnummer, PLZ, Stadt, Land.
+                    Diese Angaben werden gebraucht um Ihnen das TShirt zuzuschicken.
+
+                    Im Anschluss an die Anmeldung wird Ihnen auf unserer Webseite mitgeteilt, dass Ihre Anmeldung erfolgreich war und welche
                     Startnummer Ihnen durch unser System vergeben worden ist. Darüber hinaus wird ein für Sie
                     generierter Link
                     ausgegeben, unter dem Sie Ihre persönlichen Angaben und erteilte Einwilligungen verwalten können.
@@ -117,12 +105,10 @@
                   </li>
                   <li>
                     <h5>Rechtsgrundlage</h5>
-                    Die Verarbeitung Ihrer Anmelderangaben (Vorname, Nachname, E-Mail-Adresse, Geburtsjahr, Name des
-                    Teams,
-                    Angaben zur Laufpraxis) erfolgt auf Grundlage einer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO.
-                    Ihre
+                    Die Verarbeitung Ihrer Anmelderangaben (Vorname, Nachname, E-Mail-Adresse, Name des
+                    Teams erfolgt auf Grundlage einer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO. Ihre
                     Einwilligung ist freiwillig. Die Verarbeitung Ihrer Angaben zum Laufshirt (Kaufentscheidung, Größe,
-                    Modell) ist zum Abschluss und zur Erfüllung des Kaufvertrages erforderlich (Art. 6 Abs. 1 lit. b
+                    Modell, Anschrift) ist zum Abschluss und zur Erfüllung des Kaufvertrages erforderlich (Art. 6 Abs. 1 lit. b
                     DSGVO).
                   </li>
                   <li>

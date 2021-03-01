@@ -9,7 +9,7 @@
           v-model="firstName"
           required
           :rules="shirtRules"
-          label="Vorname"
+          label="Vorname (erscheint auf der Startnummer)"
       ></v-text-field>
       <v-text-field
           v-model="lastName"
@@ -19,7 +19,7 @@
       ></v-text-field>
       <v-text-field
           v-model="team"
-          label="Team"
+          label="Team (erscheint auf der Startnummer)"
       ></v-text-field>
 
       <v-text-field
