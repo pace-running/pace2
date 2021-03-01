@@ -20,4 +20,5 @@ router.put('/toggleShirtsEnabled', jwtAuth,  RaceController.toggleShirtsEnabled)
 router.put('/name', jwtAuth,  RaceController.name)
 router.put('/importPayments', jwtAuth,upload.single('file'), FinanceController.importPayments)
 router.get('/financeStats', jwtAuth,upload.single('file'), FinanceController.stats)
+router.get('/csv', jwtAuth,upload.single('file'), FinanceController.csv)
 module.exports = router;

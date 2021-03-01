@@ -24,8 +24,6 @@ export default {
        document.body.appendChild(fileLink);
        fileLink.click();
      })
-
-
    }
   }
 }

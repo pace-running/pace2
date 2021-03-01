@@ -3,6 +3,7 @@
 const csv = require('fast-csv');
 const DB = require('../models/index')
 const Participant = DB.Participant
+const Shirt = DB.Shirt
 const {Op} = require("sequelize");
 
 const Queue = require('bee-queue');
@@ -177,5 +178,34 @@ exports.stats = (req, res, next) => {
         res.status(200)
         res.send(result)
     }).catch(err => {next(err)})
+}
+
+exports.csv = (req, res, next) => {
+    Participant.findAll({
+            include: Shirt
+        })
+    .then(participants => {
+        res.setHeader("content-type", "application/csv");
+        res.setHeader('Content-disposition', 'attachment; filename=status.csv');
+        const csvStream = csv.format({headers: true})
+        csvStream.pipe(res)
+        participants.forEach(p => {
+            let shirt = ''
+            if (p.getDataValue('shirt')){
+                shirt = p.getDataValue('Shirt').getDataValue('model') + '/' + p.getDataValue('Shirt').getDataValue('size')
+            }
+            csvStream.write({
+                name: p.getDataValue('firstName') + ' ' + p.getDataValue('lastName'),
+                email: p.getDataValue('email'),
+                shirt: shirt,
+                token: p.getDataValue('paymentToken'),
+                expected: p.getDataValue('expectedPayment'),
+                payed: p.getDataValue('hasPayed'),
+            })
+        })
+        csvStream.end();
+    }).catch(err => {
+        next(err)
+    })
 }
 
