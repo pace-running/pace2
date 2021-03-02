@@ -15,13 +15,13 @@
     >
       <v-row>
         <v-col>
-          {{ participant.firstName }}
-          {{ participant.lastName }}
+          {{ cachedParticipant.firstName }}
+          {{ cachedParticipant.lastName }}
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          {{ participant.team }}
+          {{ cachedParticipant.team }}
         </v-col>
       </v-row>
     </td>
@@ -30,7 +30,7 @@
     </td>
     <td cols="1"
     >
-      <v-icon v-if="typeof participant.Shirt !== 'undefined' && participant.Shirt != null"
+      <v-icon v-if="typeof cachedParticipant.Shirt !== 'undefined' && cachedParticipant.Shirt != null"
               color="green"
       >mdi-tshirt-crew-outline
       </v-icon>
@@ -63,15 +63,15 @@
         </template>
         <ParticipantEditor
             @closeEditor="closeEditor"
-            :participant="this.participant"></ParticipantEditor>
+            :participant="this.cachedParticipant"></ParticipantEditor>
       </v-dialog>
     </td>
     <td>
       <v-btn v-if="participant.email"
-          color="brown"
-          dark
-          outlined
-          @click.stop="resendConfirmation"
+             color="brown"
+             dark
+             outlined
+             @click.stop="resendConfirmation"
       >
         <v-icon>mdi-email-check-outline</v-icon>
       </v-btn>
@@ -91,10 +91,22 @@ export default {
   components: {ParticipantEditor, Paymentstatus},
   props: {participant: Object},
   data: () => ({
-   dialog: false
+    dialog: false,
+    cachedParticipant: {},
+
   }),
+  mounted() {
+    this.cachedParticipant = Object.assign({}, this.participant)
+  },
   methods: {
-    closeEditor() {this.dialog=false},
+    closeEditor(participant) {
+      this.dialog = false
+      this.cachedParticipant = JSON.parse(JSON.stringify(participant))
+      if (participant.Shirt === null) {
+        delete this.cachedParticipant.Shirt
+      }
+      console.log(participant.Shirt)
+    },
     markPayed() {
       const token = localStorage.pace_token
       const url = `${this.$base_url}/participant/markPayed/${this.participant.id}`

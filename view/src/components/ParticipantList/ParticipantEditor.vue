@@ -15,20 +15,20 @@
       <v-card-text>
         <v-text-field
             label="Vorname"
-            v-model="participant.firstName"
+            v-model="firstName"
         ></v-text-field>
         <v-text-field
             label="Nachname"
-            v-model="participant.lastName"
+            v-model="lastName"
         ></v-text-field>
         <v-text-field
             label="Team"
-            v-model="participant.team"
+            v-model="team"
         ></v-text-field>
 
         <v-text-field
             label="E-mail"
-            v-model="participant.email"
+            v-model="email"
         ></v-text-field>
 
         <v-checkbox
@@ -37,12 +37,12 @@
         ></v-checkbox>
         <v-card v-if="this.wantsShirt">
           <v-card-text>
-            <v-select v-if="participant.Shirt"
+            <v-select v-if="this.wantsShirt"
                 label="Groesse"
                 v-model="shirtSize"
                 :items=shirtSizes>
             </v-select>
-            <v-select v-if="participant.Shirt"
+            <v-select v-if="this.wantsShirt"
                 label="Model"
                 v-model="shirtModel"
                 :items="shirtModels">
@@ -52,30 +52,30 @@
             <v-row>
               <v-col cols="8">
                 <v-text-field
-                    v-model="participant.street"
+                    v-model="street"
                     label="Strassse"></v-text-field>
               </v-col>
               <v-col cols="4">
                 <v-text-field
-                    v-model="participant.streetNumber"
+                    v-model="streetNumber"
                     label="Hausnummer"></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="2">
                 <v-text-field
-                    v-model="participant.plz"
+                    v-model="plz"
                     label="PLZ"></v-text-field>
               </v-col>
               <v-col cols="10">
                 <v-text-field
-                    v-model="participant.city"
+                    v-model="city"
                     label="Stadt"></v-text-field>
               </v-col>
 
             </v-row>
             <v-text-field
-                v-model="participant.country"
+                v-model="country"
                 value="Deutschland"
                 label="Land"></v-text-field>
             </v-card>
@@ -85,6 +85,8 @@
       <v-card-actions>
         <slot>
           <v-btn @click="save">Speichern</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn @click="cancel">Abbrechen</v-btn>
         </slot>
       </v-card-actions>
     </v-card>
@@ -104,32 +106,66 @@ export default {
     shirtModels: ['Tailliert', 'Unisex'],
     shirtModel: '',
     shirtSize: '',
-    wantsShirt: false
+    wantsShirt: false,
+    firstName: '',
+    lastName: '',
+    email: '',
+    team: '',
+    street: '',
+    streetNumber: '',
+    city: '',
+    plz: '',
+    country: '',
+    cachedParticipant: {}
   }),
   mounted() {
-    let s = JSON.parse(JSON.stringify(this.participant.Shirt))
-    this.shirtSize = s.size
-    this.shirtModel = s.model
-    if(this.participant.Shirt) {
-      this.wantsShirt = true
+    this.cachedParticipant = Object.assign({}, this.participant)
+    if (this.cachedParticipant.Shirt == null) {
+      delete this.cachedParticipant.Shirt
     }
-  },
-  computed: {
-    model() {
-      return JSON.parse(JSON.stringify(this.participant.Shirt)).model
-    }
-  },
-  watch: {
-    wantsShirt: function(state) {
-      if(state == true) {
-        this.participant.Shirt = {}
-      }
-      else {
-        this.participant.Shirt = null
-      }
-    }
+    this.resetModel()
   },
   methods: {
+    resetModel() {
+      this.firstName = this.participant.firstName
+      this.lastName = this.participant.lastName
+      this.email = this.participant.email
+      this.team = this.participant.team
+      this.street = this.participant.street
+      this.streetNumber = this.participant.streetNumber
+      this.city = this.participant.city
+      this.plz = this.participant.plz
+      this.country = this.participant.country
+      if(this.participant.Shirt != null) {
+        let s = JSON.parse(JSON.stringify(this.participant.Shirt))
+        this.shirtSize = s.size
+        this.shirtModel = s.model
+        this.wantsShirt = true
+      }
+      else {
+        this.wantsShirt = false
+      }
+    },
+    saveModel(){
+      this.cachedParticipant.firstName = this.firstName
+      this.cachedParticipant.lastName = this.lastName
+      this.cachedParticipant.email = this.email
+      this.cachedParticipant.team = this.team
+      this.cachedParticipant.street = this.street
+      this.cachedParticipant.streetNumber = this.streetNumber
+      this.cachedParticipant.city = this.city
+      this.cachedParticipant.plz = this.plz
+      this.cachedParticipant.country = this.country
+      if(this.wantsShirt) {
+        this.cachedParticipant.Shirt = {
+          model: this.shirtModel,
+          size: this.shirtSize
+        }
+      }
+      else {
+        delete this.cachedParticipant.Shirt
+      }
+    },
     save() {
       const url = `${this.$base_url}/participant/update/${this.participant.id}`
       const token = localStorage.pace_token
@@ -137,15 +173,15 @@ export default {
         headers: {Authorization: `Bearer ${token}`}
       }
       const requestBody = {
-        "firstName": this.participant.firstName,
-        "lastName": this.participant.lastName,
-        "team": this.participant.team,
-        "email": this.participant.email,
-        "street": this.participant.street,
-        "streetNumber": this.participant.streetNumber,
-        "plz": this.participant.plz,
-        "city": this.participant.city,
-        "country": this.participant.country,
+        "firstName": this.firstName,
+        "lastName": this.lastName,
+        "team": this.team,
+        "email": this.email,
+        "street": this.street,
+        "streetNumber": this.streetNumber,
+        "plz": this.plz,
+        "city": this.city,
+        "country": this.country,
       }
       if (this.wantsShirt) {
         requestBody.Shirt = {
@@ -155,8 +191,13 @@ export default {
       }
       axios.put(url, requestBody, requestConfig)
           .then(() => {
-            this.$emit('closeEditor')
+            this.saveModel()
+            this.$emit('closeEditor',this.cachedParticipant)
           })
+    },
+    cancel() {
+      this.resetModel()
+      this.$emit('closeEditor',this.participant)
     }
   }
 }
