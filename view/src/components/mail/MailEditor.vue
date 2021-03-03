@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <span class="text-h5">Massenmail verschicken (macht aber noch nichts)</span>
+    <span class="text-h5">Massenmail verschicken</span>
     <v-form>
     <v-text-field
         label="Betreff"
