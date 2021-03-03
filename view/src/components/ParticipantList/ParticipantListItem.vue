@@ -105,7 +105,6 @@ export default {
       if (participant.Shirt === null) {
         delete this.cachedParticipant.Shirt
       }
-      console.log(participant.Shirt)
     },
     markPayed() {
       const token = localStorage.pace_token
