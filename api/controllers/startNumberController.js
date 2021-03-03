@@ -28,7 +28,7 @@ function generatePdf(participant) {
     doc.image(__dirname + "/../" + pathToBackgroundImage,{fit:[630,632] });
     doc.image(__dirname + "/../" + pathToLogoRight, 515, 0, {fit: [80, 80]});
     doc.font('Helvetica-Bold').fontSize(200).fillColor("brown").text(participant.startNumber, 0, 30, {align: 'center'});
-    doc.font('Helvetica-Bold').fontSize(8).fillColor("white").text("©Stefan Groenveldt", 500, 410, {align: 'center'});
+    doc.font('Helvetica-Bold').fontSize(8).fillColor("white").text("©Stefan Groenveld", 500, 410, {align: 'center'});
     if (participant.firstName) {doc.fontSize(40).fillColor('white').text(participant.firstName, 0, 190, {align: 'center'});}
     if (participant.team) {doc.fontSize(40).fillColor('white').text(participant.team, 0, 230, {align: 'center'});}
     if (participant.hasPayed == false) {
@@ -40,7 +40,7 @@ function generatePdf(participant) {
     doc.image(__dirname + "/../" + pathToBlackAndWhiteBackgroundImage,{fit:[630,632] });
     doc.image(__dirname + "/../" + pathToLogoRight, 515, 0, {fit: [80, 80]});
     doc.font('Helvetica-Bold').fontSize(200).fillColor("white").text(participant.startNumber, 0, 55, {align: 'center'});
-    doc.font('Helvetica-Bold').fontSize(8).fillColor("white").text("©Stefan Groenveldt", 500, 410, {align: 'center'});
+    doc.font('Helvetica-Bold').fontSize(8).fillColor("white").text("©Stefan Groenveld", 500, 410, {align: 'center'});
     if (participant.hasPayed == false) {
         doc.rotate(20)
         doc.font('Helvetica-Bold').fontSize(40).fillColor("yellow").text("Noch nicht bezahlt", 0, 30, {align: 'center'});
