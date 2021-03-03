@@ -22,6 +22,7 @@
     </v-simple-table>
     <v-pagination
         v-model="currentPage"
+        :total-visible="7"
         :length="totalPages"
         @input="handlePageChange"
     >
