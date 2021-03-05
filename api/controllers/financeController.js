@@ -15,7 +15,7 @@ const paymentConfirmationQueue = new Queue('paymentConfirmationEmail', {
 });
 
 const headers = [
-    'Buchungstag', 'Valuta', 'Textschl黶sel', 'Auftraggeber/Zahlungsempfänger', 'Empfänger/Zahlungspflichtiger', 'Konto-Nr.', 'IBAN', 'BLZ', 'BIC', 'Vorgang/Verwendungszweck', 'Kundenreferenz', 'Währung', 'Umsatz', 'H'
+    'Buchungstag', 'Valuta', 'Textschl黶sel', 'Primanota','Zahlungsempfänger', 'ZahlungsempfängerKto','ZahlungsempfängerIBAN','ZahlungsempfängerBLZ','ZahlungsempfängerBIC','Vorgang/Verwendungszweck', 'Kundenreferenz', 'Währung', 'Umsatz', 'H','na1','na2','na3'
 ];
 const TOKEN_LENGTH = 9;
 const TOKEN_PREFIX = 'LGR-';
@@ -40,6 +40,7 @@ function PaymentRow(statement) {
             .trim()
             .split(' ')
             .filter(text => text.length === TOKEN_LENGTH)
+            .map(text => text.toUpperCase())
             .filter(text => text.startsWith(TOKEN_PREFIX));
     };
 
