@@ -173,7 +173,7 @@
       >
         <template v-slot:label>
           <div>
-            Ich habe die
+            Mir ist bewusst, dass die Datenverarbeitung entsprechend der
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <a
@@ -187,7 +187,7 @@
               </template>
               Datenschutzbestimmungen in neuem Fenster geoeffnet
             </v-tooltip>
-            gelesen
+            der Webseite lauf-gegen-rechts.de erfolgt. Ich weiß, dass meine Einwilligung bzw. Einwilligungen bezüglich der Verarbeitung meiner Anmeldedaten (Vorname, Nachname, E-Mail-Adresse, den Namen Ihres Teams) freiwillig ist und ich sie jederzeit durch einfache Erklärung mit Wirkung für die Zukunft widerrufen kann.
           </div>
         </template>
       </v-checkbox>
