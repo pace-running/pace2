@@ -196,6 +196,7 @@ exports.csv = (req, res, next) => {
             }
             csvStream.write({
                 name: p.getDataValue('firstName') + ' ' + p.getDataValue('lastName'),
+                startnumber: p.getDataValue('startNumber'),
                 email: p.getDataValue('email'),
                 shirt: shirt,
                 token: p.getDataValue('paymentToken'),
