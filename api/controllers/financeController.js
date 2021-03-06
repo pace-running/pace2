@@ -38,8 +38,9 @@ function PaymentRow(statement) {
     const getPossibleTokens = () => {
         return removeBIC(removeIBAN(removeNewLines(removeUberweisung(reason))))
             .trim()
-            .split(' ')
+            .split(/[\s,.]+/)
             .filter(text => text.length === TOKEN_LENGTH)
+            .map(text => text.replace('0','O'))
             .map(text => text.toUpperCase())
             .filter(text => text.startsWith(TOKEN_PREFIX));
     };
