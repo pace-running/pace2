@@ -108,7 +108,7 @@ async function markPayed(participants) {
         if (p.hasPayed == false) {
             p.hasPayed = true
             p.save()
-            const job = paymentConfirmationQueue.createJob(result);
+            const job = paymentConfirmationQueue.createJob(p);
             job.save()
         }
     }
