@@ -24,7 +24,13 @@
 
       <v-text-field
           v-model="email"
+          :rules="emailRule"
           label="E-Mail"
+      ></v-text-field>
+      <v-text-field
+          v-model="email2"
+          :rules="emailRule"
+          label="E-Mail wiederholen"
       ></v-text-field>
       <v-select
           v-model="amount"
@@ -233,6 +239,7 @@ export default {
     firstName: '',
     lastName: '',
     email: '',
+    email2: '',
     team: '',
     amount: { amount: 10, name: 'normal'},
     amountItems: [
@@ -247,6 +254,9 @@ export default {
   computed: {
     agbRule() {
       return [ this.agbCheckbox == true || "Muss leider gelesen werden"]
+    },
+    emailRule() {
+      return [ this.email === this.email2 || "Die Email Adressen müssen überein stimmen"]
     },
     shirtRules() {
       const rules = [];
