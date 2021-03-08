@@ -57,7 +57,7 @@ export default {
   }),
   computed: {
     startNumberDownloadLink() {
-      return `${this.$base_url}/startnumber/${this.participant.startNumber}`
+      return `${this.$base_url}/startnumber/${this.participant.startNumber}/${this.participant.secretToken}`
     }
   },
   methods: {

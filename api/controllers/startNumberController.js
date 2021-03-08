@@ -15,10 +15,16 @@ exports.get = (req, res, next) => {
         }
     })
         .then(p => {
-            res.setHeader("content-type", "application/pdf");
-            res.setHeader('Content-disposition', 'attachment; filename=startnummer.pdf');
-            generatePdf(p).pipe(res)
-            res.status(200)
+            if (req.params.token === p.getDataValue('secretToken')) {
+                res.setHeader("content-type", "application/pdf");
+                res.setHeader('Content-disposition', 'attachment; filename=startnummer.pdf');
+                generatePdf(p).pipe(res)
+                res.status(200)
+            }
+            else {
+                res.status(401)
+                res.send("Unauthorized")
+            }
         }).catch(err => { next(err)})
 }
 
