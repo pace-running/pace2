@@ -55,6 +55,11 @@ async function markOrdered() {
  //return DB.sequelize.query('SELECT * from "Shirts" LEFT JOIN "Participants" ON "Participants".id = "Shirts"."participantId"')
  return DB.sequelize.query('update "Shirts" set "orderedAt" = current_timestamp from "Participants" where "Shirts"."participantId" = "Participants".id and "Participants"."hasPayed" = TRUE and "Shirts"."orderedAt" IS NULL')
 }
+async function markPrinted() {
+    //return DB.sequelize.query('SELECT * from "Shirts" LEFT JOIN "Participants" ON "Participants".id = "Shirts"."participantId"')
+    return DB.sequelize.query('update "Shirts" set "printedAt" = current_timestamp from "Participants" where "Shirts"."participantId" = "Participants".id and "Participants"."hasPayed" = TRUE and "Shirts"."printedAt" IS NULL')
+}
+
 
 exports.markShirtsAsOrdered = (req,res,next) => {
     markOrdered().then(result =>{
@@ -86,6 +91,7 @@ exports.shirtCSV = (req, res, next) => {
             })
         })
         csvStream.end();
+        markPrinted();
     }).catch(err => {
         next(err)
     })
