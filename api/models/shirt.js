@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     model: DataTypes.STRING,
     size: DataTypes.STRING,
     orderedAt: DataTypes.DATE,
+    printedAt: DataTypes.DATE,
     participantId: DataTypes.INTEGER
   }, {
     sequelize,

@@ -4,13 +4,20 @@
   >
     <v-card>
       <v-card-title>
-        <v-chip color="brown"
-                class="ma-2"
-                outlined>
-          {{ participant.startNumber }}
-        </v-chip>
-        <v-spacer></v-spacer>
-        {{ participant.paymentToken }}
+        <v-row>
+          <v-col>
+            <v-chip color="brown"
+                    class="ma-2"
+                    outlined>
+              {{ participant.startNumber }}
+            </v-chip>
+          </v-col>
+          <v-col cols="8">
+            <div class="body-1"> Token: {{ participant.paymentToken }}</div>
+            <div class="body-1"> Bei Druckwelten gedruckt: {{ shirtPrintedAt }}</div>
+            <div class="body-1"> Bei Diraction bestellt: {{ shirtOrderedAt }}</div>
+          </v-col>
+        </v-row>
       </v-card-title>
       <v-card-text>
         <v-text-field
@@ -38,46 +45,46 @@
         <v-card v-if="this.wantsShirt">
           <v-card-text>
             <v-select v-if="this.wantsShirt"
-                label="Groesse"
-                v-model="shirtSize"
-                :items=shirtSizes>
+                      label="Groesse"
+                      v-model="shirtSize"
+                      :items=shirtSizes>
             </v-select>
             <v-select v-if="this.wantsShirt"
-                label="Model"
-                v-model="shirtModel"
-                :items="shirtModels">
+                      label="Model"
+                      v-model="shirtModel"
+                      :items="shirtModels">
             </v-select>
             <v-card flat>
-            <h2>Lieferanschrift</h2>
-            <v-row>
-              <v-col cols="8">
-                <v-text-field
-                    v-model="street"
-                    label="Strassse"></v-text-field>
-              </v-col>
-              <v-col cols="4">
-                <v-text-field
-                    v-model="streetNumber"
-                    label="Hausnummer"></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="2">
-                <v-text-field
-                    v-model="plz"
-                    label="PLZ"></v-text-field>
-              </v-col>
-              <v-col cols="10">
-                <v-text-field
-                    v-model="city"
-                    label="Stadt"></v-text-field>
-              </v-col>
+              <h2>Lieferanschrift</h2>
+              <v-row>
+                <v-col cols="8">
+                  <v-text-field
+                      v-model="street"
+                      label="Strassse"></v-text-field>
+                </v-col>
+                <v-col cols="4">
+                  <v-text-field
+                      v-model="streetNumber"
+                      label="Hausnummer"></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="2">
+                  <v-text-field
+                      v-model="plz"
+                      label="PLZ"></v-text-field>
+                </v-col>
+                <v-col cols="10">
+                  <v-text-field
+                      v-model="city"
+                      label="Stadt"></v-text-field>
+                </v-col>
 
-            </v-row>
-            <v-text-field
-                v-model="country"
-                value="Deutschland"
-                label="Land"></v-text-field>
+              </v-row>
+              <v-text-field
+                  v-model="country"
+                  value="Deutschland"
+                  label="Land"></v-text-field>
             </v-card>
           </v-card-text>
         </v-card>
@@ -95,6 +102,8 @@
 
 <script>
 import axios from "axios";
+import moment from 'moment';
+moment.updateLocale(moment.locale(), { invalidDate: "" });
 
 export default {
   name: "ParticipantEditor",
@@ -102,7 +111,7 @@ export default {
     participant: Object
   },
   data: () => ({
-    shirtSizes: ['XS', 'S', 'M', 'L','XL','XXL'],
+    shirtSizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
     shirtModels: ['Tailliert', 'Unisex'],
     shirtModel: '',
     shirtSize: '',
@@ -116,6 +125,8 @@ export default {
     city: '',
     plz: '',
     country: '',
+    shirtPrintedAt: '',
+    shirtOrderedAt: '',
     cachedParticipant: {}
   }),
   mounted() {
@@ -136,17 +147,18 @@ export default {
       this.city = this.participant.city
       this.plz = this.participant.plz
       this.country = this.participant.country
-      if(this.participant.Shirt != null) {
+      if (this.participant.Shirt != null) {
         let s = JSON.parse(JSON.stringify(this.participant.Shirt))
         this.shirtSize = s.size
         this.shirtModel = s.model
         this.wantsShirt = true
-      }
-      else {
+        this.shirtOrderedAt = moment(s.orderedAt).format("D.M.YYYY")
+        this.shirtPrintedAt = moment(s.printedAt).format("D.M.YYYY")
+      } else {
         this.wantsShirt = false
       }
     },
-    saveModel(){
+    saveModel() {
       this.cachedParticipant.firstName = this.firstName
       this.cachedParticipant.lastName = this.lastName
       this.cachedParticipant.email = this.email
@@ -156,13 +168,12 @@ export default {
       this.cachedParticipant.city = this.city
       this.cachedParticipant.plz = this.plz
       this.cachedParticipant.country = this.country
-      if(this.wantsShirt) {
+      if (this.wantsShirt) {
         this.cachedParticipant.Shirt = {
           model: this.shirtModel,
           size: this.shirtSize
         }
-      }
-      else {
+      } else {
         delete this.cachedParticipant.Shirt
       }
     },
@@ -192,12 +203,12 @@ export default {
       axios.put(url, requestBody, requestConfig)
           .then(() => {
             this.saveModel()
-            this.$emit('closeEditor',this.cachedParticipant)
+            this.$emit('closeEditor', this.cachedParticipant)
           })
     },
     cancel() {
       this.resetModel()
-      this.$emit('closeEditor',this.participant)
+      this.$emit('closeEditor', this.participant)
     }
   }
 }
