@@ -9,12 +9,28 @@ exports.stats = (req, res, next) => {
     let payed = statsByPaymentstatus(true);
     let unpayed = statsByPaymentstatus(false);
     let order_missing = unordered()
-    Promise.all([unpayed, payed,order_missing])
+    let labels = labelStats();
+    Promise.all([unpayed, payed, order_missing, labels])
         .then(values => {
-            res.send({'payed': values[0], 'unpayed': values[1], 'order_missing': values[2]})
+            res.send({'payed': values[0], 'unpayed': values[1], 'order_missing': values[2], 'labels': values[3]})
         }).catch(err => {
         next(err)
     })
+}
+
+async function labelStats() {
+    return Shirt.findAll({
+            include: {
+                model: Participant,
+                attributes: [],
+                where: {
+                    hasPayed: true
+                }
+            },
+            attributes: ['printedAt', [DB.sequelize.fn('COUNT', 'id'), 'count']],
+            group: 'printedAt'
+        }
+    )
 }
 
 async function unordered() {
@@ -34,7 +50,6 @@ async function unordered() {
     })
 }
 
-
 async function statsByPaymentstatus(status) {
     return Shirt.findAll({
         group: ['size', 'model'],
@@ -52,26 +67,28 @@ async function statsByPaymentstatus(status) {
 }
 
 async function markOrdered() {
- //return DB.sequelize.query('SELECT * from "Shirts" LEFT JOIN "Participants" ON "Participants".id = "Shirts"."participantId"')
- return DB.sequelize.query('update "Shirts" set "orderedAt" = current_timestamp from "Participants" where "Shirts"."participantId" = "Participants".id and "Participants"."hasPayed" = TRUE and "Shirts"."orderedAt" IS NULL')
+    return DB.sequelize.query('update "Shirts" set "orderedAt" = current_timestamp from "Participants" where "Shirts"."participantId" = "Participants".id and "Participants"."hasPayed" = TRUE and "Shirts"."orderedAt" IS NULL')
 }
+
 async function markPrinted() {
-    //return DB.sequelize.query('SELECT * from "Shirts" LEFT JOIN "Participants" ON "Participants".id = "Shirts"."participantId"')
     return DB.sequelize.query('update "Shirts" set "printedAt" = current_timestamp from "Participants" where "Shirts"."participantId" = "Participants".id and "Participants"."hasPayed" = TRUE and "Shirts"."printedAt" IS NULL')
 }
 
 
-exports.markShirtsAsOrdered = (req,res,next) => {
-    markOrdered().then(result =>{
+exports.markShirtsAsOrdered = (req, res, next) => {
+    markOrdered().then(result => {
         res.send(result)
-    }).catch(err => {next(err)})
+    }).catch(err => {
+        next(err)
+    })
 }
 
 exports.shirtCSV = (req, res, next) => {
     Participant.findAll({
             where: {
                 hasPayed: true,
-                '$Shirt.id$': {[Op.ne]: null}
+                '$Shirt.id$': {[Op.ne]: null},
+                '$Shirt.printedAt$': {[Op.eq]: null}
             },
             order: [['Shirt', 'size'], ['Shirt', 'model']],
             include: Shirt
@@ -87,7 +104,7 @@ exports.shirtCSV = (req, res, next) => {
                 strasse: p.getDataValue('street') + ' ' + p.getDataValue('streetNumber'),
                 stadt: p.getDataValue('plz') + ' ' + p.getDataValue('city'),
                 land: p.getDataValue('country'),
-                shirt: p.getDataValue('Shirt').getDataValue('model') + '/' + p.getDataValue('Shirt').getDataValue('size')
+                shirt: p.getDataValue('Shirt').getDataValue('model').charAt(0) + '/' + p.getDataValue('Shirt').getDataValue('size')
             })
         })
         csvStream.end();
