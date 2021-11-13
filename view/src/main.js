@@ -26,7 +26,8 @@ const routes = [
     {path: '/admin/participants', component: () => import('./components/ParticipantList/ParticipantList'), alias: "/admin", meta: {requiresAuth: true}},
     {path: '/admin/print', component: ()=> import('./components/Print'), meta: {requiresAuth: true}},
     {path: '/admin/settings',  component:()  => import('./components/RaceEdit'), meta: {requiresAuth: true}},
-    { path: '/admin/mail', component: () => import('./components/mail/MailEditor'),meta: {requiresAuth: true} }
+    { path: '/admin/mail', component: () => import('./components/mail/MailEditor'),meta: {requiresAuth: true} },
+    {path:  '/admin/couponcodes', component: () => import('./components/Couponcodes/CouponcodeList'), meta: {requiresAuth: true}}
 ];
 const router = new VueRouter({routes})
 router.beforeEach((to, from, next) => {

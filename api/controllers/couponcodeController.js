@@ -3,7 +3,13 @@ const Couponcode = DB.Couponcode;
 const {Op} = require("sequelize");
 
 exports.get = (req, res, next) => {
-    Couponcode.findAll()
+    const {page, size } = req.query;
+    const {limit, offset} = getPagination(page, size)
+    Couponcode.findAndCountAll({
+        limit: limit,
+        offset: offset,
+        order: [['createdAt', 'ASC']]
+    })
         .then(data => {
             res.send(data)
         })
@@ -55,4 +61,11 @@ function couponName() {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return 'C-' + text;
+}
+
+function getPagination(page, size) {
+    const limit = size ? +size : 10;
+    const offset = page ? page * limit : 0;
+    return {limit, offset}
+
 }
