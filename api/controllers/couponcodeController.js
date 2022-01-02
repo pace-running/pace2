@@ -21,6 +21,7 @@ exports.get = (req, res, next) => {
 exports.getByName = (req,res,next) => {
     const couponcodeName = req.params.name
     Couponcode.findOne({
+        attributes: ['used','shirt'],
         where: {
             name: couponcodeName
         }

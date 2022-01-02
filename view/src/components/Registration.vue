@@ -44,6 +44,7 @@
           >
       </v-select>
 
+      <CouponcodeValidator></CouponcodeValidator>
       <v-row v-if="this.$store.state.shirtsEnabled">
         <v-col>
           <v-checkbox
@@ -219,10 +220,11 @@
 <script>
 import axios from 'axios'
 import RegistrationConfirmationDialog from "./RegistrationConfirmationDialog";
+import CouponcodeValidator from "@/components/Couponcodes/CouponcodeValidator";
 
 export default {
   name: 'Registration',
-  components: {RegistrationConfirmationDialog},
+  components: {RegistrationConfirmationDialog, CouponcodeValidator},
   data: () => ({
     shirtSizes: [],
     shirtSizesTailliert: ['XS','S','M','L','XL'],

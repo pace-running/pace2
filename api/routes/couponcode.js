@@ -5,7 +5,7 @@ const jwtAuth = require('../middleware/auth')
 const CouponcodeController = require('../controllers/couponcodeController')
 
 router.get('/', jwtAuth, CouponcodeController.get)
-router.get('/one/:name', CouponcodeController.getByName)
+router.get('/check/:name', CouponcodeController.getByName)
 
 router.put('/create', jwtAuth, CouponcodeController.create)
 
