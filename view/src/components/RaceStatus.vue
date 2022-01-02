@@ -22,7 +22,7 @@
   </v-card>
   <v-card v-if="!this.$store.state.raceOpen">
     <v-card-title>
-      Danke an alle Teilnehmenden. Wir freuen uns auf 2022.
+      Die Anmeldung für 2022 startet am 1. Februar
     </v-card-title>
   </v-card>
   </v-container>
