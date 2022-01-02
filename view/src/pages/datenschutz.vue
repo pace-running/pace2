@@ -124,6 +124,9 @@
                 <h5>Anmelden für den Lauf um die Alster</h5>
                 Wenn Sie an unserer vor-Ort Veranstaltung teilnehmen wollen, müssen Sie zusätzlich angeben in welchem Tempo
                 Sie mitlaufen wollen.
+                Nach dem Lauf haben Sie die Möglichkeit eine Urkunde mit Ihrem Namen und Ihrer gelaufenen Zeit runterzuladen.
+                Hierzu geben Sie Ihre Zeit ein und es wird eine Urkunde im PDF Format generiert. Hierzu speichern wir die von Ihnen
+                angegebe Zeit.
               </li>
               <li>
                 <h5>Zweck</h5>
