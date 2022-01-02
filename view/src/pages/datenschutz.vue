@@ -117,6 +117,13 @@
                 Einwilligungen verwalten können. Etwaige Zahlungen sind von Ihnen dann per Überweisung vorzunehmen. Zur
                 Abwicklung der Lieferung des T-Shirts werden wir Ihren Vornamen, Nachnamen und Ihre Anschrift an DHL als
                 Versanddienstleister übermitteln.
+                Beim Versand ins Europäische Ausland erheben wir 2 Euro Versandgebühren.
+                <h5>Gutscheincode</h5>
+                Wenn Sie beim Anmelden einen Ihnen zugestellten Gutscheincode verwenden, speichern wir zusätzlich welchen Gutscheincode Sie
+                verwendet haben.
+                <h5>Anmelden für den Lauf um die Alster</h5>
+                Wenn Sie an unserer vor-Ort Veranstaltung teilnehmen wollen, müssen Sie zusätzlich angeben in welchem Tempo
+                Sie mitlaufen wollen.
               </li>
               <li>
                 <h5>Zweck</h5>
