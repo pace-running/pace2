@@ -44,7 +44,13 @@
           >
       </v-select>
 
-      <CouponcodeValidator></CouponcodeValidator>
+      <CouponcodeValidator
+          :enabled=this.couponcodeEnabled
+          :errormessage=this.couponErrorMessage
+          @couponcodeCheckedAndValid="onCouponcodeChecked"
+          @couponcodeId="onCouponcodeId"
+      ></CouponcodeValidator>
+
       <v-row v-if="this.$store.state.shirtsEnabled">
         <v-col>
           <v-checkbox
@@ -244,9 +250,13 @@ export default {
     email2: '',
     team: '',
     amount: { amount: 10, name: 'normal'},
+    couponcocde: false,
+    couponcodeValid: false,
+    couponId: '',
     amountItems: [
       { amount: 10, name: 'normal'},
-      { amount: 5, name: 'cheap'}
+      { amount: 5, name: 'cheap'},
+      { amount: "Ich habe einen Gutschein", name: 'couponcode'}
     ],
     agbCheckbox: false,
     registrationSuccessful: false,
@@ -254,6 +264,30 @@ export default {
     showShirtCarousel: false,
   }),
   computed: {
+    couponcodeRule() {
+      if (this.amount != null && this.amount.name == "couponcode") {
+        return this.couponcodeValid
+      }
+      else {
+        return true
+      }
+    },
+    couponErrorMessage() {
+      if (this.couponcodeRule == true) {
+        return ""
+      }
+      else {
+        return "Ungültiger Gutscheincode"
+      }
+    },
+    couponcodeEnabled() {
+      if (this.amount != null && this.amount.name == "couponcode") {
+        return true
+      }
+      else {
+        return false
+      }
+    },
     agbRule() {
       return [ this.agbCheckbox == true || "Muss leider gelesen werden"]
     },
@@ -273,6 +307,10 @@ export default {
   methods: {
     register() {
       let valid = this.$refs.form.validate()
+      if (valid) {
+        valid = this.couponcodeRule
+      }
+      console.log("valid:", valid)
       const url = `${this.$base_url}/participant/register`;
         if (valid) {
           const data = {};
@@ -281,6 +319,9 @@ export default {
           data.team = this.team;
           data.email = this.email;
           data.amount = this.amount.name;
+          if (this.couponcodeEnabled) {
+            data.couponcodeId = this.couponId
+          }
           if (this.shirtWanted) {
             data.shirtWanted = true;
             data.street = this.street;
@@ -299,6 +340,12 @@ export default {
             this.registrationResult = response.data;
           })
         }
+    },
+    onCouponcodeChecked(result){
+       this.couponcodeValid = result
+    },
+    onCouponcodeId(id) {
+      this.couponId = id
     },
     clearFields() {
       this.$refs.form.reset();
