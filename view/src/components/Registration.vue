@@ -350,6 +350,7 @@ export default {
     clearFields() {
       this.$refs.form.reset();
       this.registrationSuccessful = false;
+      this.couponcodeValid = false;
     },
     resetSize() {
       if (this.shirtModel == 'Tailliert') {

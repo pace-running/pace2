@@ -15,6 +15,7 @@
     <v-col>
       <v-icon
           large
+          :disabled="!this.enabled"
           :color="checkColor"
       >mdi-close-circle
       </v-icon>
