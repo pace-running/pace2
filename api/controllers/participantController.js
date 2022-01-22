@@ -76,6 +76,9 @@ async function updateParticipant(participant, id) {
     p.streetNumber = participant.streetNumber;
     p.city = participant.city;
     p.plz = participant.plz;
+    p.address_firstname = participant.address_firstname;
+    p.address_lastname = participant.address_lastname;
+    p.address_extra = participant.address_extra;
     p.expectedPayment = calculateAmount(participant)
     p.country = participant.country;
     if (participant.Shirt) {
@@ -205,6 +208,9 @@ async function createParticipant(participant) {
         plz: participant.plz,
         team: participant.team,
         country: participant.country,
+        address_firstname: participant.address_firstname,
+        address_lastname: participant.address_lastname,
+        address_extra: participant.address_extra,
         hasPayed: false,
         startNumber: number,
         paymentToken: paymentToken(),
@@ -280,7 +286,7 @@ function calculateAmount(participant,couponcode) {
     if (participant.amount == "couponcode") {
         amount = 0
     }
-    if(participant.Shirt && couponcode.shirt != true) {
+    if(participant.Shirt && couponcode && couponcode.shirt != true) {
         amount = amount + 15
     }
     console.log(couponcode)

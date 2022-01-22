@@ -8,13 +8,11 @@
       <v-text-field
           v-model="firstName"
           required
-          :rules="shirtRules"
           label="Vorname (erscheint auf der Startnummer)"
       ></v-text-field>
       <v-text-field
           v-model="lastName"
           required
-          :rules="shirtRules"
           label="Nachname"
       ></v-text-field>
       <v-text-field
@@ -150,6 +148,14 @@
 
           <h2>Lieferanschrift</h2>
           <v-text-field
+              v-model="addressFirstname"
+              :rules="shirtRules"
+              label="Vorname"></v-text-field>
+          <v-text-field
+              v-model="addressLastname"
+              :rules="shirtRules"
+              label="Nachname"></v-text-field>
+          <v-text-field
               v-model="street"
               required
               :rules="shirtRules"
@@ -159,6 +165,9 @@
               required
               :rules="shirtRules"
               label="Hausnummer"></v-text-field>
+          <v-text-field
+              v-model="addressExtra"
+              label="Adresszusatz"></v-text-field>
           <v-text-field
               v-model="city"
               required
@@ -239,6 +248,9 @@ export default {
     shirtModels: ['Tailliert', 'Unisex'],
     shirtModel: '',
     shirtWanted: false,
+    addressFirstname: '',
+    addressLastname: '',
+    addressExtra: '',
     street: '',
     streetNumber: '',
     plz: '',
@@ -329,6 +341,9 @@ export default {
             data.plz = this.plz;
             data.city = this.city;
             data.country = this.country;
+            data.address_firstname = this.addressFirstname;
+            data.address_lastname = this.addressLastname;
+            data.address_extra = this.addressExtra;
             data.Shirt = {
               "model": this.shirtModel,
               "size": this.shirtSize,

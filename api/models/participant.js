@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
   Participant.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
+    address_firstname: DataTypes.STRING,
+    address_lastname: DataTypes.STRING,
+    address_extra: DataTypes.STRING,
     email: DataTypes.STRING,
     street: DataTypes.STRING,
     streetNumber: DataTypes.STRING,

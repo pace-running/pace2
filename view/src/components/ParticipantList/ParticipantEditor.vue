@@ -57,6 +57,18 @@
             <v-card flat>
               <h2>Lieferanschrift</h2>
               <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                      v-model="addressFirstname"
+                      label="Vorname"></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                      v-model="addressLastname"
+                      label="Nachname"></v-text-field>
+                </v-col>
+                </v-row>
+                <v-row>
                 <v-col cols="8">
                   <v-text-field
                       v-model="street"
@@ -66,6 +78,13 @@
                   <v-text-field
                       v-model="streetNumber"
                       label="Hausnummer"></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col col="12">
+                <v-text-field
+                    v-model="addressExtra"
+                    label="Adresszusatz"></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
@@ -122,6 +141,9 @@ export default {
     team: '',
     street: '',
     streetNumber: '',
+    addressFirstname: '',
+    addressLastname: '',
+    addressExtra: '',
     city: '',
     plz: '',
     country: '',
@@ -148,6 +170,9 @@ export default {
       this.plz = this.participant.plz
       this.country = this.participant.country
       if (this.participant.Shirt != null) {
+        this.addressFirstname = this.participant.address_firstname
+        this.addressLastname = this.participant.address_lastname
+        this.addressExtra = this.participant.address_extra
         let s = JSON.parse(JSON.stringify(this.participant.Shirt))
         this.shirtSize = s.size
         this.shirtModel = s.model
@@ -169,6 +194,9 @@ export default {
       this.cachedParticipant.plz = this.plz
       this.cachedParticipant.country = this.country
       if (this.wantsShirt) {
+        this.cachedParticipant.address_firstname = this.addressFirstname
+        this.cachedParticipant.address_lastname = this.addressLastname
+        this.cachedParticipant.address_extra = this.addressExtra
         this.cachedParticipant.Shirt = {
           model: this.shirtModel,
           size: this.shirtSize
@@ -195,6 +223,9 @@ export default {
         "country": this.country,
       }
       if (this.wantsShirt) {
+        requestBody.address_firstname = this.addressFirstname
+        requestBody.address_lastname = this.addressLastname
+        requestBody.address_extra = this.addressExtra
         requestBody.Shirt = {
           "model": this.shirtModel,
           "size": this.shirtSize

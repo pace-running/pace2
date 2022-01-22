@@ -100,8 +100,9 @@ exports.shirtCSV = (req, res, next) => {
         csvStream.pipe(res)
         participants.forEach(p => {
             csvStream.write({
-                name: p.getDataValue('firstName') + ' ' + p.getDataValue('lastName'),
+                name: p.getDataValue('address_firstname') + ' ' + p.getDataValue('address_lastname'),
                 strasse: p.getDataValue('street') + ' ' + p.getDataValue('streetNumber'),
+                addresszusatz: p.getDataValue('address_extra'),
                 stadt: p.getDataValue('plz') + ' ' + p.getDataValue('city'),
                 land: p.getDataValue('country'),
                 shirt: p.getDataValue('Shirt').getDataValue('model').charAt(0) + '/' + p.getDataValue('Shirt').getDataValue('size')
