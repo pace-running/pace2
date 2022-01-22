@@ -46,7 +46,7 @@
             <v-list-item-title>Mails verschicken</v-list-item-title>
           </v-list-item>
           <v-list-item to="/admin/couponcodes">
-            <v-list-item-title>Couponcodes</v-list-item-title>
+            <v-list-item-title>Gutscheine</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>Couponcodes erstellen</v-card-title>
+      <v-card-title>Gutscheine erstellen</v-card-title>
       <v-form
           lazy-validation
           ref="form"
@@ -49,7 +49,7 @@
     </v-dialog>
 
     <v-card>
-      <v-card-title>Couponcodes</v-card-title>
+      <v-card-title>Gutscheincodes</v-card-title>
       <v-simple-table>
         <thead>
         <tr>
