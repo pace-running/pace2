@@ -31,6 +31,16 @@
           label="E-Mail wiederholen"
       ></v-text-field>
       <v-select
+          v-model="onSite"
+          :items="onsSiteItems"
+          item-text="text"
+          item-value="on_site"
+          required
+          return-object
+      >
+      </v-select>
+
+      <v-select
           v-model="amount"
           :items="amountItems"
           item-text="amount"
@@ -261,6 +271,11 @@ export default {
     email: '',
     email2: '',
     team: '',
+    onSite: { on_site: false, text: 'Ich laufe dezentral'},
+    onsSiteItems: [
+      { on_site: true, text: 'Ich komme am 29.05.2022 an die Alster '},
+      { on_site: false, text: 'Ich laufe dezentral'}
+    ],
     amount: { amount: 10, name: 'normal'},
     couponcocde: false,
     couponcodeValid: false,
@@ -331,6 +346,7 @@ export default {
           data.team = this.team;
           data.email = this.email;
           data.amount = this.amount.name;
+          data.on_site = this.onSite.on_site;
           if (this.couponcodeEnabled) {
             data.couponcodeId = this.couponId
           }

@@ -4,16 +4,26 @@
     <v-card-title style="word-break: normal">
       St. Pauli läuft gegen Rechts. Egal wo – weil es notwendig bleibt!
     </v-card-title>
-    <v-card-actions>
-      <v-btn x-large v-if="this.$store.state.raceOpen">
-        <router-link to="registration" style="text-decoration: none; color: inherit;">Hier anmelden</router-link>
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-  <v-card v-if="this.$store.state.raceOpen">
-    <router-link to="registration" style="text-decoration: none; color: inherit;">
-      <acab></acab>
-    </router-link>
+    <v-card-text>
+      <div class="text-body-1">
+        Es kann wie in den Jahren 2020 und 2021 dezentral, wo immer ihr wollt, gelaufen werden.
+      Dafür steht wieder der Selbstausdruck der Startnummer zu Verfügung.
+      </div>
+      <div class="text-body-1">
+      2022 ist auch endlich wieder ein Lauf um die Alster, wie in den Jahren vor der Covid-19 Pandemie, vorgesehen.
+        Der Lauf ist für <b>Sonntag  29.05.2022</b> geplant.
+      In Anbetracht der Pandemie kann es zu kurzfristigen Änderungen des Ablaufes des Laufes um die Alster kommen.
+      Insbesondere bei hohen Infektionszahlen kann der Lauf vor Ort ggf. nicht wie geplant stattfinden.
+      Über unsere Webseite und per E-Mail werden wir versuchen euch über kurzfristige Änderungen der Planung zu informieren.
+      Bestellung von T-Shirts ist im Rahmen der online Anmeldung link online Anmeldeseite möglich.
+      </div>
+      <div class="text-body-1 font-weight-bold">
+      Die T-Shirt Bestellung ist nur bis 1. Mai möglich.
+      </div>
+      <div class="text-body-1">
+      Anmeldung für den Lauf vor Ort, um die Alster ist bis 21.5.2022 möglich.
+      </div>
+    </v-card-text>
     <v-card-actions>
       <v-btn x-large v-if="this.$store.state.raceOpen">
         <router-link to="registration" style="text-decoration: none; color: inherit;">Hier anmelden</router-link>
@@ -30,11 +40,9 @@
 
 <script>
 import axios from "axios";
-import acab from "./basic/acab";
 
 export default {
   name: "RaceStatus",
-  components: {acab},
   data: () => ({
     raceInfo: {}
   }),

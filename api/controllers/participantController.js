@@ -76,6 +76,7 @@ async function updateParticipant(participant, id) {
     p.streetNumber = participant.streetNumber;
     p.city = participant.city;
     p.plz = participant.plz;
+    p.on_site = participant.on_site;
     p.address_firstname = participant.address_firstname;
     p.address_lastname = participant.address_lastname;
     p.address_extra = participant.address_extra;
@@ -207,6 +208,7 @@ async function createParticipant(participant) {
         city: participant.city,
         plz: participant.plz,
         team: participant.team,
+        on_site: participant.on_site,
         country: participant.country,
         address_firstname: participant.address_firstname,
         address_lastname: participant.address_lastname,
