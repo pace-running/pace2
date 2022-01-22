@@ -187,14 +187,14 @@ async function validateCouponcode(id) {
     return coupponcode !== null
 }
 
-async function markCouponcodeUsed(id) {
-   Couponcode.update(
-       { used: true},
-       { where: { name: id }})
-}
-
 async function createParticipant(participant) {
     const number = await startNumber();
+    let couponcode = {}
+    if (participant.couponcodeId) {
+        couponcode = await Couponcode.findOne({
+            where: {name: participant.couponcodeId}
+        })
+    }
     const p = await Participant.create({
         firstName: participant.firstName,
         lastName: participant.lastName,
@@ -208,7 +208,7 @@ async function createParticipant(participant) {
         hasPayed: false,
         startNumber: number,
         paymentToken: paymentToken(),
-        expectedPayment: calculateAmount(participant),
+        expectedPayment: calculateAmount(participant, couponcode),
         secretToken: crypto.randomBytes(32).toString('hex')
     })
     if (participant.Shirt) {
@@ -217,6 +217,16 @@ async function createParticipant(participant) {
             size: participant.Shirt.size
         })
         await p.setShirt(s)
+    }
+    if (participant.couponcodeId) {
+        await p.setCouponcode(couponcode)
+        couponcode.update({used: true})
+        couponcode.save()
+    }
+    if(p.expectedPayment == 0) {
+        console.log("####### no money expected")
+        p.hasPayed = true
+        await p.save()
     }
     return await byId(p.id);
 }
@@ -262,14 +272,18 @@ function paymentToken() {
     return 'LGR-' + text;
 }
 
-function calculateAmount(participant) {
+function calculateAmount(participant,couponcode) {
     let amount = 10;
     if (participant.amount == "cheap") {
         amount = 5;
     }
-    if(participant.Shirt) {
+    if (participant.amount == "couponcode") {
+        amount = 0
+    }
+    if(participant.Shirt && couponcode.shirt != true) {
         amount = amount + 15
     }
+    console.log(couponcode)
     return amount;
 }
 

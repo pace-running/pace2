@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Couponcode.belongsTo(models.Participant, {
+        foreignKey: 'participantId',
+        onDelete: 'CASCADE'
+      })
     }
   };
   Couponcode.init({
@@ -18,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     used: DataTypes.BOOLEAN,
     shirt: DataTypes.BOOLEAN,
+    participantId: DataTypes.INTEGER
 
 
   }, {
