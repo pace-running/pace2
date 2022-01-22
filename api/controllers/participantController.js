@@ -14,6 +14,7 @@ const paymentConfirmationQueue = new Queue('paymentConfirmationEmail', {
 });
 const Participant = DB.Participant
 const Shirt = DB.Shirt
+const Couponcode = DB.Couponcode;
 const {Op} = require("sequelize");
 const crypto = require('crypto');
 const _ = require('lodash');
@@ -134,6 +135,7 @@ exports.markPayed = (req, res, next) => {
 }
 
 exports.register = (req, res, next) => {
+    validateRegistrationData(req.body).then(() => {
     createParticipant(req.body)
         .then((result) => {
             if (req.body.email != null && req.body.email.length > 0) {
@@ -142,8 +144,12 @@ exports.register = (req, res, next) => {
             }
            res.status(201);
             res.send(result);
-        }).catch(err => {
-        next(err)
+        })
+        .catch(err => {next(err)
+    })
+    }).catch(err => {
+        res.status(400)
+        res.send(err.message)
     })
 }
 
@@ -160,6 +166,32 @@ exports.resendConfirmation = (req,res,next) => {
         }).catch(err => next(err))
 }
 
+async function validateRegistrationData(data) {
+    if (data.couponcodeId ) {
+        couponcodeValid = await validateCouponcode(data.couponcodeId)
+        if (couponcodeValid == false) {
+            throw new Error("no valid couponcode")
+        }
+    return true
+    }
+}
+
+async function validateCouponcode(id) {
+    let coupponcode = await Couponcode.findOne({
+        attributes: ['used'],
+        where: {
+            name: id,
+            used: false,
+        }
+    })
+    return coupponcode !== null
+}
+
+async function markCouponcodeUsed(id) {
+   Couponcode.update(
+       { used: true},
+       { where: { name: id }})
+}
 
 async function createParticipant(participant) {
     const number = await startNumber();
