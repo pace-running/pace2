@@ -289,7 +289,7 @@ function calculateAmount(participant,couponcode) {
         amount = 0
     }
     if(participant.Shirt && couponcode && couponcode.shirt != true) {
-        amount = amount + 15
+        amount = amount + 15 + participant.package_fee
     }
     console.log(couponcode)
     return amount;

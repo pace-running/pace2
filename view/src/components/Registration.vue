@@ -188,12 +188,29 @@
               required
               :rules="shirtRules"
               label="PLZ"></v-text-field>
-          <v-text-field
-              v-model="country"
-              required
-              :rules="shirtRules"
-              value="Deutschland"
-              label="Land"></v-text-field>
+          <v-row>
+            <v-col>
+              <v-select
+                  v-model="packageFee"
+                  :items="packageFeeItems"
+                  item-text="name"
+                  item-value="amount"
+                  return-object
+                  label="Versand"
+                  @change="clearCountry"
+              >
+              </v-select>
+            </v-col>
+            <v-col>
+              <v-text-field
+                  v-model="country"
+                  required
+                  :rules="shirtRules"
+                  value="Deutschland"
+                  label="Land"></v-text-field>
+            </v-col>
+          </v-row>
+
         </v-card-text>
       </v-card>
 
@@ -265,7 +282,7 @@ export default {
     streetNumber: '',
     plz: '',
     city: '',
-    country: '',
+    country: 'deutschland',
     firstName: '',
     lastName: '',
     email: '',
@@ -276,14 +293,20 @@ export default {
       { on_site: true, text: 'Ich komme am 29.05.2022 an die Alster '},
       { on_site: false, text: 'Ich laufe dezentral'}
     ],
-    amount: { amount: 10, name: 'normal'},
     couponcocde: false,
     couponcodeValid: false,
     couponId: '',
+    amount: { amount: 10, name: 'normal'},
     amountItems: [
       { amount: 10, name: 'normal'},
       { amount: 5, name: 'cheap'},
       { amount: "Ich habe einen Gutschein", name: 'couponcode'}
+    ],
+    packageFee: { amount: 0, name: 'deutschland'},
+    packageFeeItems: [
+      { amount: 0, name: 'innerhalb deutschlands (Versandkostenfrei)'},
+      { amount: 2, name: 'EU (+2 Euro Versand)'},
+      { amount: 5, name: 'non-EU (+5 Euro Versand)'}
     ],
     agbCheckbox: false,
     registrationSuccessful: false,
@@ -360,6 +383,7 @@ export default {
             data.address_firstname = this.addressFirstname;
             data.address_lastname = this.addressLastname;
             data.address_extra = this.addressExtra;
+            data.package_fee = this.packageFee.amount;
             data.Shirt = {
               "model": this.shirtModel,
               "size": this.shirtSize,
@@ -382,6 +406,14 @@ export default {
       this.$refs.form.reset();
       this.registrationSuccessful = false;
       this.couponcodeValid = false;
+    },
+    clearCountry() {
+      if (this.packageFee.amount == 0 ) {
+        this.country = 'deutschland'
+      }
+      else {
+        this.country = ''
+      }
     },
     resetSize() {
       if (this.shirtModel == 'Tailliert') {
