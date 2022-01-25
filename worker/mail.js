@@ -10,6 +10,7 @@ const confirmationTemplate = pug.compileFile('templates/confirmation.pug');
 const paymentConfirmationTemplate = pug.compileFile('templates/paymentConfirmation.pug')
 
 exports.registrationEmail = (participant) => {
+    console.log(participant)
     participant.base_url = base_url
     transporter.sendMail({
         from: '"Lauf gegen Rechts" <info@lauf-gegen-rechts.de>', // sender address

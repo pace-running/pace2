@@ -144,6 +144,7 @@ exports.register = (req, res, next) => {
         .then((result) => {
             if (req.body.email != null && req.body.email.length > 0) {
                 const job = queue.createJob(result);
+                console.log("Job Sent to queue")
                 job.save()
             }
            res.status(201);
@@ -289,7 +290,7 @@ function calculateAmount(participant,couponcode) {
         amount = 0
     }
     if(participant.Shirt && couponcode && couponcode.shirt != true) {
-        amount = amount + 15 + participant.package_fee
+        amount = amount + 15 + parseInt(participant.package_fee)
     }
     console.log(couponcode)
     return amount;
