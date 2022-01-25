@@ -103,7 +103,7 @@
             <ol>
               <li>
                 <h5>Beschreibung der Verarbeitung</h5>
-                Um beim virtuellen „Lauf gegen Rechts“ 2021 teilnehmen zu können, müssen Sie sich vorher anmelden. Die
+                Um beim virtuellen „Lauf gegen Rechts“ 2022 teilnehmen zu können, müssen Sie sich vorher anmelden. Die
                 Registrierung erfolgt, indem Sie das Anmeldeformular auf unserer Webseite ausfüllen und uns elektronisch
                 übermitteln. Zur Anmeldung bedarf es keinerlei Pflichtangaben. Sie können freiwillig entscheiden, ob Sie
                 Ihren Vornamen, Nachnamen, E-Mail-Adresse, Geburtsjahr und/oder den Namen Ihres Teams angeben wollen.
@@ -130,7 +130,7 @@
               </li>
               <li>
                 <h5>Zweck</h5>
-                Die Verarbeitung erfolgt, um Ihnen die Anmeldung beim virtuellen „Lauf gegen Rechts“ 2021 ermöglichen zu
+                Die Verarbeitung erfolgt, um Ihnen die Anmeldung beim virtuellen „Lauf gegen Rechts“ 2022 ermöglichen zu
                 können. Die Verarbeitung im Zusammenhang mit dem Erwerb eines Laufshirts erfolgt zum Abschluss und zur
                 Abwicklung von Kaufverträgen.
               </li>
