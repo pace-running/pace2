@@ -15,7 +15,6 @@
     <v-col>
       <v-icon
           large
-          :disabled="!this.enabled"
           :color="checkColor"
       >mdi-close-circle
       </v-icon>
@@ -54,7 +53,7 @@ export default {
     couponId: '',
     used: false,
     shirt: false,
-    valid: "grey",
+    valid: "white",
   }),
   methods: {
     checkCouponcode() {
@@ -76,7 +75,7 @@ export default {
             })
       }
       else {
-        this.valid = "grey"
+        this.valid = "white"
       }
     }
   }
