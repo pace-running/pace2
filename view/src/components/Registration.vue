@@ -282,7 +282,7 @@ export default {
     streetNumber: '',
     plz: '',
     city: '',
-    country: 'deutschland',
+    country: 'Deutschland',
     firstName: '',
     lastName: '',
     email: '',
@@ -290,7 +290,7 @@ export default {
     team: '',
     onSite: { on_site: false, text: 'Ich laufe dezentral'},
     onsSiteItems: [
-      { on_site: true, text: 'Ich komme am 29.05.2022 an die Alster '},
+      { on_site: true, text: 'Ich komme am 29.05.2022 an die Alster (ggf. abhängig von der pandemischen Lage)'},
       { on_site: false, text: 'Ich laufe dezentral'}
     ],
     couponcocde: false,
@@ -302,9 +302,9 @@ export default {
       { amount: 5, name: 'cheap'},
       { amount: "Ich habe einen Gutschein", name: 'couponcode'}
     ],
-    packageFee: { amount: 0, name: 'deutschland'},
+    packageFee: { amount: 0, name: 'Deutschland'},
     packageFeeItems: [
-      { amount: 0, name: 'innerhalb deutschlands (Versandkostenfrei)'},
+      { amount: 0, name: 'innerhalb Deutschlands (versandkostenfrei)'},
       { amount: 2, name: 'EU (+2 Euro Versand)'},
       { amount: 5, name: 'non-EU (+5 Euro Versand)'}
     ],
@@ -409,7 +409,7 @@ export default {
     },
     clearCountry() {
       if (this.packageFee.amount == 0 ) {
-        this.country = 'deutschland'
+        this.country = 'Deutschland'
       }
       else {
         this.country = ''
