@@ -10,7 +10,7 @@
           v-if="this.$store.state.isLoggedIn"
           @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link to="/" style="text-decoration: none; color: inherit;">
-        <v-app-bar-title>Lauf gegen Rechts 2021</v-app-bar-title>
+        <v-app-bar-title>Lauf gegen Rechts 2022</v-app-bar-title>
       </router-link>
       <v-spacer></v-spacer>
       <div class="mt-5">
