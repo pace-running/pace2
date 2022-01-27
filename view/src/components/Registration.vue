@@ -108,6 +108,7 @@
                 </v-carousel-item>
               </v-carousel>
               <v-card-actions>
+                Farbton kann ggf. leicht abweichen
                 <v-spacer></v-spacer>
                 <v-btn
                     color="primary"
