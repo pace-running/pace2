@@ -35,11 +35,20 @@
           :items="onsSiteItems"
           item-text="text"
           item-value="on_site"
+          label="Wo läufst du?"
           required
           return-object
       >
       </v-select>
-
+      <v-select
+          v-model="pace"
+          :items="paceItems"
+          item-text="text"
+          item-value="1"
+          label="Wie schnell bist du unterwegs?"
+          return-object
+      >
+      </v-select>
       <v-select
           v-model="amount"
           :items="amountItems"
@@ -294,6 +303,12 @@ export default {
       { on_site: true, text: 'Ich komme am 29.05.2022 an die Alster (ggf. abhängig von der pandemischen Lage)'},
       { on_site: false, text: 'Ich laufe dezentral'}
     ],
+    pace: { pace: 1, text: 'Ich laufe selten - dabei sein ist alles'},
+    paceItems: [
+      { pace: 1, text: 'Ich laufe selten - dabei sein ist alles'},
+      { pace: 2, text: 'Ich laufe gelegentlich bis regelmäßig'},
+      { pace: 3, text: 'Ich laufe häufig, ambitioniert und schnell'}
+    ],
     couponcocde: false,
     couponcodeValid: false,
     couponId: '',
@@ -361,7 +376,6 @@ export default {
       if (valid) {
         valid = this.couponcodeRule
       }
-      console.log("valid:", valid)
       const url = `${this.$base_url}/participant/register`;
         if (valid) {
           const data = {};
@@ -371,6 +385,7 @@ export default {
           data.email = this.email;
           data.amount = this.amount.name;
           data.on_site = this.onSite.on_site;
+          data.pace = this.pace.pace;
           if (this.couponcodeEnabled) {
             data.couponcodeId = this.couponId
           }

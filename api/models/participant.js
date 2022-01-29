@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     paymentToken: DataTypes.STRING,
     expectedPayment: DataTypes.INTEGER,
     team: DataTypes.STRING,
+    pace: DataTypes.INTEGER,
     on_site: DataTypes.BOOLEAN
   }, {
     sequelize,

@@ -215,6 +215,7 @@ async function createParticipant(participant) {
         address_lastname: participant.address_lastname,
         address_extra: participant.address_extra,
         hasPayed: false,
+        pace: participant.pace,
         startNumber: number,
         paymentToken: paymentToken(),
         expectedPayment: calculateAmount(participant, couponcode),
