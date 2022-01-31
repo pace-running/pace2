@@ -28,5 +28,7 @@ apply-prod:
 	kubectl apply -k k8s/prod
 restart-prod:
 	kubectl -n prod-pace rollout restart deployment prod-pace
+	kubectl -n prod-pace rollout restart deployment prod-worker
 wait-prod:
+	kubectl -n prod-pace rollout status deployment  prod-worker --timeout=90s
 	kubectl -n prod-pace rollout status deployment  prod-pace --timeout=90s
