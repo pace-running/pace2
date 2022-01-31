@@ -30,12 +30,13 @@
           <v-list-item-title>Dein bestelltes Shirt ({{ participant.Shirt.model }}/{{ participant.Shirt.size }}) geht
             an:
           </v-list-item-title>
-          {{ this.participant.firstName }} {{ this.participant.lastName }} <br>
+          {{ this.participant.address_firstname }} {{ this.participant.address_lastname }} <br>
           {{ this.participant.street }} {{ this.participant.streetNumber }} <br>
+          {{ this.participant.address_extra }} <br>
           {{ this.participant.plz }} {{ this.participant.city }} <br>
           {{ this.participant.country }} <br>
           Der Versand der Tshirts erfolgt in Gruppen. <br>
-          Bitte beachte, dass es einige Tage dauern kann, bis das Shirt eintrifft, da wir nicht sofort nach Zahlungseingang versenden
+          Bitte beachte, dass wir alle Shirts erst am 15.5.2022 raus schicken.
         </v-list-item-content>
       </v-list-item>
       <v-list-item v-if="participant.email">
