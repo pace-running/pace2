@@ -3,9 +3,10 @@ h3 Hey #{firstName}!
   p Deine Startnummer kannst Du dir hier runterladen:
   a(href=base_url + '/#/me?token=' + secretToken) Startnummern Download
   if Shirt
-    h5 Wir schicken das Shirt (#{Shirt.model}/#{Shirt.size}) bald an:
-    p #{firstName} #{lastName}
+    h5 Wir schicken das Shirt (#{Shirt.model}/#{Shirt.size}) am 15.5.2022 an:
+    p #{address_firstname} #{address_lastname}
     p #{street} #{streetNumber}
+    p #{address_extra}
     p #{plz} #{city}
     p #{country}
 p Viele Grüsse,
