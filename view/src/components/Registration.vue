@@ -101,18 +101,79 @@
                 </v-carousel-item>
                 <v-carousel-item>
                   <v-card>
-                    <v-card-title>Unisex</v-card-title>
-                    <v-img
-                        src="/sizes_unisex.png"
-                    ></v-img>
+                    <v-card-title>Tailliert</v-card-title>
+                    <v-simple-table>
+                      <thead>
+                      <tr>
+                        <th>Size</th>
+                        <th>Length</th>
+                        <th>Width</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>S</td>
+                        <td>61</td>
+                        <td>41</td>
+                      </tr>
+                      <tr>
+                        <td>M</td>
+                        <td>63</td>
+                        <td>44</td>
+                      </tr>
+                      <tr>
+                        <td>L</td>
+                        <td>65</td>
+                        <td>47</td>
+                      </tr>
+                      <tr>
+                        <td>XL</td>
+                        <td>67</td>
+                        <td>50</td>
+                      </tr>
+                      </tbody>
+                    </v-simple-table>
                   </v-card>
                 </v-carousel-item>
                 <v-carousel-item>
                   <v-card>
-                    <v-card-title>Tailliert</v-card-title>
-                    <v-img
-                        src="/sizes_tailliert.png"
-                    ></v-img>
+                    <v-card-title>Unisex</v-card-title>
+                    <v-simple-table>
+                      <thead>
+                      <tr>
+                        <th>Size</th>
+                        <th>Length</th>
+                        <th>Width</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>S</td>
+                        <td>69</td>
+                        <td>50</td>
+                      </tr>
+                      <tr>
+                        <td>M</td>
+                        <td>72</td>
+                        <td>53</td>
+                      </tr>
+                      <tr>
+                        <td>L</td>
+                        <td>74</td>
+                        <td>56</td>
+                      </tr>
+                      <tr>
+                        <td>XL</td>
+                        <td>76</td>
+                        <td>58</td>
+                      </tr>
+                      <tr>
+                        <td>XXL</td>
+                        <td>78</td>
+                        <td>62</td>
+                      </tr>
+                      </tbody>
+                    </v-simple-table>
                   </v-card>
                 </v-carousel-item>
               </v-carousel>
@@ -279,7 +340,7 @@ export default {
   components: {RegistrationConfirmationDialog, CouponcodeValidator},
   data: () => ({
     shirtSizes: [],
-    shirtSizesTailliert: ['XS','S','M','L','XL'],
+    shirtSizesTailliert: ['S','M','L','XL'],
     shirtSizesUnisex: ['S','M','L','XL','XL','XXL'],
     shirtSize: '',
     shirtModels: ['Tailliert', 'Unisex'],
