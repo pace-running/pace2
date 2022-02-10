@@ -1,16 +1,28 @@
 <template>
   <tr>
-    <td>{{couponcode.name}}</td>
-    <td>{{ couponcode.description}}</td>
-    <td>{{couponcode.used}}</td>
-    <td>{{couponcode.shirt}}</td>
+    <td>{{ couponcode.name }}</td>
+    <td>{{ couponcode.description }}</td>
+    <td>
+      <v-icon
+          v-if="couponcode.used == true"
+          color="green"
+      >mdi-check-circle
+      </v-icon>
+    </td>
+    <td>
+      <v-icon
+          v-if="couponcode.shirt"
+          color="green"
+      >mdi-tshirt-crew-outline
+      </v-icon>
+    </td>
   </tr>
 </template>
 
 <script>
 export default {
   name: "CouponcodeListItem",
-  props: { couponcode: Object}
+  props: {couponcode: Object}
 }
 </script>
 
