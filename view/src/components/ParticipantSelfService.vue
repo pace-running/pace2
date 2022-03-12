@@ -34,7 +34,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <div>Startnummer zum Selbstausdruck in 2 Varianten bunt oder s/w</div>
+            <div>Startnummer zum Selbstausdruck:</div>
           </v-col>
           <v-col>
             <v-btn outlined color="brown" :href="startNumberDownloadLink">Startnummer PDF</v-btn>
