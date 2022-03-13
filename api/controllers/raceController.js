@@ -1,5 +1,6 @@
 const DB = require('../models/index')
 const Race = DB.Race
+const Participant = DB.Participant
 const {Op} = require("sequelize");
 
 
@@ -46,4 +47,14 @@ exports.name = (req,res,next) => {
         .catch(err => {
             next(err)
         })
+}
+
+exports.stats = (req,res,next) => {
+    Participant.count({
+        group: ['on_site'],
+        where: { 'hasPayed': true}
+    }).then(result => {
+        res.status(200)
+        res.send(result)
+    }).catch(err => {next(err)})
 }

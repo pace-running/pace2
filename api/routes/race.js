@@ -13,6 +13,7 @@ const MailController = require('../controllers/mailController')
 
 router.get('/', RaceController.get)
 
+router.get('/stats', jwtAuth,  RaceController.stats)
 router.get('/shirts',jwtAuth, ShirtController.stats)
 router.get('/shirts/csv',jwtAuth, ShirtController.shirtCSV)
 router.put('/shirts/markOrdered',jwtAuth, ShirtController.markShirtsAsOrdered)

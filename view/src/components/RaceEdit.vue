@@ -20,14 +20,17 @@
         </v-col>
       </v-row>
     </v-form>
+    <RaceStats></RaceStats>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import RaceStats from "./basic/RaceStats";
 
 export default {
   name: "RaceEdit",
+  components: {RaceStats},
   data: () => ({
     race: {}
   }),
