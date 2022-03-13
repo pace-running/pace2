@@ -25,7 +25,7 @@ const buchungstagPattern = /\d{2}\.\d{2}\.\d{4}/;
 function PaymentRow(statement) {
     const reason = statement['Vorgang/Verwendungszweck'];
     const removeUberweisung = (text) => text.replace(/^.*berweisungsgutschr\./, '');
-    const removeNewLines = (text) => text.replace(/\n/g, '');
+    const removeNewLines = (text) => text.replace(/\n/g, ' ');
     const removeIBAN = (text) => text.replace(/IBAN:\sDE\d{20}/g, '');
     const removeBIC = (text) => text.replace(/BIC:\s\w{11}/, '');
 
