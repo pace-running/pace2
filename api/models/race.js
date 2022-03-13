@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     contactEmail: DataTypes.STRING,
     isOpen: DataTypes.BOOLEAN,
-    shirtsEnabled: DataTypes.BOOLEAN
+    shirtsEnabled: DataTypes.BOOLEAN,
+    onSiteEnabled: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Race',

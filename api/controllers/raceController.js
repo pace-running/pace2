@@ -37,6 +37,18 @@ exports.toggleShirtsEnabled = (req, res, next) => {
         })
 }
 
+exports.toggleOnSiteEnabled = (req, res, next) => {
+    Race.findOne()
+        .then(race => {
+            race.onSiteEnabled = !race.onSiteEnabled;
+            race.save();
+            res.send({"onSiteEnabled": race.onSiteEnabled});
+        })
+        .catch(err => {
+            next(err)
+        })
+}
+
 exports.name = (req,res,next) => {
     Race.findOne()
         .then(race => {

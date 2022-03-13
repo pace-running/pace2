@@ -17,6 +17,10 @@
               label="Shirt Bestellung"
               @change="toggleShirtsEnabled"
               v-model="race.shirtsEnabled"></v-switch>
+          <v-switch
+              label="Vor Ort"
+              @change="toggleOnSiteEnabled"
+              v-model="race.onSiteEnabled"></v-switch>
         </v-col>
       </v-row>
     </v-form>
@@ -67,6 +71,17 @@ export default {
       .then(response => {
         this.race.isOpen = response.data.isOpen
       })
+    },
+    toggleOnSiteEnabled() {
+      const url = `${this.$base_url}/race/toggleOnSiteEnabled`
+      const token = localStorage.pace_token
+      const requestConfig = {
+        headers: {Authorization: `Bearer ${token}`}
+      }
+      axios.put(url, null, requestConfig)
+          .then(response => {
+            this.race.onSiteEnabled = response.data.onSiteEnabled
+          })
     },
   }
 }
