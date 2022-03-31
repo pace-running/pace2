@@ -25,8 +25,8 @@
     "multer": "^1.4.2",
     "pdfkit": "^0.11.0",
     "pg": "^8.5.1",
-    "sequelize": "^6.3.5",
-    "sequelize-cli": "^6.2.0",
+    "sequelize": "^6.17.0",
+    "sequelize-cli": "^6.4.1",
     "you-are-not": "^0.7.5"
   },
   "devDependencies": {

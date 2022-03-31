@@ -8,7 +8,7 @@ COPY view/src /usr/src/view/src/
 COPY view/public/* /usr/src/view/public/
 COPY view/public/fonts /usr/src/view/public/fonts/
 ENV VUE_APP_BASEURL ""
-RUN yarn install
+RUN yarn install --ignore-engines
 RUN yarn build
 
 FROM node:current-alpine
