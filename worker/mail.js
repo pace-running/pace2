@@ -15,8 +15,8 @@ exports.registrationEmail = (participant) => {
     transporter.sendMail({
         from: '"Lauf gegen Rechts" <info@lauf-gegen-rechts.de>', // sender address
         to: participant.email,
-        subject: `[${participant.paymentToken}] Lauf gegen Rechts 2021: Anmeldebestätigung`, // Subject line
-        text: "Bestätigungsmail vom Lauf gegen Rechts 2021. Infos im HTML.", // plain text body
+        subject: `[${participant.paymentToken}] Lauf gegen Rechts 2022: Anmeldebestätigung`, // Subject line
+        text: "Bestätigungsmail vom Lauf gegen Rechts 2022. Infos im HTML.", // plain text body
         html: confirmationTemplate(participant)
     }).then(result => {
         console.log(result.response)
@@ -28,8 +28,8 @@ exports.confirmationEmail = (participant) => {
     transporter.sendMail({
         from: '"Lauf gegen Rechts" <info@lauf-gegen-rechts.de>', // sender address
         to: participant.email,
-        subject: `[${participant.paymentToken}] Lauf gegen Rechts 2021: Zahlung erhalten`, // Subject line
-        text: "Bestätigungsmail vom Lauf gegen Rechts 2021. Infos im HTML.", // plain text body
+        subject: `[${participant.paymentToken}] Lauf gegen Rechts 2022: Zahlung erhalten`, // Subject line
+        text: "Bestätigungsmail vom Lauf gegen Rechts 2022. Infos im HTML.", // plain text body
         html: paymentConfirmationTemplate(participant)
     }).then(result => {
         console.log(result.response)
