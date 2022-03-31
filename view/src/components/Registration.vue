@@ -38,7 +38,7 @@
           label="Wo läufst du?"
           required
           return-object
-          :disabled="!this.$store.state.onSite"
+          :disabled=!this.$store.state.onSite
       >
       </v-select>
       <v-select
