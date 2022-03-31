@@ -52,12 +52,16 @@ router.beforeEach((to, from, next) => {
 const store = new Vuex.Store({
     state: {
         raceOpen: false,
+        onSite: false,
         shirtsEnabled: false,
         isLoggedIn: false
     },
     getters: {
         isLoggedIn: state => {
             return state.isLoggedIn
+        },
+        onSite: state => {
+            return state.onSite
         },
         raceOpen: state => {
             return state.raceOpen
@@ -66,6 +70,9 @@ const store = new Vuex.Store({
     mutations: {
         setRaceStatus(state, status) {
             state.raceOpen = status
+        },
+        setOnSite(state, status) {
+            state.onSite = status
         },
         setLoggedIn(state, status) {
             state.isLoggedIn = status

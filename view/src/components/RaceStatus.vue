@@ -57,6 +57,7 @@ export default {
           .then((response) => {
             this.raceInfo = response.data
             this.$store.commit('setRaceStatus', response.data.isOpen)
+            this.$store.commit('setOnSite', response.data.onSiteEnabled)
             this.$store.commit('setShirtsEnabled', response.data.shirtsEnabled)
           })
     }
