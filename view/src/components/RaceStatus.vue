@@ -10,12 +10,9 @@
       Dafür steht wieder der Selbstausdruck der Startnummer zu Verfügung.
       </div>
       <div class="text-body-1">
-      2022 ist auch endlich wieder ein Lauf um die Alster, wie in den Jahren vor der Covid-19 Pandemie, vorgesehen.
-        Der Lauf ist für <b>Sonntag  29.05.2022</b> geplant.
-      In Anbetracht der Pandemie kann es zu kurzfristigen Änderungen des Ablaufes des Laufes um die Alster kommen.
-      Insbesondere bei hohen Infektionszahlen kann der Lauf vor Ort ggf. nicht wie geplant stattfinden.
-      Über unsere Webseite und per E-Mail werden wir versuchen euch über kurzfristige Änderungen der Planung zu informieren.
-      Bestellung von T-Shirts ist im Rahmen der online Anmeldung link online Anmeldeseite möglich.
+     Der Lauf gegen Rechts 2022 kann voraussichtlich am Sonntag, den 29.5.22 stattfinden. Die endgütige Klärung, ob es, wie in den vergangenen zwei Jahren „nur“ dezentrale Läufe gegen Rechts oder auch den Lauf vor Ort, um die Alster, wie vor der Covid-Pandemie, am 29.5. gibt, wird in der ersten Mai-Woche erfolgen.
+     Über unsere Webseite und per E-Mail werden wir versuchen euch über kurzfristige Änderungen der Planung zu informieren.
+      Bestellung von T-Shirts ist im Rahmen der online Anmeldung möglich.
       </div>
       <div class="text-body-1 font-weight-bold">
       Die T-Shirt Bestellung ist nur bis 1. Mai möglich.
