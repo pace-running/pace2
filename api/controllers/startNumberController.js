@@ -1,10 +1,14 @@
 const PDFDocument = require('pdfkit')
+const Archiver = require('archiver')
 const DB = require('../models/index')
 const fs = require("fs");
 const Participant = DB.Participant
 const {Op} = require("sequelize");
 const pathToBackgroundImage = '/images/startnumber_background.jpg';
 const pathToLogoRight = '/images/fc_st_pauli_marathon_logo.png';
+
+
+let zipDir = process.env.ZIPDIR || '/tmp/';
 
 exports.get = (req, res, next) => {
     const startnumber = req.params.startnumber
@@ -27,6 +31,45 @@ exports.get = (req, res, next) => {
         }).catch(err => { next(err)})
 }
 
+exports.onSiteZip = (req,res,next) => {
+    Participant.findAll(
+        { where: { on_site: true}}
+    ).then(p => {
+        res.status(200);
+        createZip(p, res).then(() =>{
+            res.send('done')
+            }).catch(err => {next(err)})
+        }).catch(err => {next(err)})
+}
+
+exports.onSiteZipDownload = (req, res, next) => {
+    res.setHeader("content-type", "application/zip");
+    fs.createReadStream(zipDir + '/startnumbers.zip').pipe(res);
+}
+
+async function createZip(participants, res) {
+     let zip = Archiver('zip');
+    const output = fs.createWriteStream( zipDir + '/startnumbers.zip');
+    zip.pipe(output)
+    zip.on('error', (err) => {
+        console.log(err)
+    })
+    for (const participant of participants) {
+        await appendPDF(participant,zip)
+    }
+    zip.finalize();
+}
+
+function appendPDF(participant, zip) {
+    let startnumber = participant.getDataValue('startNumber')
+    return new Promise(resolve => {
+        zip.on('entry', () => {
+           resolve();
+        })
+        console.log("generating pdf for: ", startnumber)
+        zip.append(generatePdf(participant.dataValues), {name: startnumber + ".pdf"})
+    })
+}
 
 function generatePdf(participant) {
     let doc = new PDFDocument({size: 'A5', layout: 'landscape', margin: 0});

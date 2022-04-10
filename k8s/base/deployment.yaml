@@ -30,6 +30,9 @@ spec:
         image: localhost:32000/pace2:latest
         ports:
           - containerPort: 3000
+        volumeMounts:
+          - mountPath: /zip
+            name: zip-volume
         env:
           - name: NODE_ENV
             value: "local"
@@ -37,6 +40,8 @@ spec:
             value: postgres
           - name: POSTGRES_HOST
             value: pace-postgresql
+          - name: ZIPDIR
+            value: '/zip/'
           - name: REDIS_HOST
             value: redis
           - name: POSTGRES_PASSWORD
@@ -54,4 +59,8 @@ spec:
               secretKeyRef:
                 name: pace-secrets
                 key: password
-
+      volumes:
+        - name: zip-volume
+          hostPath:
+            path: /zip
+            type: Directory

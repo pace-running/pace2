@@ -6,15 +6,18 @@
         <v-btn  @click.stop="download">CSV runterladen</v-btn> ( {{ label.count}} )
       </v-card-text>
     </v-card>
+    <start-number-generation></start-number-generation>
   </v-container>
 </template>
 
 <script>
 import axios from 'axios'
 import moment from "moment";
+import startNumberGeneration from "./Startnumbers/startNumberGeneration";
 
 export default {
   name: "Print",
+  components: {startNumberGeneration},
   data: () => ({
     labels: []
   }),
