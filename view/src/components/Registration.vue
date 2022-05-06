@@ -362,7 +362,7 @@ export default {
     team: '',
     onSite: { on_site: false, text: 'Ich laufe dezentral'},
     onsSiteItems: [
-      { on_site: true, text: 'Ich komme am 29.05.2022 an die Alster (ggf. abhängig von der pandemischen Lage)'},
+      { on_site: true, text: 'Ich komme am 29.05.2022 an die Alster'},
       { on_site: false, text: 'Ich laufe dezentral'}
     ],
     pace: { pace: 1, text: 'Ich laufe selten - dabei sein ist alles'},
