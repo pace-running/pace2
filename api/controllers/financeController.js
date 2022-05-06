@@ -15,7 +15,25 @@ const paymentConfirmationQueue = new Queue('paymentConfirmationEmail', {
 });
 
 const headers = [
-    'Buchungstag', 'Valuta', 'Textschl黶sel', 'Primanota','Zahlungsempfänger', 'ZahlungsempfängerKto','ZahlungsempfängerIBAN','ZahlungsempfängerBLZ','ZahlungsempfängerBIC','Vorgang/Verwendungszweck', 'Kundenreferenz', 'Währung', 'Umsatz', 'H','na1','na2','na3'
+    'Bezeichnung Auftragskonto',
+    'IBAN Auftragskonto',
+    'BIC Auftragskonto',
+    'Bankname Auftragskonto',
+    'Buchungstag',
+    'Valutadatum',
+    'Name Zahlungsbeteiligter',
+    'IBAN Zahlungsbeteiligter',
+    'BIC (SWIFT-Code) Zahlungsbeteiligter',
+    'Buchungstext',
+    'Verwendungszweck',
+    'Betrag',
+    'Waehrung',
+    'Saldo nach Buchung',
+    'Bemerkung',
+    'Kategorie',
+    'Steuerrelevant',
+    'Glaeubiger ID',
+    'Mandatsreferenz'
 ];
 const TOKEN_LENGTH = 9;
 const TOKEN_PREFIX = 'LGR-';
@@ -23,7 +41,7 @@ const TOKEN_PREFIX = 'LGR-';
 const buchungstagPattern = /\d{2}\.\d{2}\.\d{4}/;
 
 function PaymentRow(statement) {
-    const reason = statement['Vorgang/Verwendungszweck'];
+    const reason = statement['Verwendungszweck'];
     const removeUberweisung = (text) => text.replace(/^.*berweisungsgutschr\./, '');
     const removeNewLines = (text) => text.replace(/\n/g, ' ');
     const removeIBAN = (text) => text.replace(/IBAN:\sDE\d{20}/g, '');
@@ -32,7 +50,7 @@ function PaymentRow(statement) {
     const getReason = () => reason;
 
     const getAmount = () => {
-        return parseInt(statement.Umsatz, 10);
+        return parseInt(statement.Betrag, 10);
     }
 
     const getPossibleTokens = () => {
