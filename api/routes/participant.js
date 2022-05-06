@@ -14,6 +14,8 @@ router.post('/markPayed/:id',jwtAuth,ParticipantController.markPayed)
 
 router.post('/resendconfirmation/:id',jwtAuth,ParticipantController.resendConfirmation)
 
+router.post('/setonsite/:token', ParticipantController.setOnsite)
+
 router.put('/register', ParticipantController.register)
 
 router.get('/byToken/:token', ParticipantController.byToken)

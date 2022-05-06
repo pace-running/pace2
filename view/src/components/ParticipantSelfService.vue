@@ -40,6 +40,22 @@
             <v-btn outlined color="brown" :href="startNumberDownloadLink">Startnummer PDF</v-btn>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col>
+            <div>Wo Du laufen willst</div>
+          </v-col>
+          <v-col>
+            <div>{{onSiteText}}
+                <v-btn
+                    v-if="this.participant.on_site === false"
+                    outlined
+                    color="brown"
+                    @click="switchToOnSite">
+                  Ich will doch vor Ort Laufen
+                </v-btn>
+            </div>
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
   </v-container>
@@ -56,6 +72,10 @@ export default {
     participant: Object
   }),
   computed: {
+    onSiteText() {
+     if (this.participant.on_site) { return "Vor Ort"}
+     else { return "Dezentral"}
+    },
     startNumberDownloadLink() {
       return `${this.$base_url}/startnumber/${this.participant.startNumber}/${this.participant.secretToken}`
     }
@@ -69,8 +89,16 @@ export default {
           }).catch(err => {
         console.error(err)
       })
-    }
+    },
+    switchToOnSite() {
+      const url = `${this.$base_url}/participant/setonsite/${this.participant.secretToken}`
+      axios.post(url)
+          .then(response => {
+            this.participant = response.data
+          }).catch(err => { console.error(err)})
+    },
   },
+
   mounted: function () {
     this.getParticipant();
   }

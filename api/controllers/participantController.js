@@ -99,7 +99,6 @@ async function updateParticipant(participant, id) {
         }
     } else {
         if(s) {
-            console.log("deleting Shirt")
             await s.destroy();
         }
     }
@@ -109,13 +108,27 @@ async function updateParticipant(participant, id) {
 }
 
 exports.byToken = (req,res,next) => {
-    console.log('getting token')
     Participant.findOne({
         where: {
             secretToken: req.params.token
         },
         include: Shirt
     }).then(result => {
+        res.status(200)
+        res.send(result)
+    }).catch((err) => {
+        next(err)
+    });
+}
+
+exports.setOnsite = (req,res,next) => {
+    Participant.findOne({
+        where: {
+            secretToken: req.params.token
+        }
+    }).then(result => {
+        result.setDataValue('on_site', true)
+        result.save()
         res.status(200)
         res.send(result)
     }).catch((err) => {
