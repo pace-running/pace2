@@ -65,6 +65,15 @@ exports.update = (req, res, next) => {
     })
 }
 
+exports.createEmpty = (req,res,next) => {
+    n=req.params.amount
+    for (let i = 0; i < n; i++) {
+        createEmptyParticipant()
+    }
+    res.status(200)
+    res.send("created")
+}
+
 async function updateParticipant(participant, id) {
     const p = await Participant.findByPk(id)
     const s = await p.getShirt();
@@ -203,6 +212,18 @@ async function validateCouponcode(id) {
         }
     })
     return coupponcode !== null
+}
+
+async function createEmptyParticipant() {
+    const number = await startNumber();
+    const p = await Participant.create( {
+        startNumber: number,
+        paymentToken: paymentToken(),
+        secretToken: crypto.randomBytes(32).toString('hex')
+    })
+    p.hasPayed = true
+    p.save()
+
 }
 
 async function createParticipant(participant) {

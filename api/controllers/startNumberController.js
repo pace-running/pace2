@@ -33,7 +33,7 @@ exports.get = (req, res, next) => {
 
 exports.onSiteZip = (req,res,next) => {
     Participant.findAll(
-        { where: { on_site: true}}
+        { order: ['startNumber'] }
     ).then(p => {
         res.status(200);
         createZip(p, res).then(() =>{
@@ -74,9 +74,9 @@ function appendPDF(participant, zip) {
 function generatePdf(participant) {
     let doc = new PDFDocument({size: 'A5', layout: 'landscape', margin: 0});
     doc.image(__dirname + "/../" + pathToBackgroundImage,{fit:[630,632] });
-    doc.image(__dirname + "/../" + pathToLogoRight, 510, 5, {fit: [80, 80]});
+    doc.image(__dirname + "/../" + pathToLogoRight, 495, 15, {fit: [80, 80]});
     doc.font('Helvetica-Bold').fontSize(160).fillColor("#bf82d0").text(participant.startNumber, 5, 180, {align: 'right', width: 360});
-    doc.font('Helvetica-Bold').fontSize(8).fillColor("white").text("©Stefan Groenveld", 490, 405, {align: 'center'});
+    doc.font('Helvetica-Bold').fontSize(8).fillColor("white").text("©Stefan Groenveld", 480, 402, {align: 'center'});
     if (participant.firstName) {doc.fontSize(40).fillColor('#a02dc5').text(participant.firstName, 0, 20, {align: 'center'});}
     if (participant.team) {doc.fontSize(40).fillColor('white').text(participant.team, 0, 370, {align: 'center'});}
     if (participant.hasPayed == false) {
