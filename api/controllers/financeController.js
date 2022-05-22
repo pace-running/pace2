@@ -211,7 +211,7 @@ exports.csv = (req, res, next) => {
         csvStream.pipe(res)
         participants.forEach(p => {
             let shirt = ''
-            if (p.getDataValue('shirt')){
+            if (p.getDataValue('Shirt')){
                 shirt = p.getDataValue('Shirt').getDataValue('model') + '/' + p.getDataValue('Shirt').getDataValue('size')
             }
             csvStream.write({
