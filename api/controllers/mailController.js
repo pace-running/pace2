@@ -21,16 +21,21 @@ exports.testmail = (req, res, next) => {
 
 exports.bulkmail = (req, res, next) => {
     console.log(req.body)
-    Participant.findAll({attributes: ['email']})
+    Participant.findAll({
+        attributes: ['email','secretToken'],
+        where: { on_site: true }
+    })
         .then(result => {
             for (const resultItem of result) {
                 const email = resultItem.getDataValue('email')
+                const token =  resultItem.getDataValue('secretToken')
+                let footer = `<p><a href="https://www.lauf-gegen-rechts.de/#/me?token=${token}">Einstellungen und Startnummern download</a></p>`
+                let html = req.body.html.concat(footer)
                 if (email != null && email.length > 1) {
-                    console.log(email)
                     const data = {
                         address: email,
                         subject: req.body.subject,
-                        html: req.body.html
+                        html: html
                     }
                     const job = queue.createJob(data);
                     res.status(201)
