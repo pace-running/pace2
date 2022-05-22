@@ -66,10 +66,7 @@ exports.update = (req, res, next) => {
 }
 
 exports.createEmpty = (req,res,next) => {
-    n=req.params.amount
-    for (let i = 0; i < n; i++) {
-        createEmptyParticipant()
-    }
+    creeateMultipleEmpty(req.params.amount)
     res.status(200)
     res.send("created")
 }
@@ -214,6 +211,12 @@ async function validateCouponcode(id) {
     return coupponcode !== null
 }
 
+async function creeateMultipleEmpty(amount) {
+    for (let i = 0; i < amount; i++) {
+        await createEmptyParticipant()
+    }
+}
+
 async function createEmptyParticipant() {
     const number = await startNumber();
     const p = await Participant.create( {
@@ -223,7 +226,6 @@ async function createEmptyParticipant() {
     })
     p.hasPayed = true
     p.save()
-
 }
 
 async function createParticipant(participant) {
