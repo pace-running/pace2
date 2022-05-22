@@ -76,11 +76,11 @@ function generatePdf(participant) {
     doc.image(__dirname + "/../" + pathToBackgroundImage,{fit:[630,632] });
     doc.image(__dirname + "/../" + pathToLogoRight, 495, 15, {fit: [80, 80]});
     doc.font('Helvetica-Bold').fontSize(160).fillColor("#bf82d0").text(participant.startNumber, 5, 180, {align: 'right', width: 360});
-    doc.font('Helvetica-Bold').fontSize(8).fillColor("white").text("©Stefan Groenveld", 480, 402, {align: 'center'});
+    doc.font('Helvetica-Bold').fontSize(8).fillColor("white").text("©Stefan Groenveld", 480, 395, {align: 'center'});
     if (participant.firstName) {doc.fontSize(40).fillColor('#a02dc5').text(participant.firstName, 0, 20, {align: 'center'});}
-    if (participant.team) {doc.fontSize(40).fillColor('white').text(participant.team, 0, 370, {align: 'center'});}
+    if (participant.team) {doc.fontSize(40).fillColor('white').text(participant.team, 0, 360, {align: 'center'});}
     if (participant.hasPayed == false) {
-        doc.font('Helvetica-Bold').fontSize(8).fillColor("yellow").text("noch nicht bezahlt", 0, 405, {align: 'center'});
+        doc.font('Helvetica-Bold').fontSize(8).fillColor("yellow").text("noch nicht bezahlt", 0, 395, {align: 'center'});
     }
     doc.end();
     return doc
